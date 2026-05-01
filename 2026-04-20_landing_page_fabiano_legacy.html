@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prof. Fabiano Costa — Educador do Movimento · Legacy Academia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+
+/* ─────────────────────────────────────────────────
+   RESET & TOKENS
+───────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:          #06060d;
+  --bg2:         #0b0b17;
+  --panel:       #0e0e1c;
+  --panel2:      #141428;
+  --panel3:      #1a1a32;
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(255,255,255,0.12);
+
+  --fire:        #FF6200;
+  --fire2:       #FF8C00;
+  --fire-glow:   rgba(255,98,0,0.18);
+  --fire-faint:  rgba(255,98,0,0.07);
+
+  --cyan:        #00D4EF;
+  --cyan-faint:  rgba(0,212,239,0.07);
+
+  --gold:        #C8923A;
+  --gold2:       #E0B060;
+  --gold-faint:  rgba(200,146,58,0.08);
+
+  --green:       #1DC47A;
+  --red:         #E52012;
+
+  --white:       #F2F0EA;
+  --muted:       #70708A;
+  --muted2:      #4A4A62;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────────────
+   UTILITY
+───────────────────────────────────────────────── */
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+.wrap-sm { max-width: 820px; margin: 0 auto; padding: 0 32px; }
+.wrap-lg { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
+
+/* ─────────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  background: rgba(6,6,13,0.88);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 3px;
+  color: var(--white);
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo span { color: var(--fire); }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--muted); transition: color .2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--fire); color: #000; border: none; border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 14px;
+  font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 10px 22px; cursor: pointer; text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: var(--fire2); transform: translateY(-1px); }
+@media(max-width:768px){
+  .nav-links { display: none; }
+  nav { padding: 0 20px; }
+}
+
+/* ─────────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+@keyframes pulseGlow {
+  0%,100% { opacity:.6; } 50% { opacity:1; }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes scanline {
+  0% { top: -4px; } 100% { top: 100%; }
+}
+
+.fade-up { animation: fadeUp .8s ease both; }
+.fade-up-2 { animation: fadeUp .8s .15s ease both; }
+.fade-up-3 { animation: fadeUp .8s .3s ease both; }
+.fade-up-4 { animation: fadeUp .8s .45s ease both; }
+.fade-in-1 { animation: fadeIn .8s .6s ease both; }
+
+/* ─────────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 0 80px;
+  position: relative; overflow: hidden;
+}
+
+/* background layers */
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 65% 50%, rgba(255,98,0,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(0,212,239,.06) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+}
+
+/* grid pattern */
+.hero-grid {
+  position: absolute; inset: 0; opacity: .035;
+  background-image:
+    linear-gradient(rgba(255,98,0,.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,98,0,.8) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* large background text */
+.hero-bg-text {
+  position: absolute; top: 0; right: -2%; bottom: 0;
+  display: flex; align-items: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(180px, 22vw, 340px);
+  letter-spacing: -4px; line-height: 1;
+  color: rgba(255,98,0,.04);
+  user-select: none; white-space: nowrap;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 40px;
+  max-width: 1380px; margin: 0 auto; width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,98,0,.1); border: 1px solid rgba(255,98,0,.3);
+  color: var(--fire); font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 2px;
+  margin-bottom: 28px;
+}
+.hero-badge::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background: var(--fire); animation: pulseGlow 1.8s infinite;
+}
+
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(16px, 2.5vw, 20px); font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 10vw, 130px);
+  line-height: .88; letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.hero-h1 .fire { color: var(--fire); }
+.hero-h1 .outline {
+  -webkit-text-stroke: 2px rgba(255,255,255,.2);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px); font-weight: 400;
+  color: rgba(242,240,234,.6); max-width: 640px;
+  margin: 20px 0 40px;
+  line-height: 1.7;
+}
+.hero-sub strong { color: var(--white); font-weight: 600; }
+
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 64px;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--fire); color: #000; border: none; border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 16px 32px;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s; white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(255,98,0,.35);
+}
+.btn-primary:hover {
+  background: var(--fire2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255,98,0,.45);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border2); border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 16px 28px;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s; white-space: nowrap;
+}
+.btn-ghost:hover { border-color: var(--fire); color: var(--fire); }
+
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.hs-item { text-align: left; }
+.hs-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1;
+  color: var(--fire);
+}
+.hs-lbl {
+  font-size: 12px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────────────
+   TICKER
+───────────────────────────────────────────────── */
+.ticker-wrap {
+  background: var(--fire);
+  padding: 14px 0; overflow: hidden;
+  position: relative; z-index: 10;
+}
+.ticker-inner {
+  display: flex; width: max-content;
+  animation: ticker 28s linear infinite;
+}
+.ticker-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: #000;
+  padding: 0 48px; white-space: nowrap;
+  display: flex; align-items: center; gap: 48px;
+}
+.ticker-item::after {
+  content: '✦';
+  color: rgba(0,0,0,.4);
+}
+
+/* ─────────────────────────────────────────────────
+   SECTION SYSTEM
+───────────────────────────────────────────────── */
+section { padding: 100px 0; }
+section.tight { padding: 72px 0; }
+
+.section-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--fire);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+}
+.section-tag::before {
+  content: ''; width: 28px; height: 2px; background: var(--fire);
+}
+.section-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 6vw, 76px); line-height: .92;
+  margin-bottom: 20px;
+}
+.section-h em { font-style: normal; color: var(--fire); }
+.section-body {
+  font-size: clamp(15px, 1.5vw, 17px); color: rgba(242,240,234,.65);
+  max-width: 600px; line-height: 1.8;
+}
+
+/* ─────────────────────────────────────────────────
+   ABOUT — HISTÓRIA
+───────────────────────────────────────────────── */
+.about { background: var(--bg); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+@media(max-width:768px){ .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.about-timeline {
+  display: flex; flex-direction: column; gap: 0;
+  position: relative;
+}
+.about-timeline::before {
+  content: ''; position: absolute; left: 18px; top: 0; bottom: 0;
+  width: 1px; background: linear-gradient(to bottom, var(--fire), transparent);
+}
+.tl-item {
+  display: flex; gap: 24px; padding-bottom: 36px;
+  position: relative;
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: var(--panel2); border: 2px solid var(--fire);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; position: relative; z-index: 2;
+}
+.tl-body {}
+.tl-year {
+  font-family: 'Bebas Neue', sans-serif; font-size: 14px;
+  letter-spacing: 2px; color: var(--fire); margin-bottom: 4px;
+}
+.tl-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 700; text-transform: uppercase;
+  margin-bottom: 6px; color: var(--white);
+}
+.tl-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+.about-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 5vw, 72px); line-height: .9;
+  margin-bottom: 24px;
+}
+.about-text h2 em { font-style: normal; color: var(--fire); }
+.about-text p {
+  font-size: 16px; color: rgba(242,240,234,.7);
+  line-height: 1.85; margin-bottom: 20px;
+}
+.about-text p strong { color: var(--white); font-weight: 600; }
+.about-text p em {
+  color: var(--fire); font-style: normal; font-weight: 600;
+}
+
+/* ─────────────────────────────────────────────────
+   DARK DIVIDER
+───────────────────────────────────────────────── */
+.dark-band {
+  background: var(--fire);
+  padding: 48px 0;
+  position: relative; overflow: hidden;
+}
+.dark-band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(0,0,0,.06) 20px,
+    rgba(0,0,0,.06) 40px
+  );
+}
+.dark-band-inner {
+  max-width: 1140px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap; position: relative;
+}
+.dark-band-quote {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 52px); line-height: 1;
+  color: #000; max-width: 720px;
+}
+.dark-band-author {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(0,0,0,.5);
+}
+
+/* ─────────────────────────────────────────────────
+   PROTOCOL SECTION
+───────────────────────────────────────────────── */
+.protocol { background: var(--bg2); }
+
+.protocol-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  margin-bottom: 80px;
+}
+@media(max-width:768px){ .protocol-intro { grid-template-columns: 1fr; gap:40px; } }
+
+/* big clock visual */
+.clock-vis {
+  aspect-ratio: 1; max-width: 380px; width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.clock-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.06);
+}
+.clock-ring-fire {
+  position: absolute; inset: 12px; border-radius: 50%;
+  border: 1px solid rgba(255,98,0,.2);
+}
+.clock-ring-inner {
+  position: absolute; inset: 28px; border-radius: 50%;
+  background: var(--panel);
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,.6),
+    0 0 80px rgba(255,98,0,.08);
+}
+.clock-number {
+  position: relative; z-index: 2; text-align: center;
+}
+.clock-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 16vw, 120px);
+  line-height: 1; color: var(--fire);
+  text-shadow: 0 0 60px rgba(255,98,0,.5);
+}
+.clock-unit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* arc segments */
+.arc-seg {
+  position: absolute; border-radius: 50%;
+  border: 4px solid transparent; inset: 6px;
+}
+
+/* blocks grid */
+.blocks-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-bottom: 2px;
+}
+@media(max-width:768px){ .blocks-grid { grid-template-columns: 1fr; gap: 12px; } }
+
+.block-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+  transition: border-color .25s, transform .25s;
+  position: relative;
+}
+.block-card:hover {
+  border-color: rgba(255,98,0,.3);
+  transform: translateY(-3px);
+}
+.block-card-accent {
+  height: 3px; width: 100%;
+}
+.block-card-body { padding: 32px; }
+.block-icon {
+  width: 52px; height: 52px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 20px;
+}
+.block-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; letter-spacing: 3px;
+  color: var(--muted); margin-bottom: 6px;
+}
+.block-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px; font-weight: 800; text-transform: uppercase;
+  line-height: 1.1; margin-bottom: 12px;
+}
+.block-time {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px; margin-bottom: 16px;
+}
+.block-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.block-points { list-style: none; margin-top: 16px; }
+.block-points li {
+  font-size: 13px; color: rgba(242,240,234,.6);
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.block-points li:last-child { border-bottom: none; }
+.block-points li::before {
+  content: '→'; font-weight: 700; flex-shrink: 0;
+}
+
+/* EPOC strip */
+.epoc-strip {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 40px 48px;
+  display: flex; gap: 48px; align-items: center;
+  flex-wrap: wrap; margin-top: 24px;
+}
+.epoc-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 8vw, 100px); line-height: 1;
+  color: var(--fire); flex-shrink: 0;
+}
+.epoc-text h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 800; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.epoc-text p { font-size: 15px; color: var(--muted); max-width: 560px; }
+
+/* ─────────────────────────────────────────────────
+   PROGRAMS
+───────────────────────────────────────────────── */
+.programs { background: var(--bg); }
+.programs-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-top: 64px;
+}
+@media(max-width:768px){ .programs-grid { grid-template-columns: 1fr; } }
+
+.prog-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  transition: border-color .25s;
+  position: relative;
+}
+.prog-card:hover { border-color: rgba(255,98,0,.3); }
+.prog-card.featured {
+  border-color: rgba(255,98,0,.4);
+  box-shadow: 0 0 0 1px rgba(255,98,0,.1);
+}
+.prog-card-top {
+  padding: 32px 32px 0;
+  background: linear-gradient(135deg, rgba(255,98,0,.06), transparent 60%);
+}
+.prog-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 2px; margin-bottom: 16px;
+}
+.prog-tag.fire { background:rgba(255,98,0,.15); border:1px solid rgba(255,98,0,.3); color:var(--fire); }
+.prog-tag.cyan { background:rgba(0,212,239,.1); border:1px solid rgba(0,212,239,.25); color:var(--cyan); }
+.prog-tag.gold { background:rgba(200,146,58,.1); border:1px solid rgba(200,146,58,.25); color:var(--gold2); }
+.prog-featured-badge {
+  float: right;
+  background: var(--fire); color: #000;
+  font-size: 10px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 2px;
+}
+.prog-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 42px); line-height: 1;
+  margin-bottom: 8px;
+}
+.prog-tagline {
+  font-size: 14px; color: var(--muted);
+  margin-bottom: 24px; line-height: 1.6;
+}
+.prog-body { padding: 0 32px 32px; }
+.prog-for {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 10px; font-size: 14px; color: rgba(242,240,234,.7);
+  line-height: 1.55;
+}
+.prog-for::before {
+  content: '✓'; color: var(--green); font-weight: 700;
+  flex-shrink: 0; margin-top: 2px;
+}
+.prog-not-for {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 10px; font-size: 14px; color: rgba(242,240,234,.4);
+  line-height: 1.55;
+}
+.prog-not-for::before {
+  content: '✗'; color: var(--red); font-weight: 700;
+  flex-shrink: 0; margin-top: 2px;
+}
+.prog-divider {
+  height: 1px; background: var(--border); margin: 20px 0;
+}
+.prog-includes {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px;
+}
+.prog-feature {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: 14px; color: rgba(242,240,234,.7);
+}
+.prog-feature:last-child { border-bottom: none; }
+.prog-feature-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.prog-cta {
+  margin-top: 24px;
+  display: block; text-align: center;
+  padding: 14px;
+  background: var(--fire); color: #000; border: none; border-radius: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; cursor: pointer; text-decoration: none;
+  transition: background .2s;
+}
+.prog-cta:hover { background: var(--fire2); }
+.prog-cta.ghost {
+  background: transparent; color: var(--fire);
+  border: 1px solid rgba(255,98,0,.35);
+}
+.prog-cta.ghost:hover { background: rgba(255,98,0,.08); }
+
+/* ─────────────────────────────────────────────────
+   FOR / NOT FOR
+───────────────────────────────────────────────── */
+.target { background: var(--bg2); }
+.target-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  margin-top: 56px;
+}
+@media(max-width:768px){ .target-grid { grid-template-columns: 1fr; } }
+
+.target-card {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 36px;
+}
+.tc-header {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 800; text-transform: uppercase;
+  margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+}
+.tc-header.yes { color: var(--green); }
+.tc-header.no  { color: var(--red); }
+.tc-icon { font-size: 24px; }
+
+.tc-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px; color: rgba(242,240,234,.75); line-height: 1.55;
+  align-items: flex-start;
+}
+.tc-item:last-child { border-bottom: none; padding-bottom: 0; }
+.tc-bullet { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─────────────────────────────────────────────────
+   RESULTS
+───────────────────────────────────────────────── */
+.results { background: var(--bg); }
+.results-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; margin-top: 56px;
+}
+@media(max-width:900px){ .results-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
+@media(max-width:500px){ .results-grid { grid-template-columns: 1fr; } }
+
+.result-card {
+  background: var(--panel); border: 1px solid var(--border);
+  padding: 36px 28px; text-align: left;
+  transition: border-color .25s;
+}
+.result-card:hover { border-color: rgba(255,98,0,.2); }
+.result-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 72px); line-height: 1;
+  color: var(--fire); margin-bottom: 6px;
+}
+.result-unit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 10px;
+}
+.result-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.65;
+}
+.result-note {
+  font-size: 11px; color: var(--muted2); margin-top: 8px;
+}
+
+/* ─────────────────────────────────────────────────
+   PROCESS
+───────────────────────────────────────────────── */
+.process { background: var(--bg2); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; margin-top: 56px; position: relative;
+}
+@media(max-width:900px){ .process-steps { grid-template-columns: 1fr 1fr; gap:16px; } }
+@media(max-width:500px){ .process-steps { grid-template-columns: 1fr; } }
+
+.process-steps::before {
+  content: '';
+  position: absolute; top: 36px; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fire), transparent);
+  opacity: .3;
+}
+@media(max-width:900px){ .process-steps::before { display:none; } }
+
+.ps-item {
+  background: var(--panel); border: 1px solid var(--border);
+  padding: 28px 24px; position: relative; z-index: 2;
+  transition: border-color .25s;
+}
+.ps-item:not(:last-child) { border-right: none; }
+.ps-item:hover { border-color: rgba(255,98,0,.25); z-index: 3; }
+@media(max-width:900px){ .ps-item:not(:last-child) { border-right: 1px solid var(--border); } }
+
+.ps-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; line-height: 1; color: rgba(255,98,0,.18);
+  margin-bottom: 6px;
+}
+.ps-icon { font-size: 24px; margin-bottom: 12px; }
+.ps-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 800; text-transform: uppercase;
+  line-height: 1.2; margin-bottom: 10px;
+}
+.ps-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ─────────────────────────────────────────────────
+   NEXTFIT
+───────────────────────────────────────────────── */
+.nextfit { background: var(--bg); }
+.nextfit-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px;
+  align-items: center;
+}
+@media(max-width:768px){ .nextfit-inner { grid-template-columns: 1fr; gap:40px; } }
+
+.nf-visual {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px;
+  position: relative; overflow: hidden;
+}
+.nf-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,212,239,.06), transparent 70%);
+}
+.nf-header {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 28px; position: relative;
+  display: flex; align-items: center; gap: 10px;
+}
+.nf-header::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background: var(--cyan); animation: pulseGlow 2s infinite;
+}
+.nf-metrics { display: flex; flex-direction: column; gap: 16px; position: relative; }
+.nf-metric {
+  background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 6px; padding: 16px 20px;
+}
+.nf-m-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.nf-m-bar-wrap {
+  height: 6px; background: rgba(255,255,255,.06);
+  border-radius: 3px; overflow: hidden; margin-bottom: 6px;
+}
+.nf-m-bar {
+  height: 100%; border-radius: 3px;
+  transition: width 1.5s ease;
+}
+.nf-m-values {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--muted);
+}
+.nf-m-values .now { color: var(--white); font-weight: 600; }
+
+.nf-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 5vw, 66px); line-height: .92;
+  margin-bottom: 20px;
+}
+.nf-text h2 em { font-style: normal; color: var(--cyan); }
+.nf-text p {
+  font-size: 15px; color: rgba(242,240,234,.65);
+  line-height: 1.8; margin-bottom: 20px;
+}
+.nf-bullets { list-style: none; margin-bottom: 32px; }
+.nf-bullets li {
+  display: flex; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; color: rgba(242,240,234,.7); line-height: 1.5;
+}
+.nf-bullets li:last-child { border-bottom: none; }
+.nf-bullets li::before {
+  content: '◆'; color: var(--cyan); font-size: 10px;
+  flex-shrink: 0; margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────────────
+   CREDENTIALS
+───────────────────────────────────────────────── */
+.creds { background: var(--bg2); }
+.creds-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 48px;
+}
+@media(max-width:768px){ .creds-grid { grid-template-columns: 1fr; gap: 12px; } }
+
+.cred-item {
+  background: var(--panel); border: 1px solid var(--border);
+  padding: 32px; display: flex; gap: 16px;
+  transition: border-color .25s;
+}
+.cred-item:hover { border-color: rgba(255,98,0,.2); }
+.cred-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.cred-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cred-sub { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ─────────────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────────────── */
+.testimonials { background: var(--bg); overflow: hidden; }
+.testi-track {
+  display: flex; gap: 20px;
+  overflow-x: auto; padding: 16px 0;
+  scrollbar-width: none;
+  margin-top: 48px;
+}
+.testi-track::-webkit-scrollbar { display: none; }
+
+.testi-card {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 28px;
+  min-width: 320px; max-width: 360px;
+  flex-shrink: 0; position: relative;
+}
+.testi-quote {
+  font-size: 14px; color: rgba(242,240,234,.75);
+  line-height: 1.8; margin-bottom: 20px; font-style: italic;
+}
+.testi-author {
+  display: flex; align-items: center; gap: 12px;
+}
+.testi-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--panel2);
+  border: 2px solid var(--fire);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 600; color: var(--white); }
+.testi-role { font-size: 12px; color: var(--muted); }
+.testi-stars {
+  font-size: 12px; color: var(--gold2); letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.testi-data {
+  display: flex; gap: 16px; margin-top: 16px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+.td-item { text-align: center; }
+.td-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; color: var(--fire); line-height: 1;
+}
+.td-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ─────────────────────────────────────────────────
+   FAQ
+───────────────────────────────────────────────── */
+.faq { background: var(--bg2); }
+.faq-list { margin-top: 48px; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.faq-q {
+  padding: 22px 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 700; text-transform: uppercase;
+  cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; gap: 16px;
+  transition: color .2s;
+  user-select: none;
+  color: var(--white);
+}
+.faq-q:hover { color: var(--fire); }
+.faq-toggle {
+  font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+  color: var(--fire); flex-shrink: 0; transition: transform .3s;
+  width: 28px; text-align: center;
+}
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .3s;
+  padding: 0;
+  font-size: 15px; color: rgba(242,240,234,.65); line-height: 1.8;
+}
+.faq-item.open .faq-a {
+  max-height: 400px; padding-bottom: 20px;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+/* ─────────────────────────────────────────────────
+   FINAL CTA
+───────────────────────────────────────────────── */
+.final-cta {
+  background: var(--bg);
+  padding: 120px 0;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.final-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(255,98,0,.1), transparent 70%);
+}
+.final-cta-content { position: relative; z-index: 2; }
+.final-cta h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 100px); line-height: .9;
+  margin-bottom: 20px;
+}
+.final-cta h2 em { font-style: normal; color: var(--fire); }
+.final-cta p {
+  font-size: clamp(15px, 2vw, 18px); color: rgba(242,240,234,.6);
+  max-width: 540px; margin: 0 auto 40px; line-height: 1.8;
+}
+.cta-stack {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.cta-note {
+  font-size: 13px; color: var(--muted2); margin-top: 16px;
+  letter-spacing: .5px;
+}
+
+/* ─────────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────────── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 48px 0;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 3px; color: var(--white);
+}
+.footer-logo span { color: var(--fire); }
+.footer-links {
+  display: flex; gap: 24px;
+}
+.footer-links a {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--fire); }
+.footer-copy { font-size: 12px; color: var(--muted2); }
+
+/* ─────────────────────────────────────────────────
+   WHATSAPP FLOAT
+───────────────────────────────────────────────── */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; cursor: pointer; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  transition: transform .2s, box-shadow .2s;
+}
+.wa-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37,211,102,.55);
+}
+
+/* ─────────────────────────────────────────────────
+   SCROLL REVEAL (pure JS intersection)
+───────────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav>
+  <div class="nav-logo"><span>LEGACY</span> ACADEMIA</div>
+  <div class="nav-links">
+    <a href="#protocolo">Protocolo</a>
+    <a href="#programas">Programas</a>
+    <a href="#processo">Como Funciona</a>
+    <a href="#nextfit">Online</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="https://wa.me/5555991554217?text=Quero%20saber%20mais%20sobre%20o%20Legacy%20Burn%2045" class="nav-cta" target="_blank">Aula Gratuita →</a>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero" style="padding-top:62px;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-bg-text">LEGACY</div>
+
+  <div class="hero-content">
+    <div class="hero-badge fade-up">Educador do Movimento · Santa Maria, RS</div>
+    <p class="hero-eyebrow fade-up-2">Prof. Fabiano Costa</p>
+    <h1 class="hero-h1 fade-up-2">
+      O MÉTODO QUE<br>
+      <span class="fire">TRANSFORMA</span><br>
+      <span class="outline">CORPOS REAIS</span>
+    </h1>
+    <p class="hero-sub fade-up-3">
+      14 anos de experiência. Um protocolo desenvolvido na prática — do zero, numa garagem, durante a pandemia. Hoje, o <strong>Legacy Burn 45</strong> é o sistema mais completo de emagrecimento e definição corporal feminina disponível em Santa Maria.
+    </p>
+    <div class="hero-actions fade-up-4">
+      <a href="https://wa.me/5555991554217?text=Quero%20minha%20aula%20experimental%20gratuita" class="btn-primary" target="_blank">
+        🔥 Aula Experimental Gratuita
+      </a>
+      <a href="#protocolo" class="btn-ghost">Ver o Protocolo →</a>
+    </div>
+    <div class="hero-stats fade-in-1">
+      <div class="hs-item"><div class="hs-val">14+</div><div class="hs-lbl">Anos de Carreira</div></div>
+      <div class="hs-item"><div class="hs-val">45min</div><div class="hs-lbl">Por Sessão</div></div>
+      <div class="hs-item"><div class="hs-val">3</div><div class="hs-lbl">Blocos Estratégicos</div></div>
+      <div class="hs-item"><div class="hs-val">48h</div><div class="hs-lbl">Efeito EPOC</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TICKER ══════════════════════ -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <div class="ticker-item">Legacy Burn 45</div>
+    <div class="ticker-item">Emagrecimento com Ciência</div>
+    <div class="ticker-item">Definição Corporal</div>
+    <div class="ticker-item">45 Minutos de Protocolo</div>
+    <div class="ticker-item">Efeito EPOC 48h</div>
+    <div class="ticker-item">Next Fit para Todo o Brasil</div>
+    <div class="ticker-item">Resultado Documentado</div>
+    <div class="ticker-item">Legacy Burn 45</div>
+    <div class="ticker-item">Emagrecimento com Ciência</div>
+    <div class="ticker-item">Definição Corporal</div>
+    <div class="ticker-item">45 Minutos de Protocolo</div>
+    <div class="ticker-item">Efeito EPOC 48h</div>
+    <div class="ticker-item">Next Fit para Todo o Brasil</div>
+    <div class="ticker-item">Resultado Documentado</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-timeline reveal">
+        <div class="tl-item">
+          <div class="tl-dot">🕺</div>
+          <div class="tl-body">
+            <div class="tl-year">1990s · 12 Anos</div>
+            <div class="tl-title">Dança Gaúcha — A Origem</div>
+            <div class="tl-desc">Comecei dançando gaúcha ainda criança. Aos 17, já era professor. A dança me ensinou que qualquer pessoa aprende — desde que o método parta de onde ela está, não de onde deveria estar.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🎓</div>
+          <div class="tl-body">
+            <div class="tl-year">Anos 2000s</div>
+            <div class="tl-title">Educação Física — Escola Pública</div>
+            <div class="tl-desc">Professor de Educação Física na rede pública. Aprendi a trabalhar com corpos e histórias completamente diferentes. Resultado: profundo respeito pela individualidade de cada pessoa.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🏠</div>
+          <div class="tl-body">
+            <div class="tl-year">2020 · Pandemia</div>
+            <div class="tl-title">A Garagem — Nasceu o Método</div>
+            <div class="tl-desc">Treinos ao vivo de 20 minutos. Sem equipamento, sem estrutura. Só protocolo e orientação. Aprendi que resultado não mora no equipamento. Mora no método.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🏋</div>
+          <div class="tl-body">
+            <div class="tl-year">Hoje</div>
+            <div class="tl-title">Legacy Academia — Santa Maria, RS</div>
+            <div class="tl-desc">O que nasceu na garagem virou academia. O protocolo foi refinado. O Legacy Burn 45 é o sistema completo — com avaliação real, acompanhamento próximo e resultado documentado.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <h2>EDUCADOR DO<br><em>MOVIMENTO.</em><br>NÃO SÓ UM<br>PERSONAL.</h2>
+        <p>Personal trainer conta séries. <em>Educador do Movimento</em> entende por que o seu joelho dói quando você agacha — e corrige isso antes de progredir a carga.</p>
+        <p>Minha trajetória — da dança gaúcha à educação pública, da pandemia à academia — moldou um olhar que vai além do exercício: <strong>cada corpo tem uma história, uma realidade e um ponto de partida.</strong></p>
+        <p>Na Legacy, você não é uma matrícula. Você é avaliada, acompanhada e ajustada em cada sessão. O protocolo começa de onde você está — não de onde você deveria estar.</p>
+        <div style="margin-top:32px;">
+          <a href="https://wa.me/5555991554217" class="btn-primary" target="_blank">📲 Conversar com o Prof. Fabiano</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DARK BAND ══════════════════════ -->
+<div class="dark-band">
+  <div class="dark-band-inner">
+    <div class="dark-band-quote">"Resultado não mora no equipamento. Mora no protocolo."</div>
+    <div class="dark-band-author">— Prof. Fabiano Costa<br>Educador do Movimento · Criador do Legacy Burn 45</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PROTOCOL ══════════════════════ -->
+<section class="protocol" id="protocolo">
+  <div class="wrap">
+    <div class="protocol-intro">
+      <div class="reveal">
+        <div class="section-tag">O Sistema</div>
+        <h2 class="section-h">LEGACY<br><em>BURN</em><br>45</h2>
+        <p class="section-body">Três blocos estratégicos. Uma sequência calculada. 45 minutos que respeitam a fisiologia do exercício para maximizar emagrecimento, definição e preservação de massa magra — ao mesmo tempo.</p>
+        <p class="section-body" style="margin-top:16px; font-size:14px; color:var(--muted);">Desenvolvido com base em evidências científicas sobre resposta metabólica, controle hormonal e sustentabilidade comportamental. Não é treino. É protocolo.</p>
+      </div>
+
+      <div class="clock-vis reveal">
+        <div class="clock-ring"></div>
+        <div class="clock-ring-fire"></div>
+        <div class="clock-ring-inner"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 200 200">
+          <!-- Bloco 1: 5/45 do círculo = ~40° -->
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#FF6200" stroke-width="5"
+            stroke-dasharray="12 564" stroke-dashoffset="-157" opacity=".9"/>
+          <!-- Bloco 2: 20/45 ~160° -->
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#00D4EF" stroke-width="3"
+            stroke-dasharray="49 527" stroke-dashoffset="-169" opacity=".7"/>
+          <!-- Bloco 3: 20/45 ~160° -->
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#C8923A" stroke-width="3"
+            stroke-dasharray="49 527" stroke-dashoffset="-218" opacity=".7"/>
+        </svg>
+        <div class="clock-number">
+          <div class="clock-num">45</div>
+          <div class="clock-unit">Minutos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blocks-grid reveal">
+
+      <!-- BLOCO 1 -->
+      <div class="block-card">
+        <div class="block-card-accent" style="background:linear-gradient(90deg,#FF6200,#FF8C00);"></div>
+        <div class="block-card-body">
+          <div class="block-icon" style="background:rgba(255,98,0,.12);">🔥</div>
+          <div class="block-num">Bloco 01 · 0–5 Minutos</div>
+          <div class="block-name" style="color:var(--fire);">Acelerador de<br>Queima</div>
+          <div class="block-time" style="background:rgba(255,98,0,.1);border:1px solid rgba(255,98,0,.25);color:var(--fire);">HIIT Extremo</div>
+          <p class="block-desc">Ativação metabólica de alta intensidade que provoca pico imediato de frequência cardíaca e libera catecolaminas — os hormônios que mobilizam a gordura estocada para ser usada como combustível.</p>
+          <ul class="block-points">
+            <li style="color:rgba(242,240,234,.65);">Disparo de adrenalina e noradrenalina</li>
+            <li style="color:rgba(242,240,234,.65);">Ativa o metabolismo para queima máxima</li>
+            <li style="color:rgba(242,240,234,.65);">Potencializa os blocos seguintes</li>
+            <li style="color:rgba(242,240,234,.65);">Liga o "interruptor metabólico de emergência"</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <div class="block-card">
+        <div class="block-card-accent" style="background:linear-gradient(90deg,var(--cyan),#00A0B8);"></div>
+        <div class="block-card-body">
+          <div class="block-icon" style="background:rgba(0,212,239,.1);">⚡</div>
+          <div class="block-num">Bloco 02 · 5–25 Minutos</div>
+          <div class="block-name" style="color:var(--cyan);">Treinamento<br>Funcional</div>
+          <div class="block-time" style="background:rgba(0,212,239,.08);border:1px solid rgba(0,212,239,.25);color:var(--cyan);">Circuito Dinâmico</div>
+          <p class="block-desc">Circuito integral de 5 categorias — empurrar, puxar, pernas, core e cardio. Blocos de 40–50s de ação contínua. Força, resistência cardiovascular e estabilidade ao mesmo tempo.</p>
+          <ul class="block-points">
+            <li style="color:rgba(242,240,234,.65);">Múltiplos grupos musculares simultâneos</li>
+            <li style="color:rgba(242,240,234,.65);">Frequência cardíaca elevada sustentada</li>
+            <li style="color:rgba(242,240,234,.65);">Condicionamento cardiorrespiratório</li>
+            <li style="color:rgba(242,240,234,.65);">Adaptável a todos os níveis (70–100%)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <div class="block-card">
+        <div class="block-card-accent" style="background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
+        <div class="block-card-body">
+          <div class="block-icon" style="background:rgba(200,146,58,.1);">🏋</div>
+          <div class="block-num">Bloco 03 · 25–45 Minutos</div>
+          <div class="block-name" style="color:var(--gold2);">Musculação<br>Powermix</div>
+          <div class="block-time" style="background:rgba(200,146,58,.08);border:1px solid rgba(200,146,58,.25);color:var(--gold2);">Isolamento Estratégico</div>
+          <p class="block-desc">Musculação nas máquinas com isolamento muscular preciso. Cria tônus estrutural, firma a pele, preserva massa magra e eleva a Taxa Metabólica de Repouso no longo prazo.</p>
+          <ul class="block-points">
+            <li style="color:rgba(242,240,234,.65);">Combate ativo à flacidez</li>
+            <li style="color:rgba(242,240,234,.65);">Aproveita o metabolismo já acelerado</li>
+            <li style="color:rgba(242,240,234,.65);">Progressão de carga individualizada</li>
+            <li style="color:rgba(242,240,234,.65);">Eleva a TMR no longo prazo</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EPOC STRIP -->
+    <div class="epoc-strip reveal">
+      <div class="epoc-number">48H</div>
+      <div class="epoc-text">
+        <h3>Efeito EPOC — O Motor Invisível</h3>
+        <p>O Legacy Burn 45 ativa o Consumo Excessivo de Oxigênio Pós-Exercício (EPOC). Depois que o treino termina, o seu metabolismo continua gastando energia por até 48 horas para restaurar a homeostase celular. A caloria que mais importa não é a que você queimou durante a sessão — é a que seu corpo vai queimar enquanto você dorme, trabalha e vive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ RESULTS ══════════════════════ -->
+<section class="results">
+  <div class="wrap">
+    <div class="section-tag reveal">Resultados em 12 Semanas</div>
+    <h2 class="section-h reveal">DADO. NÃO<br><em>FOTO DE</em><br>ÂNGULO BOM.</h2>
+    <p class="section-body reveal">Medido com o sistema Next Fit. Composição corporal real: percentual de gordura, massa magra, hidratação. Não a balança — o dado que não mente.</p>
+
+    <div class="results-grid reveal">
+      <div class="result-card">
+        <div class="result-num">−15%</div>
+        <div class="result-unit">Gordura Corporal</div>
+        <div class="result-desc">Redução no percentual de gordura em 12 semanas de protocolo consistente de 3–5 sessões semanais.</div>
+        <div class="result-note">Dado via Next Fit · Resultado típico</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">+3kg</div>
+        <div class="result-unit">Massa Magra Real</div>
+        <div class="result-desc">Construção de músculo real que sustenta a pele firme, acelera o metabolismo e preserva a força.</div>
+        <div class="result-note">Medido em composição corporal</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">−6cm</div>
+        <div class="result-unit">Cintura</div>
+        <div class="result-desc">Redução de circunferência abdominal — o primeiro resultado visível e o mais significativo para saúde cardiovascular.</div>
+        <div class="result-note">Média das alunas em 90 dias</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">+30%</div>
+        <div class="result-unit">Força Física</div>
+        <div class="result-desc">Ganho de força funcional que melhora autonomia, postura, qualidade de vida e resistência para as atividades diárias.</div>
+        <div class="result-note">Aferido em progressão de carga</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TARGET ══════════════════════ -->
+<section class="target">
+  <div class="wrap">
+    <div class="section-tag reveal">Quem é e Quem Não É</div>
+    <h2 class="section-h reveal">ESSE MÉTODO<br><em>É PRA VOCÊ?</em></h2>
+
+    <div class="target-grid">
+      <div class="target-card reveal">
+        <div class="tc-header yes">
+          <span class="tc-icon">✅</span>
+          É Para Você Se...
+        </div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você é mulher entre 25 e 60 anos com objetivo de emagrecer ou definir o corpo</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você tem rotina densa (trabalho, filhos, família) e precisa de treino que cabe na sua vida real</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você já tentou outras academias, dietas ou programas — e parou antes de ver resultado</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você quer saber exatamente o que está acontecendo no seu corpo — com dados reais, não com sensação</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você está começando do zero ou voltando depois de uma longa pausa</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você tem mais de 40 anos e sente que o corpo está respondendo diferente — e quer entender por quê</div>
+        <div class="tc-item"><span class="tc-bullet">✅</span>Você quer acompanhamento real, não fichas genéricas e professor olhando pro celular</div>
+      </div>
+
+      <div class="target-card reveal">
+        <div class="tc-header no">
+          <span class="tc-icon">⛔</span>
+          Não É Para Você Se...
+        </div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você busca resultado rápido sem consistência — quer "suar muito na primeira semana e sumir"</div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você não está disposta a treinar no mínimo 3 vezes por semana</div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você quer apenas academia com equipamentos e sem acompanhamento</div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você não aceita que o resultado tem etapas — quer mudar a composição corporal em 2 semanas</div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você busca apenas estética sem se importar com saúde, força e qualidade de vida</div>
+        <div class="tc-item"><span class="tc-bullet">⛔</span>Você não quer ser avaliada — prefere ir sem compromisso e sem medir resultado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ PROGRAMS ══════════════════════ -->
+<section class="programs" id="programas">
+  <div class="wrap">
+    <div class="section-tag reveal">Programas</div>
+    <h2 class="section-h reveal">ESCOLHA SEU<br><em>CAMINHO</em></h2>
+    <p class="section-body reveal">Presencial em Santa Maria ou online para qualquer cidade do Brasil. O mesmo protocolo, a mesma metodologia, o mesmo acompanhamento.</p>
+
+    <div class="programs-grid">
+
+      <!-- LEGACY PRESENCIAL -->
+      <div class="prog-card featured reveal">
+        <div class="prog-card-top">
+          <div>
+            <span class="prog-tag fire">🔥 Mais Procurado</span>
+            <span class="prog-featured-badge">★ Destaque</span>
+          </div>
+          <div class="prog-name">Legacy Burn 45<br>Presencial</div>
+          <p class="prog-tagline">O protocolo completo na Legacy Academia. Avaliação, protocolo e acompanhamento próximo em cada sessão.</p>
+        </div>
+        <div class="prog-body">
+          <div style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Para quem é:</div>
+          <div class="prog-for">Mulheres que querem resultado documentado com acompanhamento presencial próximo</div>
+          <div class="prog-for">Quem mora em Santa Maria ou região e pode comparecer à Legacy Academia (Itararé)</div>
+          <div class="prog-for">Quem quer sentir o protocolo completo com os 3 blocos em ambiente profissional</div>
+
+          <div class="prog-divider"></div>
+          <div class="prog-includes">O que está incluído:</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📊</span>Avaliação completa com Next Fit (composição corporal real)</div>
+          <div class="prog-feature"><span class="prog-feature-icon">🎯</span>Diagnóstico e definição de metas reais para 30, 60 e 90 dias</div>
+          <div class="prog-feature"><span class="prog-feature-icon">🔥</span>Protocolo Legacy Burn 45 completo — 3 blocos, 45 min</div>
+          <div class="prog-feature"><span class="prog-feature-icon">👤</span>Acompanhamento próximo em cada sessão</div>
+          <div class="prog-feature"><span class="prog-feature-icon">🔄</span>Reavaliação Next Fit a cada 30 dias</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📍</span>Legacy Academia · Itararé · Santa Maria, RS</div>
+
+          <a href="https://wa.me/5555991554217?text=Quero%20a%20aula%20experimental%20gratuita%20presencial" class="prog-cta" target="_blank">Agendar Aula Experimental Gratuita →</a>
+        </div>
+      </div>
+
+      <!-- LEGACY ONLINE -->
+      <div class="prog-card reveal">
+        <div class="prog-card-top">
+          <span class="prog-tag cyan">🌐 Online · Todo o Brasil</span>
+          <div class="prog-name">Legacy Burn 45<br>Next Fit Online</div>
+          <p class="prog-tagline">O método chega até onde você está. Avaliação, protocolo e acompanhamento via app Next Fit — para qualquer cidade do Brasil.</p>
+        </div>
+        <div class="prog-body">
+          <div style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Para quem é:</div>
+          <div class="prog-for">Quem não mora em Santa Maria e quer o protocolo na sua cidade</div>
+          <div class="prog-for">Quem precisa de flexibilidade de horário e local para treinar</div>
+          <div class="prog-for">Quem quer avaliação real e acompanhamento estruturado à distância</div>
+
+          <div class="prog-divider"></div>
+          <div class="prog-includes">O que está incluído:</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📱</span>App Next Fit — avaliação e acompanhamento completo</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📊</span>Avaliação de composição corporal à distância</div>
+          <div class="prog-feature"><span class="prog-feature-icon">🏋</span>Protocolo Legacy Burn 45 estruturado para seu nível</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📲</span>Comunicação direta com o Prof. Fabiano</div>
+          <div class="prog-feature"><span class="prog-feature-icon">📈</span>Acompanhamento de evolução em dados reais</div>
+          <div class="prog-feature"><span class="prog-feature-icon">🌍</span>Disponível em qualquer cidade do Brasil</div>
+
+          <a href="https://wa.me/5555991554217?text=Quero%20saber%20sobre%20o%20programa%20online%20Next%20Fit" class="prog-cta ghost" target="_blank">Saber Mais Sobre o Online →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ PROCESS ══════════════════════ -->
+<section class="process" id="processo">
+  <div class="wrap">
+    <div class="section-tag reveal">Como Funciona</div>
+    <h2 class="section-h reveal">DO PRIMEIRO<br><em>CONTATO</em> AO<br>RESULTADO REAL</h2>
+
+    <div class="process-steps reveal">
+      <div class="ps-item">
+        <div class="ps-num">01</div>
+        <div class="ps-icon">💬</div>
+        <div class="ps-title">A Conversa Real</div>
+        <div class="ps-desc">Entendemos quem você é, de onde vem, o que já tentou e o que realmente importa para você. Não é triagem — é diagnóstico humano.</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num">02</div>
+        <div class="ps-icon">📊</div>
+        <div class="ps-title">Avaliação Next Fit</div>
+        <div class="ps-desc">Composição corporal completa: percentual de gordura, massa magra, hidratação. O ponto de partida real — não a sensação, o dado.</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num">03</div>
+        <div class="ps-icon">🎯</div>
+        <div class="ps-title">Metas Reais</div>
+        <div class="ps-desc">Definimos objetivos específicos, mensuráveis e alcançáveis para 30, 60 e 90 dias. Não "emagrecer". Números concretos.</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num">04</div>
+        <div class="ps-icon">🔥</div>
+        <div class="ps-title">Protocolo Legacy Burn 45</div>
+        <div class="ps-desc">3 blocos, 45 minutos, 3–5x por semana. Começa do seu nível. Evolui com você. Cada sessão com acompanhamento próximo.</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num">05</div>
+        <div class="ps-icon">📈</div>
+        <div class="ps-title">Reavaliação Periódica</div>
+        <div class="ps-desc">A cada 30 dias: novo Next Fit, novos dados, ajustes. Você vê a transformação em números — não em sensação ou esperança.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ NEXTFIT ══════════════════════ -->
+<section class="nextfit" id="nextfit">
+  <div class="wrap">
+    <div class="nextfit-inner">
+
+      <div class="nf-visual reveal">
+        <div class="nf-header">● Sistema Next Fit — Avaliação em Tempo Real</div>
+        <div class="nf-metrics">
+          <div class="nf-metric">
+            <div class="nf-m-label">Percentual de Gordura</div>
+            <div class="nf-m-bar-wrap">
+              <div class="nf-m-bar" style="width:72%;background:linear-gradient(90deg,var(--fire),var(--fire2));"></div>
+            </div>
+            <div class="nf-m-values">
+              <span>Início: 32.4%</span>
+              <span class="now">Atual: 27.1%</span>
+            </div>
+          </div>
+          <div class="nf-metric">
+            <div class="nf-m-label">Massa Magra</div>
+            <div class="nf-m-bar-wrap">
+              <div class="nf-m-bar" style="width:85%;background:linear-gradient(90deg,var(--cyan),var(--green));"></div>
+            </div>
+            <div class="nf-m-values">
+              <span>Início: 41.2kg</span>
+              <span class="now">Atual: 43.8kg</span>
+            </div>
+          </div>
+          <div class="nf-metric">
+            <div class="nf-m-label">Cintura</div>
+            <div class="nf-m-bar-wrap">
+              <div class="nf-m-bar" style="width:60%;background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
+            </div>
+            <div class="nf-m-values">
+              <span>Início: 88cm</span>
+              <span class="now">Atual: 82cm</span>
+            </div>
+          </div>
+          <div class="nf-metric">
+            <div class="nf-m-label">Força (progressão de carga)</div>
+            <div class="nf-m-bar-wrap">
+              <div class="nf-m-bar" style="width:90%;background:linear-gradient(90deg,#9B5DE5,#7B3DC5);"></div>
+            </div>
+            <div class="nf-m-values">
+              <span>Semana 1</span>
+              <span class="now">+28% em 90 dias</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding:12px 16px;background:rgba(0,0,0,.3);border-radius:4px;font-size:12px;color:var(--muted);text-align:center;">
+          ↑ Dados ilustrativos baseados em resultados típicos de alunas · 90 dias de protocolo
+        </div>
+      </div>
+
+      <div class="nf-text reveal">
+        <h2>A BALANÇA<br>MENTE.<br><em>O NEXT FIT</em><br>NÃO.</h2>
+        <p>Você pode perder 2kg de gordura e ganhar 1,5kg de músculo — a balança mostra −500g e você acha que "não funcionou". Esse é o problema de medir resultado com a ferramenta errada.</p>
+        <p>O Next Fit mede o que realmente importa: percentual de gordura, massa magra real, nível de hidratação. Com esses dados, eu ajusto o protocolo individualmente — e você vê a transformação que o espelho ainda não mostra.</p>
+        <ul class="nf-bullets">
+          <li>Avaliação de composição corporal completa</li>
+          <li>Percentual de gordura · Massa magra · Hidratação</li>
+          <li>Reavaliação a cada 30 dias com comparativo</li>
+          <li>Disponível presencialmente e online</li>
+          <li>O dado que a balança esconde — na tela da sua mão</li>
+        </ul>
+        <a href="https://wa.me/5555991554217?text=Quero%20fazer%20minha%20avalia%C3%A7%C3%A3o%20com%20Next%20Fit" class="btn-primary" target="_blank">📊 Agendar Avaliação Gratuita</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CREDENTIALS ══════════════════════ -->
+<section class="creds tight" style="background:var(--bg);">
+  <div class="wrap">
+    <div class="section-tag reveal">Por que Confiar</div>
+    <h2 class="section-h reveal">EXPERIÊNCIA<br><em>APLICADA</em></h2>
+
+    <div class="creds-grid reveal">
+      <div class="cred-item">
+        <div class="cred-icon">🎓</div>
+        <div>
+          <div class="cred-title">Educação Física · Rede Pública</div>
+          <div class="cred-sub">Professor de Educação Física formado. Experiência real com corpos e histórias completamente diferentes — desde a educação pública até a academia de alta performance.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">🕺</div>
+        <div>
+          <div class="cred-title">Dança Gaúcha · Pedagogia do Movimento</div>
+          <div class="cred-sub">14 anos como dançarino e professor. Aprendeu antes de qualquer graduação que movimento tem ritmo, intenção e linguagem própria para cada corpo.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">🏠</div>
+        <div>
+          <div class="cred-title">Criador do Legacy Burn 45</div>
+          <div class="cred-sub">Protocolo desenvolvido na prática — testado e refinado desde os treinos na garagem durante a pandemia até o sistema científico completo que existe hoje.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">📊</div>
+        <div>
+          <div class="cred-title">Parceiro Certificado Next Fit</div>
+          <div class="cred-sub">Avaliação de composição corporal com tecnologia científica. Os dados que a balança não mostra — disponíveis a cada 30 dias para cada aluna.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">👨‍👩‍👧</div>
+        <div>
+          <div class="cred-title">Pai · Marido · Empresário</div>
+          <div class="cred-sub">Entende na prática o que é não ter tempo. O protocolo tem 45 minutos porque respeita quem tem vida fora da academia — não porque é concessão.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">🏋</div>
+        <div>
+          <div class="cred-title">Legacy Academia · Santa Maria, RS</div>
+          <div class="cred-sub">Academia própria em Santa Maria (Itararé). Espaço desenvolvido pensando na mulher que se sente perdida nas grandes academias — aqui tem protocolo desde o primeiro dia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DARK BAND 2 ══════════════════════ -->
+<div class="dark-band" style="background:var(--panel2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="dark-band-inner">
+    <div class="dark-band-quote" style="color:var(--fire);">"Você não precisa estar pronta pra treinar. Você treina pra estar pronta."</div>
+    <div class="dark-band-author" style="color:var(--muted);">— Prof. Fabiano Costa · Legacy Academia</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ TESTIMONIALS ══════════════════════ -->
+<section class="testimonials tight" style="background:var(--bg2);">
+  <div class="wrap" style="max-width:100%;">
+    <div class="wrap">
+      <div class="section-tag reveal">O que as alunas dizem</div>
+      <h2 class="section-h reveal">RESULTADOS<br><em>REAIS</em></h2>
+    </div>
+    <div class="testi-track reveal">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Tentei academia por 2 anos sem resultado. Três meses com o Prof. Fabiano e os dados do Next Fit mostram o que nenhum espelho tinha mostrado antes. Meu percentual de gordura caiu mais de 6 pontos."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Aluna Legacy — 42 anos</div><div class="testi-role">Santa Maria, RS · 90 dias de protocolo</div></div>
+        </div>
+        <div class="testi-data">
+          <div class="td-item"><div class="td-val">−6.2%</div><div class="td-lbl">Gordura</div></div>
+          <div class="td-item"><div class="td-val">+2.1kg</div><div class="td-lbl">Massa Magra</div></div>
+          <div class="td-item"><div class="td-val">−5cm</div><div class="td-lbl">Cintura</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Nunca me senti tão bem dentro de uma academia. Aqui eu não fico perdida — tem protocolo, tem professor presente, tem resultado que eu consigo ver com dados. Não com o espelho."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div><div class="testi-name">Aluna Legacy — 35 anos</div><div class="testi-role">Santa Maria, RS · 60 dias de protocolo</div></div>
+        </div>
+        <div class="testi-data">
+          <div class="td-item"><div class="td-val">−4.8%</div><div class="td-lbl">Gordura</div></div>
+          <div class="td-item"><div class="td-val">+1.8kg</div><div class="td-lbl">Massa Magra</div></div>
+          <div class="td-item"><div class="td-val">−4cm</div><div class="td-lbl">Cintura</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Tenho 47 anos e três filhos. Achei que minha janela tinha fechado. O Prof. Fabiano me mostrou com dados que não fechou — ela só mudou. O método mudou junto. E o resultado apareceu."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍👧‍👦</div>
+          <div><div class="testi-name">Aluna Legacy — 47 anos</div><div class="testi-role">Santa Maria, RS · 120 dias de protocolo</div></div>
+        </div>
+        <div class="testi-data">
+          <div class="td-item"><div class="td-val">−8.3%</div><div class="td-lbl">Gordura</div></div>
+          <div class="td-item"><div class="td-val">+2.6kg</div><div class="td-lbl">Massa Magra</div></div>
+          <div class="td-item"><div class="td-val">−7cm</div><div class="td-lbl">Cintura</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Faço o programa online via Next Fit. Moro no interior do Rio Grande do Sul e nunca tinha tido acesso a esse nível de acompanhamento. Resultado real, dado real, professor presente mesmo à distância."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">🏡</div>
+          <div><div class="testi-name">Aluna Online — 39 anos</div><div class="testi-role">Interior do RS · Next Fit · 60 dias</div></div>
+        </div>
+        <div class="testi-data">
+          <div class="td-item"><div class="td-val">−5.1%</div><div class="td-lbl">Gordura</div></div>
+          <div class="td-item"><div class="td-val">+1.9kg</div><div class="td-lbl">Massa Magra</div></div>
+          <div class="td-item"><div class="td-val">−4cm</div><div class="td-lbl">Cintura</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Na semana 3 eu queria desistir. O Prof. Fabiano abriu o relatório Next Fit e me mostrou: o resultado já estava acontecendo. Eu só não sabia enxergar. Essa conversa mudou tudo."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">💪</div>
+          <div><div class="testi-name">Aluna Legacy — 38 anos</div><div class="testi-role">Santa Maria, RS · 90 dias de protocolo</div></div>
+        </div>
+        <div class="testi-data">
+          <div class="td-item"><div class="td-val">−7.4%</div><div class="td-lbl">Gordura</div></div>
+          <div class="td-item"><div class="td-val">+2.4kg</div><div class="td-lbl">Massa Magra</div></div>
+          <div class="td-item"><div class="td-val">−6cm</div><div class="td-lbl">Cintura</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section class="faq" id="faq">
+  <div class="wrap-sm">
+    <div class="section-tag reveal">Perguntas Frequentes</div>
+    <h2 class="section-h reveal">SUAS<br><em>DÚVIDAS</em></h2>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Preciso ter experiência em academia para começar?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Não. O Legacy Burn 45 começa do seu condicionamento atual — não do ideal. O protocolo é adaptado ao nível de cada aluna. Iniciante, intermediária ou avançada: o método parte de onde você está. A sessão experimental gratuita é exatamente para te mostrar isso na prática antes de qualquer compromisso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Por que 45 minutos? Não é pouco?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Não é pouco — é o ponto ótimo. Treinos acima de 60–70 minutos de alta intensidade elevam cronicamente o cortisol, o hormônio do estresse que inibe a queima de gordura, retém líquido e destrói massa magra. Os 45 minutos do Legacy Burn 45 foram calculados para maximizar o gasto calórico e o efeito EPOC (queima pós-treino de até 48h) sem elevar o cortisol a ponto de bloquear o resultado. É ciência aplicada, não concessão.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          A musculação vai me deixar masculinizada?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Não. Mulheres produzem de 10 a 30 vezes menos testosterona do que homens. Sem testosterona elevada, hipertrofia extrema não acontece. O que musculação faz em mulheres: cria tônus estrutural, firma a pele, eleva o metabolismo de repouso e protege articulações. O Bloco 3 do Legacy Burn 45 (Musculação Powermix) existe exatamente para isso — definição, firmeza e combate ativo à flacidez que acompanha o emagrecimento.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Posso fazer mesmo tendo mais de 40 anos e nunca tendo treinado?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Sim — e na verdade, para a mulher acima dos 40 o protocolo é ainda mais importante. Após os 30 anos, o corpo perde até 8% de massa muscular por década se não houver estímulo de força. O metabolismo desacelera. O cortisol sobe com mais facilidade. O Legacy Burn 45 foi desenvolvido com essas especificidades em mente: combina estímulo de força, controle hormonal e cardio metabólico na proporção certa para o corpo feminino adulto.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Moro fora de Santa Maria. Como funciona o programa online?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Através do app Next Fit, você tem acesso ao protocolo estruturado, avaliação de composição corporal, acompanhamento em tempo real e comunicação direta com o Prof. Fabiano. O mesmo nível de metodologia do presencial — adaptado para qualquer cidade do Brasil. Manda ONLINE no Direct ou no WhatsApp e o Prof. Fabiano explica como funciona para o seu caso específico.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Quantas vezes por semana preciso treinar?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">O recomendado é de 3 a 5 vezes por semana. Para resultados consistentes, o mínimo funcional é 3 sessões semanais. A consistência é mais importante do que a frequência perfeita: um treino razoável 3 vezes por semana por 12 semanas entrega resultado real. Melhor do que 5 vezes por semana durante 3 semanas seguido de abandono.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como funciona a aula experimental gratuita?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Você entra em contato pelo WhatsApp, agenda um horário que encaixa na sua rotina e vem à Legacy Academia em Santa Maria. Na sua chegada: conversa inicial para entender seu histórico e objetivos, avaliação completa com o Next Fit e uma sessão completa do protocolo Legacy Burn 45 (os 3 blocos, 45 minutos). Sem pressão, sem compromisso de matrícula. Você experimenta, sente o protocolo na prática e decide. Simples assim.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FINAL CTA ══════════════════════ -->
+<section class="final-cta">
+  <div class="wrap final-cta-content">
+    <h2 class="reveal">O SEDENTARISMO<br>TERMINA NA<br><em>SUA PRÓXIMA</em><br>DECISÃO.</h2>
+    <p class="reveal">Não precisa estar pronta. Não precisa ter experiência. Precisa estar disposta a dar o primeiro passo — de onde você está, com o que você tem, agora.</p>
+    <div class="cta-stack reveal">
+      <a href="https://wa.me/5555991554217?text=Quero%20minha%20aula%20experimental%20gratuita%20no%20Legacy%20Burn%2045" class="btn-primary" target="_blank" style="font-size:18px;padding:18px 36px;">
+        🔥 Quero Minha Aula Gratuita
+      </a>
+      <a href="https://wa.me/5555991554217?text=Quero%20saber%20sobre%20o%20programa%20online" class="btn-ghost" target="_blank" style="font-size:18px;padding:18px 28px;">
+        🌐 Sou de Outra Cidade
+      </a>
+    </div>
+    <div class="cta-note reveal">📍 Legacy Academia · Itararé · Santa Maria, RS · (55) 99155-4217</div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logo"><span>LEGACY</span> ACADEMIA</div>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/proffabianocosta" target="_blank">@proffabianocosta</a>
+      <a href="https://www.instagram.com/legacyacademiasm" target="_blank">@legacyacademiasm</a>
+      <a href="https://www.youtube.com/@fabianocostapersonal" target="_blank">YouTube</a>
+      <a href="https://wa.me/5555991554217" target="_blank">WhatsApp</a>
+    </div>
+    <div class="footer-copy">© 2025 Legacy Academia · Prof. Fabiano Costa · Santa Maria, RS</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/5555991554217?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20Legacy%20Burn%2045" target="_blank" title="WhatsApp">💬</a>
+
+<!-- ══════════════════════ JS ══════════════════════ -->
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Nav active state
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.borderBottomColor = window.scrollY > 60
+    ? 'rgba(255,98,0,0.2)' : 'rgba(255,255,255,0.07)';
+});
+</script>
+</body>
+</html>

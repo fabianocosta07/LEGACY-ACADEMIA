@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrutura de Postagens Instagram — Fabiano Costa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --preto: #0a0a0f;
+    --vermelho: #e3180f;
+    --vermelho-escuro: #9b1209;
+    --laranja: #ff5c1a;
+    --ciano: #00c8e0;
+    --branco: #f5f4f0;
+    --cinza: #1a1a26;
+    --cinza-claro: #2a2a3a;
+    --texto-muted: #888;
+    --gold: #c8993a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(227,24,15,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(0,200,224,0.08) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(227,24,15,0.15);
+    border: 1px solid rgba(227,24,15,0.4);
+    color: var(--vermelho);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--branco);
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--vermelho); }
+  .hero-sub {
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--texto-muted);
+    max-width: 580px;
+    margin: 20px auto 0;
+    font-weight: 300;
+  }
+  .hero-profiles {
+    display: flex;
+    gap: 16px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .profile-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .profile-tag.pessoal {
+    background: rgba(200,153,58,0.12);
+    border: 1px solid rgba(200,153,58,0.35);
+    color: var(--gold);
+  }
+  .profile-tag.profissional {
+    background: rgba(0,200,224,0.10);
+    border: 1px solid rgba(0,200,224,0.35);
+    color: var(--ciano);
+  }
+  .profile-tag .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .profile-tag.pessoal .dot { background: var(--gold); }
+  .profile-tag.profissional .dot { background: var(--ciano); }
+
+  /* ── NAV ÍNDICE ── */
+  .toc {
+    background: var(--cinza);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 32px 24px;
+  }
+  .toc-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--branco);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .toc-item:hover {
+    background: rgba(227,24,15,0.1);
+    border-color: rgba(227,24,15,0.3);
+    color: var(--vermelho);
+  }
+  .toc-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--vermelho);
+    min-width: 28px;
+  }
+
+  /* ── LAYOUT GERAL ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── SECTION HEADER ── */
+  .section-block {
+    padding: 80px 24px;
+    position: relative;
+  }
+  .section-block:nth-child(even) { background: var(--cinza); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 48px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    color: rgba(227,24,15,0.2);
+    min-width: 80px;
+  }
+  .section-title-wrap { flex: 1; }
+  .section-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--vermelho);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--branco);
+  }
+  .section-title span { color: var(--vermelho); }
+  .section-desc {
+    margin-top: 12px;
+    color: var(--texto-muted);
+    font-size: 15px;
+    max-width: 640px;
+  }
+
+  /* ── PROFILE PILL ── */
+  .profile-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+  .profile-pill.pessoal {
+    background: rgba(200,153,58,0.12);
+    border: 1px solid rgba(200,153,58,0.3);
+    color: var(--gold);
+  }
+  .profile-pill.profissional {
+    background: rgba(0,200,224,0.10);
+    border: 1px solid rgba(0,200,224,0.3);
+    color: var(--ciano);
+  }
+  .profile-pill.ambos {
+    background: rgba(227,24,15,0.10);
+    border: 1px solid rgba(227,24,15,0.3);
+    color: var(--vermelho);
+  }
+
+  /* ── CONTENT CARD ── */
+  .cards-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: 24px;
+  }
+  .cards-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
+  .cards-grid.cols-1 { grid-template-columns: 1fr; }
+
+  .content-card {
+    background: var(--cinza-claro);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .card-format {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--branco);
+    letter-spacing: 1px;
+  }
+  .card-body { padding: 24px; }
+
+  /* ── GANCHO BOX ── */
+  .gancho-box {
+    background: rgba(227,24,15,0.08);
+    border-left: 3px solid var(--vermelho);
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 20px;
+  }
+  .gancho-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--vermelho);
+    margin-bottom: 8px;
+  }
+  .gancho-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--branco);
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* ── TELA FRAME ── */
+  .tela-frame {
+    background: var(--preto);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .tela-frame::before {
+    content: 'TELA';
+    position: absolute;
+    top: -1px; right: 16px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--texto-muted);
+    background: var(--cinza-claro);
+    padding: 2px 8px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* ── LABEL / FIELD ── */
+  .field { margin-bottom: 18px; }
+  .field-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .field-content {
+    color: var(--branco);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* ── LEGENDA BOX ── */
+  .legenda-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+
+  /* ── SLIDES GRID (Carrossel) ── */
+  .slides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .slide-card {
+    background: var(--preto);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 16px;
+  }
+  .slide-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--vermelho);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .slide-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ciano);
+    margin-bottom: 8px;
+  }
+  .slide-text {
+    font-size: 13px;
+    color: #ccc;
+    line-height: 1.5;
+  }
+
+  /* ── STORIES SEQUENCE ── */
+  .stories-sequence {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--vermelho) transparent;
+  }
+  .story-frame {
+    min-width: 160px;
+    background: var(--preto);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .story-step {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--vermelho);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .story-content {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.5;
+  }
+
+  /* ── HASHTAG CLOUD ── */
+  .hashtag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .hashtag {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--ciano);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  /* ── CTA BOX ── */
+  .cta-box {
+    background: linear-gradient(135deg, rgba(227,24,15,0.12), rgba(255,92,26,0.08));
+    border: 1px solid rgba(227,24,15,0.25);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .cta-icon { font-size: 20px; margin-top: 2px; }
+  .cta-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--vermelho);
+    margin-bottom: 6px;
+  }
+  .cta-text {
+    font-size: 14px;
+    color: var(--branco);
+    line-height: 1.5;
+  }
+
+  /* ── ENGAJAMENTO BOX ── */
+  .eng-box {
+    background: rgba(0,200,224,0.06);
+    border: 1px solid rgba(0,200,224,0.15);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-top: 16px;
+  }
+  .eng-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ciano);
+    margin-bottom: 8px;
+  }
+  .eng-text {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ── FORMAT ICON ── */
+  .fmt-icon {
+    width: 40px; height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .fmt-reels { background: rgba(227,24,15,0.15); }
+  .fmt-carrossel { background: rgba(0,200,224,0.12); }
+  .fmt-story { background: rgba(200,153,58,0.12); }
+  .fmt-estatico { background: rgba(100,200,100,0.12); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cinza);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  footer .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--vermelho);
+    letter-spacing: 4px;
+  }
+  footer p { color: var(--texto-muted); font-size: 13px; margin-top: 10px; }
+
+  /* ── LEGEND FOOTER ── */
+  .legend-bar {
+    position: sticky;
+    bottom: 0;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 12px 24px;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: 100;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--texto-muted);
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid.cols-2 { grid-template-columns: 1fr; }
+    .section-number { font-size: 48px; min-width: 48px; }
+    .slides-grid { grid-template-columns: 1fr 1fr; }
+    .story-frame { min-width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Estrutura de Conteúdo · Instagram 2025</div>
+  <h1>FABIANO<br><span>COSTA</span></h1>
+  <p class="hero-sub">Guia completo de postagens para crescimento estratégico nos dois perfis — com legendas, ganchos, CTAs, hashtags e roteiros prontos.</p>
+  <div class="hero-profiles">
+    <div class="profile-tag pessoal"><span class="dot"></span>@proffabianocosta — Pessoal</div>
+    <div class="profile-tag profissional"><span class="dot"></span>@legacyacademiasm — Academia</div>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#reels-pessoal" class="toc-item"><span class="toc-num">01</span> Reels — Perfil Pessoal</a>
+    <a href="#reels-academia" class="toc-item"><span class="toc-num">02</span> Reels — Academia</a>
+    <a href="#carrossel-pessoal" class="toc-item"><span class="toc-num">03</span> Carrossel — Perfil Pessoal</a>
+    <a href="#carrossel-academia" class="toc-item"><span class="toc-num">04</span> Carrossel — Academia</a>
+    <a href="#stories" class="toc-item"><span class="toc-num">05</span> Stories — Ambos os Perfis</a>
+    <a href="#estatico" class="toc-item"><span class="toc-num">06</span> Estático — Ambos os Perfis</a>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     01 · REELS — PERFIL PESSOAL
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="reels-pessoal">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Vídeo Curto</div>
+      <h2 class="section-title">Reels — <span>Perfil Pessoal</span></h2>
+      <p class="section-desc">Conteúdo que humaniza, gera conexão e posiciona Fabiano como autoridade através da sua história real. Foco em storytelling e identificação.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-2 container">
+
+    <!-- REEL 01 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel 01 · Origem</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"Eu comecei numa garagem. Olha onde chegamos."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 1:</strong> "Aos 12 anos eu já dançava.<br>Aos 17 eu já ensinava."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 2:</strong> "Na pandemia, a academia fechou.<br>Mas eu não parei."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 3:</strong> "20 minutos. Garagem. Ao vivo.<br>Era tudo que eu tinha."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 4:</strong> "Aquilo virou método.<br>O método virou academia."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 5 (fechamento):</strong> "Legacy Burn 45.<br>Nasceu da necessidade. Ficou pelo resultado."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">A maioria das pessoas acha que resultado exige estrutura perfeita.<br><br>
+Eu aprendi o contrário.<br><br>
+Comecei dançando gaúcha aos 12. Virei professor aos 17. Quando a pandemia fechou tudo, montei treinos ao vivo na garagem da minha casa.<br><br>
+Sem equipamento. Sem academia. Com método.<br><br>
+Daquele improviso nasceu o que hoje é o Legacy Burn 45.<br><br>
+Se você acha que não tem as condições certas para começar — eu tenho uma notícia.<br><br>
+<strong>Você já tem tudo que precisa.</strong><br><br>
+📲 Quer conhecer o método? Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">📲</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Salva esse vídeo pra lembrar quando quiser desistir. E me segue pra ver mais sobre o método que nasceu de um improviso.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Nos comentários: Conta pra mim — você já começou algo do zero e virou alguma coisa grande? 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#PersonalTrainer</span>
+          <span class="hashtag">#HistóriaReal</span>
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#SantaMaria</span>
+          <span class="hashtag">#MétodoFabiano</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEL 02 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel 02 · Rotina Real</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"Sou pai, marido, empresário e professor. E sim, eu entendo que você não tem tempo."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 1:</strong> "6h da manhã.<br>Família. Trabalho. Alunos."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 2:</strong> "Eu sei o que é não ter 1 hora por dia.<br>Por isso o método tem 45 minutos."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 3:</strong> "Não é concessão.<br>É respeito pela realidade de quem tem vida."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 4 (fechamento):</strong> "45 minutos.<br>Resultado real. Rotina real."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Muita gente me pergunta: "Professor, por que 45 minutos?"<br><br>
+Porque eu não vivo só na academia.<br><br>
+Tenho família. Tenho filhos. Tenho empresa. Tenho responsabilidades que não param.<br><br>
+E as minhas alunas também.<br><br>
+O protocolo Legacy Burn 45 não tem 45 minutos porque "é o suficiente". Tem 45 minutos porque respeita quem tem vida fora da academia.<br><br>
+Intensidade com método supera volume sem direção — sempre.<br><br>
+<strong>Você não precisa de mais tempo. Você precisa do tempo certo.</strong><br><br>
+🔥 Comenta aqui: qual é o seu maior obstáculo pra treinar consistentemente?</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">💬</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Me segue para conteúdo real de treino, método e rotina. Sem enrolação.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Enquete nos Stories: "Qual é o seu maior obstáculo?" A) Falta de tempo ⏰ B) Falta de motivação 😮‍💨 C) Não saber o que fazer 🤷</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#TreinoInteligente</span>
+          <span class="hashtag">#RotinaDePai</span>
+          <span class="hashtag">#45Minutos</span>
+          <span class="hashtag">#PersonalFabiano</span>
+          <span class="hashtag">#EmagrecimentoFeminino</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEL 03 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel 03 · Reposicionamento</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"Você não desistiu. Você não foi bem orientada. Existe diferença."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 1:</strong> "Já fez academia.<br>Já fez dieta. Já tentou."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 2:</strong> "O problema nunca foi<br>força de vontade."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 3:</strong> "Foi ausência de método<br>adequado pra você."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 4:</strong> "Método certo.<br>Corpo certo. Resultado certo."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Esse aqui é pra mulher que já começou mais de uma vez e parou.<br><br>
+Escuta: o problema não é você.<br><br>
+O problema é que ninguém te apresentou o método certo, no momento certo, com o acompanhamento certo.<br><br>
+Toda mulher que chegou na Legacy dizendo "eu não tenho jeito pra treino" — saiu com resultado.<br><br>
+Porque aqui o ponto de partida é onde você está agora, não onde você deveria estar.<br><br>
+<strong>Você não falhou. O método falhou com você.</strong><br><br>
+📲 Vem conhecer o que é treinar com método de verdade. Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">❤️</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Se você já se sentiu assim, deixa o ❤️ aqui. Isso me diz que esse conteúdo chegou em quem precisava.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Marca uma amiga que já ouviu dizer que "não tem jeito pra academia" 👇 Ela precisa ver isso.</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#MétodoCerto</span>
+          <span class="hashtag">#MulherQueueTreina</span>
+          <span class="hashtag">#EmagrecerComSaúde</span>
+          <span class="hashtag">#PersonalSantaMaria</span>
+          <span class="hashtag">#TransformaçãoFeminina</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEL 04 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel 04 · Pós 40</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"Depois dos 40 o corpo muda. Mas isso não é sentença — é aviso."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 1:</strong> "Metabolismo lento.<br>Queda hormonal. Massa magra diminuindo."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 2:</strong> "Tudo isso é real.<br>E a ciência tem resposta pra tudo isso."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--gold)">Tela 3:</strong> "Seu corpo mudou.<br>O método precisa mudar também."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 4:</strong> "Isso não é desculpa.<br>É ciência. E a ciência tem solução."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Não vou fingir que nada muda depois dos 40.<br><br>
+Muda. O metabolismo desacelera. O cortisol sobe com mais facilidade. A massa magra começa a cair se não for estimulada.<br><br>
+Mas aqui está o que ninguém te diz:<br><br>
+O problema não é a sua idade. É que você ainda está usando o mesmo método que usava com 25.<br><br>
+O protocolo Legacy Burn 45 foi desenvolvido justamente para isso — para trabalhar a fisiologia real do corpo da mulher adulta.<br><br>
+<strong>A mulher de 40+ não precisa treinar menos. Ela precisa treinar diferente.</strong><br><br>
+Salva esse post. E manda pra quem precisa ouvir isso. 🔥</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">💾</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Salva esse vídeo pra rever quando precisar de motivação. E me segue — tem muito mais conteúdo técnico por vir.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Comenta aqui: você tem mais de 40 e já sente essa diferença no corpo? Vamos conversar sobre isso. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#Mulher40Mais</span>
+          <span class="hashtag">#EmagrecimentoFeminino</span>
+          <span class="hashtag">#FisiologiaDoExercicio</span>
+          <span class="hashtag">#PersonalTrainerRS</span>
+          <span class="hashtag">#CorpoFeminino</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     02 · REELS — ACADEMIA
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="reels-academia">
+  <div class="section-header">
+    <div class="section-number">02</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Vídeo Curto</div>
+      <h2 class="section-title">Reels — <span>Legacy Academia</span></h2>
+      <p class="section-desc">Conteúdo que vende o método, mostra resultado e posiciona a Legacy como referência em emagrecimento feminino em Santa Maria.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-2 container">
+
+    <!-- REEL A1 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel A1 · O Método</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"45 minutos. 3 blocos. O protocolo que queima gordura mesmo depois que você vai embora."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 1:</strong> "Bloco 1 — Acelerador 🔥<br>Ativa o metabolismo desde o 1º minuto."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 2:</strong> "Bloco 2 — Funcional ⚡<br>Força, resistência e queima simultânea."</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 3:</strong> "Bloco 3 — Máquinas 🏋️<br>Define, tonifica, preserva a massa."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 4:</strong> "EPOC: seu corpo queima<br>gordura por até 48h após o treino."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Isso não é treino. É protocolo.<br><br>
+O Legacy Burn 45 foi desenhado com base em fisiologia do exercício para maximizar a queima de gordura em 45 minutos — e continuar queimando depois.<br><br>
+🔥 Bloco 1 — Acelerador: ativa o metabolismo e libera catecolaminas para mobilizar a gordura estocada.<br>
+⚡ Bloco 2 — Funcional: trabalho integrado de força, resistência e cardio.<br>
+🏋️ Bloco 3 — Máquinas: isolamento muscular para definição real.<br><br>
+Cada bloco prepara o corpo para o próximo. A ordem importa. Isso é ciência, não preferência.<br><br>
+<strong>Agende sua aula experimental gratuita. 👇 Link na bio.</strong></div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">🆓</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Primeira aula é GRÁTIS. Me chama no WhatsApp e agenda agora. 📲 Link na bio.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você sabia que seu corpo queima gordura horas depois do treino? Comenta "EPOC" que eu explico como funciona. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#ProtocoloDeEmagrecimento</span>
+          <span class="hashtag">#AcademiaSantaMaria</span>
+          <span class="hashtag">#EPOC</span>
+          <span class="hashtag">#TreinoFeminino</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEL A2 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-reels">🎬</div>
+          <span class="card-format">Reel A2 · Resultado Real</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho 3 segundos — tela de abertura</div>
+          <div class="gancho-text">"Ela queria desistir na semana 3. Olha o que aconteceu na semana 12."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Roteiro / Frases para tela</span>
+          <div class="tela-frame">
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 1:</strong> "Semana 1: adaptação.<br>Dor. Dúvida. 'Será que é pra mim?'"</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 2:</strong> "Semana 3: a pergunta.<br>'Por que ainda não vejo resultado?'"</div>
+            <div style="margin-bottom:12px; font-size:13px; color:#bbb;"><strong style="color:var(--ciano)">Tela 3:</strong> "Next Fit na mão:<br>O resultado já estava acontecendo."</div>
+            <div style="font-size:13px; color:#bbb;"><strong style="color:var(--vermelho)">Tela 4:</strong> "Semana 12:<br>Os dados não mentem."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">A pergunta mais comum na semana 3: "Professor, por que ainda não estou vendo resultado?"<br><br>
+E eu respondo com o relatório Next Fit na mão.<br><br>
+Porque o corpo já está mudando. Massa magra aumentou. Percentual de gordura caiu. A balança ainda não mostrou — mas a composição corporal não mente.<br><br>
+O erro mais comum é desistir exatamente quando o corpo está no ponto de virada metabólica.<br><br>
+<strong>O resultado já está acontecendo. Você só ainda não aprendeu a enxergá-lo.</strong><br><br>
+Na Legacy, eu te mostro onde olhar. 📊<br><br>
+📲 Agende sua avaliação inicial. Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">📊</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Não mede resultado pela balança. Vem fazer sua avaliação completa com o Next Fit. Gratuita pra quem agendar essa semana. 📲</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você já desistiu de treinar antes de ver resultado? Conta nos comentários — sem julgamento aqui. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#ResultadoReal</span>
+          <span class="hashtag">#ComposiçãoCorporal</span>
+          <span class="hashtag">#LegacyAcademia</span>
+          <span class="hashtag">#NextFit</span>
+          <span class="hashtag">#EmagrecerDe Verdade</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     03 · CARROSSEL — PERFIL PESSOAL
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="carrossel-pessoal">
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Múltiplas Imagens</div>
+      <h2 class="section-title">Carrossel — <span>Perfil Pessoal</span></h2>
+      <p class="section-desc">Carrosséis educativos que demonstram autoridade técnica e aprofundam o posicionamento de Fabiano como Educador do Movimento.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-1 container">
+
+    <!-- CARROSSEL P1 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-carrossel">📑</div>
+          <span class="card-format">Carrossel P1 · EPOC</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho — Slide 1 (Capa)</div>
+          <div class="gancho-text">"A caloria que importa não é a que você queimou na aula. É a que o seu corpo vai queimar enquanto você dorme."</div>
+        </div>
+        <div class="slides-grid">
+          <div class="slide-card">
+            <div class="slide-num">01</div>
+            <div class="slide-title">Capa</div>
+            <div class="slide-text">TÍTULO: "O que é EPOC — e por que suar muito não é o mais importante"</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">02</div>
+            <div class="slide-title">O Mito</div>
+            <div class="slide-text">A maioria acredita que quanto mais suor, mais resultado. Isso é errado.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">03</div>
+            <div class="slide-title">O que é EPOC</div>
+            <div class="slide-text">Consumo excessivo de oxigênio pós-exercício = corpo queimando energia por até 48h após o treino.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">04</div>
+            <div class="slide-title">Como gerar</div>
+            <div class="slide-text">Treinos de alta intensidade com protocolo estruturado (como o Legacy Burn 45) maximizam o EPOC.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">05</div>
+            <div class="slide-title">O Erro Comum</div>
+            <div class="slide-text">Treinos longos e de baixa intensidade NÃO geram EPOC significativo. Duram mais, entregam menos.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">06</div>
+            <div class="slide-title">Conclusão</div>
+            <div class="slide-text">"45 minutos certos valem mais do que 2 horas erradas. Isso é ciência, não preferência."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Você sabia que o seu corpo continua queimando gordura por até 48 horas depois de um treino bem feito?<br><br>
+Isso se chama EPOC — e é o verdadeiro motor do emagrecimento.<br><br>
+Arrasta pro lado e entende a ciência por trás do método. 👉<br><br>
+Depois me conta: você já tinha ouvido falar no EPOC antes?</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">💾</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Salva esse carrossel para consultar sempre que alguém falar que treino precisa durar 2 horas. 😅</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Slide que mais te surpreendeu? Me conta nos comentários com o número. Ex: "Slide 3 me abriu a cabeça!" 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#EPOC</span>
+          <span class="hashtag">#FisiologiaDoExercicio</span>
+          <span class="hashtag">#TreinoInteligente</span>
+          <span class="hashtag">#EmagrecerComCiência</span>
+          <span class="hashtag">#PersonalFabiano</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARROSSEL P2 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-carrossel">📑</div>
+          <span class="card-format">Carrossel P2 · Cortisol</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho — Slide 1 (Capa)</div>
+          <div class="gancho-text">"Você treina todo dia, come pouco e não emagrece? Leia isso."</div>
+        </div>
+        <div class="slides-grid">
+          <div class="slide-card">
+            <div class="slide-num">01</div>
+            <div class="slide-title">Capa</div>
+            <div class="slide-text">TÍTULO: "Por que treinar demais pode estar sabotando seu emagrecimento"</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">02</div>
+            <div class="slide-title">O Paradoxo</div>
+            <div class="slide-text">Treina muito. Come pouco. A balança não move. O problema pode ser o cortisol.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">03</div>
+            <div class="slide-title">O que é Cortisol</div>
+            <div class="slide-text">Hormônio do estresse. Sobe com treinos longos e intensos demais. Inibe queima de gordura e retém líquido.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">04</div>
+            <div class="slide-title">O Efeito</div>
+            <div class="slide-text">Cortisol elevado = perda de massa magra (catabolismo) + acúmulo de gordura abdominal.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">05</div>
+            <div class="slide-title">A Solução</div>
+            <div class="slide-text">Treinos mais curtos, mais intensos e com protocolo. 45 minutos controlam o cortisol e maximizam o resultado.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">06</div>
+            <div class="slide-title">Conclusão</div>
+            <div class="slide-text">"O problema não é que você não se esforça. É que o esforço está sendo aplicado do jeito errado."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Esse carrossel é pra quem se mata de treinar e não vê resultado.<br><br>
+Antes de desistir, arrasta pro lado. 👉<br><br>
+O problema pode ser mais simples — e mais resolvível — do que você imagina.<br><br>
+Salva pra não esquecer e marca quem você conhece que está nessa situação.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">📲</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Quer entender como ajustar o seu protocolo? Me manda uma mensagem. Vamos conversar sobre o seu caso.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você já viveu esse paradoxo? Comenta com ✋ e conta a sua história. Pode ser que você ajude outra pessoa com o que você passou.</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#Cortisol</span>
+          <span class="hashtag">#HormôniosEExercicio</span>
+          <span class="hashtag">#EmagrecimentoIntelligente</span>
+          <span class="hashtag">#TreinoFeminino</span>
+          <span class="hashtag">#EducadorDoMovimento</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     04 · CARROSSEL — ACADEMIA
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="carrossel-academia">
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Múltiplas Imagens</div>
+      <h2 class="section-title">Carrossel — <span>Legacy Academia</span></h2>
+      <p class="section-desc">Carrosséis com foco em conversão, resultado e apresentação do protocolo para novos leads. Linguagem direta e orientada à ação.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-1 container">
+
+    <!-- CARROSSEL A1 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-carrossel">📑</div>
+          <span class="card-format">Carrossel A1 · Semanas 1 a 4</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho — Slide 1 (Capa)</div>
+          <div class="gancho-text">"O que acontece no seu corpo nas primeiras 4 semanas do Legacy Burn 45 — semana a semana."</div>
+        </div>
+        <div class="slides-grid">
+          <div class="slide-card">
+            <div class="slide-num">01</div>
+            <div class="slide-title">Capa</div>
+            <div class="slide-text">TÍTULO: "4 semanas de Legacy Burn 45: o que seu corpo está fazendo (mesmo quando você não vê)"</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">02</div>
+            <div class="slide-title">Semana 1</div>
+            <div class="slide-text">Adaptação neurológica. Dor muscular normal. Estranhamento. Mas o metabolismo já foi ativado.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">03</div>
+            <div class="slide-title">Semana 2</div>
+            <div class="slide-text">Melhora da execução. A dor diminui. O corpo aprende os padrões de movimento.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">04</div>
+            <div class="slide-title">Semana 3</div>
+            <div class="slide-text">Ganho de energia. Melhora do sono. Disposição no dia a dia. O corpo está respondendo.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">05</div>
+            <div class="slide-title">Semana 4</div>
+            <div class="slide-text">Primeiros dados reais no Next Fit. Composição corporal mudando — antes da balança mostrar.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">06</div>
+            <div class="slide-title">Conclusão</div>
+            <div class="slide-text">"O que parece pouco na semana 1 é o alicerce que sustenta o resultado da semana 12."</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">A semana mais difícil não é a primeira.<br><br>
+É a terceira.<br><br>
+Porque na terceira semana o corpo ainda não mostrou o resultado visivelmente — mas já está completamente diferente por dentro.<br><br>
+Arrasta pro lado e entende o que está acontecendo no seu corpo quando você treina com o Legacy Burn 45. 👉<br><br>
+📲 Quer começar a sua semana 1? Me chama no WhatsApp. Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">📲</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Agende sua semana 1 agora. Primeira aula gratuita. Me chama no WhatsApp. 📲</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Em qual semana você está agora? Comenta 1️⃣ 2️⃣ 3️⃣ ou 4️⃣ aqui embaixo — quero saber como você está! 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#PrimeirasSemanasDeTreeno</span>
+          <span class="hashtag">#MétodoDeEmagrecimento</span>
+          <span class="hashtag">#AcademiaRS</span>
+          <span class="hashtag">#ResultadoReal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARROSSEL A2 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-carrossel">📑</div>
+          <span class="card-format">Carrossel A2 · Tríade Legacy</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Gancho — Slide 1 (Capa)</div>
+          <div class="gancho-text">"Por que a ordem dos exercícios no Legacy Burn 45 não é aleatória — e por que isso muda tudo."</div>
+        </div>
+        <div class="slides-grid">
+          <div class="slide-card">
+            <div class="slide-num">01</div>
+            <div class="slide-title">Capa</div>
+            <div class="slide-text">TÍTULO: "A Tríade Legacy: 3 blocos, 1 protocolo, resultado real"</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">02</div>
+            <div class="slide-title">Por que a ordem</div>
+            <div class="slide-text">Cada bloco prepara o corpo para o próximo. Inverter a ordem muda o resultado. Isso é protocolo, não preferência.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">03</div>
+            <div class="slide-title">Bloco 1 · Acelerador</div>
+            <div class="slide-text">5 minutos de ativação metabólica intensa. Libera catecolaminas. Mobiliza gordura estocada. Prepara o sistema nervoso.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">04</div>
+            <div class="slide-title">Bloco 2 · Funcional</div>
+            <div class="slide-text">20 minutos de trabalho integrado. Força + resistência + cardio. Mantém frequência cardíaca elevada para máxima queima.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">05</div>
+            <div class="slide-title">Bloco 3 · Máquinas</div>
+            <div class="slide-text">20 minutos de isolamento muscular. Aproveita o metabolismo já acelerado. Define, tonifica, preserva a massa magra.</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-num">06</div>
+            <div class="slide-title">Resultado</div>
+            <div class="slide-text">45 minutos de sinergia total. Efeito EPOC ativado. Corpo queimando gordura por até 48h depois.</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">A diferença entre treino e protocolo está na lógica que existe por trás de cada escolha.<br><br>
+No Legacy Burn 45, nenhum exercício está ali por acaso. Cada bloco tem uma função fisiológica específica — e foi posicionado exatamente onde está por uma razão.<br><br>
+Arrasta e entende a lógica completa. 👉<br><br>
+Isso é o que separa quem treina de quem tem resultado.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">🆓</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Quer sentir esse protocolo na prática? Primeira aula gratuita. Me chama no WhatsApp. 📲 Link na bio.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você sabia que a ordem dos exercícios influencia o resultado? Comenta SIM ou NÃO. Sua resposta me diz muito! 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#TriadeLegacy</span>
+          <span class="hashtag">#ProtocoloDeTreino</span>
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#CiênciaDoExercicio</span>
+          <span class="hashtag">#SantaMariaRS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     05 · STORIES — AMBOS OS PERFIS
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="stories">
+  <div class="section-header">
+    <div class="section-number">05</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Stories</div>
+      <h2 class="section-title">Stories — <span>Sequências Completas</span></h2>
+      <p class="section-desc">Sequências prontas para publicar. Cada story tem um papel narrativo específico dentro da sequência: abertura, desenvolvimento, virada e CTA.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-1 container">
+
+    <!-- STORY SEQ 1 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-story">📱</div>
+          <span class="card-format">Sequência S1 · Bastidores do Método</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="stories-sequence">
+          <div class="story-frame">
+            <div class="story-step">Story 01 · Abertura</div>
+            <div class="story-content">TELA: "Vou te contar algo sobre o Legacy Burn 45 que a maioria não sabe."<br><br><em style="color:var(--texto-muted)">Vídeo: Fabiano olhando pra câmera, tom de bastidor</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 02 · Contexto</div>
+            <div class="story-content">TELA: "Ele nasceu de 20 minutos de treino ao vivo. Na garagem. Durante a pandemia."<br><br><em style="color:var(--texto-muted)">Vídeo: mostrar foto/vídeo da garagem ou da época</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 03 · Virada</div>
+            <div class="story-content">TELA: "Sem equipamento, sem estrutura — só método. E as pessoas foram chegando."<br><br><em style="color:var(--texto-muted)">Vídeo ou foto dos primeiros alunos</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 04 · Hoje</div>
+            <div class="story-content">TELA: "Aquilo virou Academia. E o método foi refinado. Hoje é o protocolo completo."<br><br><em style="color:var(--texto-muted)">Mostrar a academia atual</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 05 · CTA</div>
+            <div class="story-content">TELA: "Quer conhecer de perto?"<br><br>Botão de link: "📲 Me chama no WhatsApp"<br><br>Enquete: "Você já conhecia o Legacy Burn 45? ✅ Sim / ❌ Não"</div>
+          </div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#Bastidores</span>
+          <span class="hashtag">#PersonalFabiano</span>
+          <span class="hashtag">#HistóriaDaLegacy</span>
+          <span class="hashtag">#Método</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY SEQ 2 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-story">📱</div>
+          <span class="card-format">Sequência S2 · Dor + Solução</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="stories-sequence">
+          <div class="story-frame">
+            <div class="story-step">Story 01 · Gatilho</div>
+            <div class="story-content">ENQUETE: "Você já começou a treinar mais de uma vez e parou? ✅ Já passei por isso / Não, sou consistente"<br><br><em style="color:var(--texto-muted)">Esperar resposta para o próximo story</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 02 · Empatia</div>
+            <div class="story-content">TELA: "Pra quem votou SIM — isso não é falta de força de vontade. É falta de método, acompanhamento e ambiente."</div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 03 · Solução</div>
+            <div class="story-content">TELA: "Na Legacy você tem os 3:<br>✅ Método (Legacy Burn 45)<br>✅ Acompanhamento próximo<br>✅ Ambiente que te mantém constante"</div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 04 · Prova</div>
+            <div class="story-content">TELA: "Resultados em 2 a 3 meses. Com relatório real de composição corporal. Não na sua imaginação — no papel."</div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 05 · CTA</div>
+            <div class="story-content">TELA: "Primeira aula é GRATUITA."<br><br>Botão de link: "📲 Agenda agora no WhatsApp"<br><br>Caixa de perguntas: "O que te impede de começar hoje?"</div>
+          </div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#LegacyAcademia</span>
+          <span class="hashtag">#AulaExperimental</span>
+          <span class="hashtag">#EmagrecerDe Verdade</span>
+          <span class="hashtag">#SantaMariaRS</span>
+          <span class="hashtag">#PrimeiraAulaGrátis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY SEQ 3 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-story">📱</div>
+          <span class="card-format">Sequência S3 · Semana Típica</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="stories-sequence">
+          <div class="story-frame">
+            <div class="story-step">Story 01 · Abertura</div>
+            <div class="story-content">TELA: "Como é minha semana na prática — sem filtro." <br><br><em style="color:var(--texto-muted)">Vídeo de rotina: acordando, com a família, indo para a academia</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 02 · Manhã</div>
+            <div class="story-content">TELA: "Família em primeiro lugar. Depois disso — modo professor ativado."<br><br><em style="color:var(--texto-muted)">Foto com família ou vídeo curto de manhã</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 03 · Academia</div>
+            <div class="story-content">TELA: "Aqui é onde tudo acontece. Cada aluna tem nome, histórico, objetivo. Não tem treino genérico."<br><br><em style="color:var(--texto-muted)">Vídeo da Legacy em ação</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 04 · Insight</div>
+            <div class="story-content">CAIXA DE PERGUNTA: "O que você mais quer saber sobre emagrecimento feminino? Me manda aqui 👇"<br><br><em style="color:var(--texto-muted)">Responder as perguntas em um story extra</em></div>
+          </div>
+          <div class="story-frame">
+            <div class="story-step">Story 05 · Encerramento</div>
+            <div class="story-content">TELA: "Tem conteúdo novo amanhã. Me segue pra não perder." + Botão de seguir</div>
+          </div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#RotinaDePersonal</span>
+          <span class="hashtag">#BastidoresDaLegacy</span>
+          <span class="hashtag">#PersonalFabiano</span>
+          <span class="hashtag">#VidaReal</span>
+          <span class="hashtag">#TreinadorDe Verdade</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     06 · ESTÁTICO — AMBOS OS PERFIS
+═══════════════════════════════════════════════════════ -->
+<section class="section-block" id="estatico">
+  <div class="section-header">
+    <div class="section-number">06</div>
+    <div class="section-title-wrap">
+      <div class="section-tag">Formato · Imagem Única</div>
+      <h2 class="section-title">Estático — <span>Frases de Impacto</span></h2>
+      <p class="section-desc">Posts estáticos para capturar atenção imediata. Frases fortes, dados e viradas de narrativa. Ideais para salvar e compartilhar.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid cols-2 container">
+
+    <!-- ESTATICO E1 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-estatico">🖼</div>
+          <span class="card-format">Estático E1 · Frase Autoridade</span>
+        </div>
+        <span class="profile-pill pessoal">@proffabianocosta</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Frase principal — texto central da imagem</div>
+          <div class="gancho-text">"Personal trainer te diz quantas séries fazer.<br>Educador do Movimento entende por que seu joelho dói quando você agacha.<br><br>São coisas diferentes."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">14 anos de atuação me ensinaram uma coisa:<br><br>
+Carga e repetição resolvem parte do problema. Mas padrão de movimento, compensações posturais e qualidade de execução resolvem o que a maioria dos treinos ignora.<br><br>
+Isso é o que faz da Legacy um ambiente diferente.<br><br>
+Aqui você não é um número de matrícula. Você é avaliada, acompanhada e ajustada a cada sessão.<br><br>
+<strong>Resultado não é só o que você vê na balança. É como você se move, como você dorme, como você vive.</strong></div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">💾</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Salva esse post. E manda pra quem ainda confunde treino com protocolo.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você já teve um treino que corrigiu um problema postural ou de dor? Conta aqui 👇 Adoro ler essas histórias.</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#EducadorDoMovimento</span>
+          <span class="hashtag">#PersonalTrainerRS</span>
+          <span class="hashtag">#TreinoComPropósito</span>
+          <span class="hashtag">#MovimentoÉVida</span>
+          <span class="hashtag">#FabianoCostaPersonal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTATICO E2 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-estatico">🖼</div>
+          <span class="card-format">Estático E2 · Resultado em Dados</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Frase principal — texto central da imagem</div>
+          <div class="gancho-text">"Uma foto pode ser ângulo, luz e roupa.<br>Um dado de composição corporal não tem como mentir."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Na Legacy, o resultado é medido. Documentado. Comparado.<br><br>
+Não com foto, não com balança — com relatório real de composição corporal via Next Fit.<br><br>
+📏 Percentual de gordura<br>
+💪 Massa magra<br>
+⚖️ Composição real do corpo<br><br>
+Esses dados mostram o que a balança esconde: você pode estar emagrecendo gordura e ganhando músculo ao mesmo tempo, sem a balança se mover.<br><br>
+<strong>Resultado real precisa de medição real.</strong><br><br>
+📲 Quer fazer sua avaliação? Me chama no WhatsApp. Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">📊</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Agende agora sua avaliação inicial gratuita com Next Fit. 📲 Link na bio.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Você usa a balança como única medida de resultado? Comenta aqui — quero saber se esse post mudou algo pra você. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#ComposiçãoCorporal</span>
+          <span class="hashtag">#NextFit</span>
+          <span class="hashtag">#ResultadoReal</span>
+          <span class="hashtag">#AvaliaçãoFísica</span>
+          <span class="hashtag">#LegacyAcademia</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTATICO E3 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-estatico">🖼</div>
+          <span class="card-format">Estático E3 · Frase de Retenção</span>
+        </div>
+        <span class="profile-pill ambos">Ambos os perfis</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Frase principal — texto central da imagem</div>
+          <div class="gancho-text">"Constância supera perfeição.<br>Um treino razoável todo dia vale mais do que um treino perfeito uma vez por semana."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">Você não precisa de uma semana perfeita.<br><br>
+Você precisa de uma semana.<br><br>
+Sem falhar. Sem desculpa. Sem esperar as condições ideais chegarem.<br><br>
+O maior inimigo do resultado não é a falta de tempo.<br>É a busca pela perfeição que paralisa antes de começar.<br><br>
+<strong>Comece. Repita. Melhore depois.</strong><br><br>
+Essa é a lógica do Legacy Burn 45 — e é a lógica de tudo que funciona na vida.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">❤️</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Curte se você precisava ouvir isso hoje. E salva pra reler quando bater aquela vontade de esperar a hora certa.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">Marca alguém que está esperando as condições perfeitas para começar. Às vezes um empurrão amigo é tudo que falta. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#Constância</span>
+          <span class="hashtag">#MindsetDeTreino</span>
+          <span class="hashtag">#ComeçaHoje</span>
+          <span class="hashtag">#LegacyBurn45</span>
+          <span class="hashtag">#MotivaçãoReal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTATICO E4 -->
+    <div class="content-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="fmt-icon fmt-estatico">🖼</div>
+          <span class="card-format">Estático E4 · A Legacy em si</span>
+        </div>
+        <span class="profile-pill profissional">@legacyacademiasm</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho-box">
+          <div class="gancho-label">⚡ Frase principal — texto central da imagem</div>
+          <div class="gancho-text">"Não somos a maior academia de Santa Maria.<br>Somos a que te acompanha desde o primeiro dia."</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Legenda do post</span>
+          <div class="legenda-box">
+            <div class="field-content">A Legacy não tem piscina. Não tem sauna. Não tem centenas de equipamentos espalhados sem sentido.<br><br>
+Tem método. Tem acompanhamento. Tem resultado mensurável.<br><br>
+E tem algo que academia grande não tem: um professor que sabe o seu nome, o seu histórico e o seu objetivo — e vai do seu lado em cada sessão.<br><br>
+Se você chegou aqui perdida, vai embora com direção.<br>Se você chegou sem resultado, vai embora com protocolo.<br>Se você chegou sozinha, vai embora pertencendo a uma comunidade.<br><br>
+<strong>Bem-vinda à Legacy. 🔥</strong><br><br>
+📲 Agende sua aula experimental. Primeira vez é gratuita. Link na bio.</div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-icon">🔥</div>
+          <div>
+            <div class="cta-label">CTA</div>
+            <div class="cta-text">Se você quer treinar em um lugar onde você é vista de verdade — me chama. 📲 Link na bio.</div>
+          </div>
+        </div>
+        <div class="eng-box">
+          <div class="eng-label">🔥 Gatilho de Engajamento</div>
+          <div class="eng-text">O que te fez escolher sua academia atual? Me conta nos comentários — quero entender o que as pessoas valorizam. 👇</div>
+        </div>
+        <div class="hashtag-cloud">
+          <span class="hashtag">#LegacyAcademia</span>
+          <span class="hashtag">#AcademiaSantaMaria</span>
+          <span class="hashtag">#ComunidadeLegacy</span>
+          <span class="hashtag">#AmbienteDeTreino</span>
+          <span class="hashtag">#SantaMariaRS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="logo-text">LEGACY BURN 45</div>
+  <p>Estrutura de conteúdo desenvolvida para @proffabianocosta e @legacyacademiasm</p>
+  <p style="margin-top:6px; font-size:12px;">Santa Maria, RS · Método Exclusivo de Emagrecimento e Definição Corporal</p>
+</footer>
+
+<!-- LEGENDA FIXA -->
+<div class="legend-bar">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> @proffabianocosta — Pessoal</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ciano)"></div> @legacyacademiasm — Academia</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--vermelho)"></div> Ambos os perfis</div>
+</div>
+
+</body>
+</html>

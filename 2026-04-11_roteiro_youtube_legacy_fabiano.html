@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro YouTube · Fabiano Costa · A Jornada da Aluna Legacy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;600;700&family=Barlow+Condensed:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #080810;
+    --surface:   #111120;
+    --surface2:  #181828;
+    --border:    rgba(255,255,255,0.07);
+    --red:       #e8230f;
+    --red-glow:  rgba(232,35,15,0.18);
+    --orange:    #ff6b2b;
+    --gold:      #d4a843;
+    --cyan:      #00d4ef;
+    --green:     #22c97a;
+    --white:     #f0efe8;
+    --muted:     #666;
+    --muted2:    #999;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background:#fff; color:#111; font-size:12px; }
+    .no-print { display:none !important; }
+    .scene-block { break-inside: avoid; border:1px solid #ddd !important; background:#fafafa !important; }
+    .scene-header { background:#222 !important; }
+    footer { display:none; }
+  }
+
+  /* ══════════ COVER ══════════ */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 100% 80%, rgba(232,35,15,0.14) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 10% 20%, rgba(0,212,239,0.06) 0%, transparent 60%);
+  }
+  .cover-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cover-eyebrow::before {
+    content:'';
+    display:block;
+    width:32px; height:2px;
+    background: var(--red);
+  }
+  .cover h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(54px, 9vw, 110px);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .cover h1 .highlight { color: var(--red); }
+  .cover-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    position: relative;
+    margin-bottom: 48px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .meta-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .meta-value.red { color: var(--red); }
+  .cover-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--orange) 40%, transparent 100%);
+  }
+
+  /* ══════════ MAIN LAYOUT ══════════ */
+  .page { max-width: 1060px; margin: 0 auto; padding: 60px 32px 120px; }
+
+  /* ══════════ CHAPTER HEADER ══════════ */
+  .chapter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 48px 0 32px;
+  }
+  .chapter-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: rgba(232,35,15,0.2);
+    min-width: 64px;
+  }
+  .chapter-body {}
+  .chapter-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .chapter-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+  .chapter-title .acc { color: var(--red); }
+  .chapter-desc {
+    color: var(--muted2);
+    font-size: 14px;
+    margin-top: 6px;
+    max-width: 640px;
+  }
+  .chapter-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--red) 0%, rgba(232,35,15,0.1) 30%, transparent 100%);
+    margin-bottom: 32px;
+  }
+
+  /* ══════════ SCENE BLOCK ══════════ */
+  .scene-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .scene-block:hover { border-color: rgba(232,35,15,0.2); }
+
+  .scene-header {
+    background: var(--surface2);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .scene-id {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .scene-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--white);
+    flex: 1;
+    padding: 0 16px;
+  }
+  .scene-duration {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .scene-body { padding: 24px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .scene-body.single { grid-template-columns: 1fr; }
+  .scene-body.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+  @media(max-width:700px) {
+    .scene-body, .scene-body.triple { grid-template-columns: 1fr; }
+    .cover { padding: 60px 24px; }
+    .page { padding: 40px 20px 80px; }
+  }
+
+  /* ══════════ CONTENT ATOMS ══════════ */
+  .atom {}
+  .atom-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .atom-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background: var(--border);
+  }
+
+  /* Fala */
+  .fala-box {
+    background: rgba(232,35,15,0.06);
+    border-left: 3px solid var(--red);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--white);
+  }
+  .fala-box strong { color: var(--red); }
+  .fala-box em { color: var(--gold); font-style: normal; font-weight: 600; }
+
+  /* Direção de câmera */
+  .camera-box {
+    background: rgba(0,212,239,0.05);
+    border: 1px solid rgba(0,212,239,0.15);
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--cyan);
+    line-height: 1.6;
+  }
+  .camera-box .cam-icon { font-size: 16px; margin-right: 6px; }
+
+  /* Notas de produção */
+  .nota-box {
+    background: rgba(212,168,67,0.06);
+    border: 1px solid rgba(212,168,67,0.18);
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gold);
+    line-height: 1.6;
+  }
+
+  /* Checklist */
+  .check-list { list-style: none; }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: '□';
+    color: var(--red);
+    font-size: 16px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* Frases de tela (B-roll text) */
+  .tela-list { list-style: none; }
+  .tela-list li {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .tela-list li:last-child { border-bottom: none; }
+  .tela-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--red);
+    line-height: 1.1;
+    min-width: 24px;
+  }
+  .tela-text { font-size: 13px; line-height: 1.5; color: #ccc; }
+  .tela-text strong { color: var(--white); font-size: 14px; display: block; }
+
+  /* Protocolo bloco */
+  .proto-block {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .proto-header {
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .proto-header.b1 { background: rgba(232,35,15,0.12); border-bottom: 1px solid rgba(232,35,15,0.2); }
+  .proto-header.b2 { background: rgba(0,212,239,0.08); border-bottom: 1px solid rgba(0,212,239,0.15); }
+  .proto-header.b3 { background: rgba(34,201,122,0.08); border-bottom: 1px solid rgba(34,201,122,0.15); }
+  .proto-icon { font-size: 24px; }
+  .proto-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .proto-header.b1 .proto-name { color: var(--red); }
+  .proto-header.b2 .proto-name { color: var(--cyan); }
+  .proto-header.b3 .proto-name { color: var(--green); }
+  .proto-time {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+  .proto-body { padding: 16px 18px; }
+  .proto-point {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #bbb;
+    padding: 5px 0;
+  }
+  .proto-point::before {
+    content: '→';
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* CTA box */
+  .cta-strip {
+    background: linear-gradient(135deg, rgba(232,35,15,0.15), rgba(255,107,43,0.08));
+    border: 1px solid rgba(232,35,15,0.25);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-top: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cta-icon { font-size: 22px; margin-top: 2px; flex-shrink: 0; }
+  .cta-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .cta-text { font-size: 14px; line-height: 1.55; color: var(--white); }
+
+  /* Faixa de tempo total */
+  .timeline-bar {
+    display: flex;
+    gap: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 32px 0;
+    height: 10px;
+  }
+  .tl-seg { height: 100%; }
+
+  /* ══════════ PROGRESS INDICATOR ══════════ */
+  .progress-nav {
+    position: fixed;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 99;
+  }
+  .pn-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .pn-dot:hover { background: var(--red); transform: scale(1.4); }
+  .pn-dot.active { background: var(--red); }
+
+  @media(max-width:900px) { .progress-nav { display:none; } }
+
+  /* ══════════ PRINT BTN ══════════ */
+  .print-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 24px rgba(232,35,15,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .print-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(232,35,15,0.45); }
+
+  /* ══════════ SEPARADOR DE SEÇÃO ══════════ */
+  .section-sep {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+  }
+  .section-sep .label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .section-sep .line { flex:1; height:1px; background: var(--border); }
+
+  /* ══════════ MINI BADGE ══════════ */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .badge.red { background: rgba(232,35,15,0.15); color: var(--red); border: 1px solid rgba(232,35,15,0.3); }
+  .badge.cyan { background: rgba(0,212,239,0.1); color: var(--cyan); border: 1px solid rgba(0,212,239,0.25); }
+  .badge.green { background: rgba(34,201,122,0.1); color: var(--green); border: 1px solid rgba(34,201,122,0.25); }
+  .badge.gold { background: rgba(212,168,67,0.1); color: var(--gold); border: 1px solid rgba(212,168,67,0.25); }
+
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="progress-nav no-print">
+  <a href="#cover" class="pn-dot" title="Capa"></a>
+  <a href="#abertura" class="pn-dot" title="Abertura"></a>
+  <a href="#apresentacao" class="pn-dot" title="Apresentação"></a>
+  <a href="#chegada" class="pn-dot" title="Chegada"></a>
+  <a href="#avaliacao" class="pn-dot" title="Avaliação"></a>
+  <a href="#objetivos" class="pn-dot" title="Objetivos"></a>
+  <a href="#protocolo" class="pn-dot" title="Protocolo"></a>
+  <a href="#b1" class="pn-dot" title="Bloco 1"></a>
+  <a href="#b2" class="pn-dot" title="Bloco 2"></a>
+  <a href="#b3" class="pn-dot" title="Bloco 3"></a>
+  <a href="#acompanhamento" class="pn-dot" title="Acompanhamento"></a>
+  <a href="#fechamento" class="pn-dot" title="Fechamento"></a>
+</nav>
+
+<!-- PRINT BTN -->
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir Roteiro</button>
+
+<!-- ══════════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════════ -->
+<section class="cover" id="cover">
+  <div class="cover-eyebrow">Roteiro · YouTube · @fabianocostapersonal</div>
+  <h1>A JORNADA DA<br><span class="highlight">ALUNA LEGACY</span></h1>
+  <p class="cover-sub">Do primeiro contato ao resultado — o caminho completo com o Legacy Burn 45</p>
+  <div class="cover-meta">
+    <div class="meta-item">
+      <span class="meta-label">Duração estimada</span>
+      <span class="meta-value red">18 – 25 min</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Canal</span>
+      <span class="meta-value">@fabianocostapersonal</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Formato</span>
+      <span class="meta-value">Educativo + Autoridade</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Cenas / Seções</span>
+      <span class="meta-value">8 blocos</span>
+    </div>
+  </div>
+  <div class="cover-line"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     BARRA DE TEMPO VISUAL
+══════════════════════════════════════════════ -->
+<div class="page" style="padding-bottom:0; padding-top:40px;">
+  <div class="section-sep"><span class="label">Mapa de Tempo do Vídeo</span><span class="line"></span></div>
+  <div style="display:grid; grid-template-columns: repeat(8,1fr); gap:4px; margin-bottom:8px;">
+    <div style="background:rgba(232,35,15,0.7); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Abertura<br><span style="opacity:.7;font-size:10px">0:00 – 1:00</span></div>
+    <div style="background:rgba(232,35,15,0.5); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Apresentação<br><span style="opacity:.7;font-size:10px">1:00 – 2:30</span></div>
+    <div style="background:rgba(255,107,43,0.6); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Chegada<br><span style="opacity:.7;font-size:10px">2:30 – 5:00</span></div>
+    <div style="background:rgba(212,168,67,0.6); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Avaliação<br><span style="opacity:.7;font-size:10px">5:00 – 8:30</span></div>
+    <div style="background:rgba(212,168,67,0.4); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Objetivos<br><span style="opacity:.7;font-size:10px">8:30 – 11:00</span></div>
+    <div style="background:rgba(0,212,239,0.5); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Protocolo<br><span style="opacity:.7;font-size:10px">11:00 – 18:00</span></div>
+    <div style="background:rgba(34,201,122,0.5); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Acompanham.<br><span style="opacity:.7;font-size:10px">18:00 – 21:00</span></div>
+    <div style="background:rgba(232,35,15,0.6); border-radius:3px; padding:10px 8px; font-size:11px; font-weight:700; color:#fff; text-align:center;">Fechamento<br><span style="opacity:.7;font-size:10px">21:00 – 25:00</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 1 — ABERTURA
+══════════════════════════════════════════════ -->
+<div class="page" id="abertura">
+
+  <div class="chapter">
+    <div class="chapter-num">01</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Abertura · 0:00 – 1:00</div>
+      <h2 class="chapter-title">O <acc class="acc">Gancho</acc> — Primeiros 30 Segundos</h2>
+      <p class="chapter-desc">O gancho é o que decide se o espectador fica ou abandona. Começar direto no ponto de dor mais forte da sua audiência.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 01</span>
+      <span class="scene-title">Gancho de Abertura — Câmera Direta</span>
+      <span class="scene-duration">⏱ 0:00 – 0:35</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Decorar ou Ter como Guia</div>
+        <div class="fala-box">
+          Você já se matriculou em academia, começou cheio de motivação... e parou na terceira semana?<br><br>
+          Você já emagrece, para, engorda de volta — e fica nesse ciclo que nunca termina?<br><br>
+          Se a sua resposta foi sim pra qualquer uma dessas perguntas, esse vídeo foi feito pra você.<br><br>
+          <em>Pausa de 1 segundo. Olha pra câmera.</em><br><br>
+          Porque hoje eu vou te mostrar, do zero, como funciona o caminho de uma aluna dentro da Legacy — desde a primeira conversa, passando pela avaliação física, até cada bloco do protocolo Legacy Burn 45.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Direção de Câmera</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span><strong>Enquadramento:</strong> busto, fundo da academia ou parede limpa com a identidade visual.<br><br>
+          <span class="cam-icon">💡</span><strong>Luz:</strong> frontal suave. Sem sombra pesada no rosto.<br><br>
+          <span class="cam-icon">🎭</span><strong>Postura:</strong> levemente inclinado pra frente. Tom direto. Sem enrolação. Transmite que o vídeo tem começo, meio e fim claros.
+        </div>
+        <div class="nota-box" style="margin-top:12px;">
+          <strong>⚡ Nota de produção:</strong> Não comece com "Olá, pessoal, bem-vindos ao canal". Vai direto na dor. O algoritmo do YouTube mede os primeiros 30 segundos — quem sai cedo penaliza o vídeo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 02</span>
+      <span class="scene-title">Apresentação Rápida + Promessa do Vídeo</span>
+      <span class="scene-duration">⏱ 0:35 – 1:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          Eu sou o Fabiano Costa — personal trainer há 14 anos, educador do movimento, professor de educação física e criador do método Legacy Burn 45.<br><br>
+          <em>Pausa.</em><br><br>
+          Nesse vídeo você vai entender por que as mulheres que chegam na Legacy chegam sem resultado — e saem com transformação real. Documentada. Medida.<br><br>
+          Fica até o final. Vale cada minuto.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Direção + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">🎬</span> Aqui pode entrar uma sequência de B-roll rápida (5–8 segundos): imagens da academia, alunas treinando, protocolo em ação.<br><br>
+          <span class="cam-icon">🎵</span> Música de fundo: começa baixa e cresce levemente nessa transição.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 2 — CHEGADA DA ALUNA
+══════════════════════════════════════════════ -->
+<div class="page" id="chegada">
+
+  <div class="chapter">
+    <div class="chapter-num">02</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Etapa 1 · 2:30 – 5:00</div>
+      <h2 class="chapter-title">A <acc class="acc">Primeira Conversa</acc> — Entendendo Quem é Essa Mulher</h2>
+      <p class="chapter-desc">A acolhida, o diagnóstico inicial e o respeito pelo ponto de partida real da aluna. Não onde ela deveria estar — onde ela está.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 03</span>
+      <span class="scene-title">Contexto — Por que a Primeira Conversa Importa</span>
+      <span class="scene-duration">⏱ 2:30 – 3:15</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          Quando uma aluna chega na Legacy pela primeira vez, a gente não começa pelo treino.<br><br>
+          A gente começa pela conversa.<br><br>
+          <em>Tom mais pesado:</em><br><br>
+          Porque a maioria dos erros que vejo em academia começa aqui — o aluno chega, assina a ficha, e vai pro treino sem que ninguém tenha entendido de verdade quem ele é, de onde ele vem, e o que ele precisa.<br><br>
+          Na Legacy, isso não existe. Antes de qualquer treino, tem uma conversa real.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera + B-roll sugerido</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Câmera no rosto enquanto fala. Pode cortar para imagem de uma conversa entre você e uma aluna (simulação ou real com autorização).<br><br>
+          <span class="cam-icon">💡</span> Tom mais grave, ritmo mais lento nessa parte — ela é de autoridade e confiança, não de energia alta.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 04</span>
+      <span class="scene-title">O Que É Investigado na Primeira Conversa</span>
+      <span class="scene-duration">⏱ 3:15 – 5:00</span>
+    </div>
+    <div class="scene-body single">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Pode usar lista visual na tela</div>
+        <div class="fala-box">
+          Nessa primeira conversa, eu preciso entender algumas coisas fundamentais:<br><br>
+          <strong>1. O histórico de saúde.</strong><br>
+          Tem alguma condição que preciso saber? Problema articular, pressão, histórico de lesão? Isso define o que posso e não posso fazer.<br><br>
+          <strong>2. O histórico de atividade física.</strong><br>
+          Já treinou antes? Parou por quê? Há quanto tempo está sedentária? Isso define o ponto de partida real — não o ideal, o real.<br><br>
+          <strong>3. A rotina de vida.</strong><br>
+          Trabalha fora? Tem filhos? Como é a sua semana? Tenho que saber se 3 dias por semana são viáveis ou se 5 são possíveis. Resultado exige consistência — e consistência precisa caber na vida real.<br><br>
+          <strong>4. O que ela já tentou.</strong><br>
+          Academia? Dieta? Funcional? Crossfit? Preciso saber o que não funcionou para entender por quê. Muitas vezes o problema não foi a falta de esforço — foi a ausência de método adequado para aquele corpo, naquele momento de vida.<br><br>
+          <strong>5. O objetivo real.</strong><br>
+          Não o objetivo genérico de "emagrecer". O objetivo dela. Quer baixar o vestido tal? Quer ter mais energia pra brincar com os filhos? Quer controlar a pressão? Cada objetivo molda a estratégia.
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0;">
+      <div class="atom">
+        <div class="atom-label">🎬 Produção — Telas sugeridas durante a fala</div>
+        <div class="camera-box">
+          Enquanto enumera cada item, pode aparecer um card na tela com o texto resumido:<br><br>
+          <strong>• "Histórico de saúde"</strong><br>
+          <strong>• "Histórico de atividade"</strong><br>
+          <strong>• "Rotina de vida"</strong><br>
+          <strong>• "O que já tentou"</strong><br>
+          <strong>• "O objetivo real"</strong><br><br>
+          Cada um aparece na tela enquanto você fala. Mantém o espectador ancorado.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">📝 Nota de Autoridade</div>
+        <div class="nota-box">
+          Esse bloco é onde você se diferencia. Reforça que na Legacy não tem ficha genérica — tem escuta ativa. Fale com convicção, sem pressa. Essa parte gera confiança no espectador que está te assistindo e que talvez esteja considerando ser sua aluna.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 3 — AVALIAÇÃO FÍSICA
+══════════════════════════════════════════════ -->
+<div class="page" id="avaliacao">
+
+  <div class="chapter">
+    <div class="chapter-num">03</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Etapa 2 · 5:00 – 8:30</div>
+      <h2 class="chapter-title">A <acc class="acc">Avaliação Física</acc> — Medindo o Ponto de Partida Real</h2>
+      <p class="chapter-desc">Peso, medidas, composição corporal e fotos. O diagnóstico completo que transforma "sensação" em dado.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 05</span>
+      <span class="scene-title">Por Que Medir Antes de Treinar</span>
+      <span class="scene-duration">⏱ 5:00 – 6:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          Antes de qualquer treino, a gente avalia.<br><br>
+          E eu sei que muita gente torce o nariz pra avaliação física — especialmente quem está começando, que não quer ver os números porque sabe que não vai gostar.<br><br>
+          <em>Tom firme:</em><br><br>
+          Mas é exatamente por isso que ela é obrigatória.<br><br>
+          Porque sem o ponto de partida, você não sabe se está evoluindo. Você se baseia na sensação — e sensação engana. Dado não.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Pode mostrar o equipamento Next Fit ou o ambiente de avaliação da Legacy enquanto fala.<br><br>
+          <span class="cam-icon">✂️</span> Corte suave ao final da frase "Dado não." — pequena pausa antes de continuar.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 06</span>
+      <span class="scene-title">O Que É Avaliado — Passo a Passo</span>
+      <span class="scene-duration">⏱ 6:00 – 8:00</span>
+    </div>
+    <div class="scene-body single">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala detalhada</div>
+        <div class="fala-box">
+          Na avaliação inicial da Legacy, a gente coleta quatro tipos de informação:<br><br>
+          <strong>Peso corporal.</strong><br>
+          Mas atenção — o peso é só um número. Ele não diz se você está perdendo gordura ou massa magra. Por isso ele existe aqui como referência, não como o dado mais importante.<br><br>
+          <strong>Medidas corporais.</strong><br>
+          Cintura, abdômen, quadril, coxas, braços. São essas medidas que vão mostrar onde o corpo está respondendo ao protocolo — e a cintura costuma ser a primeira a reagir.<br><br>
+          <strong>Composição corporal — via Next Fit.</strong><br>
+          Aqui é o diferencial. O sistema Next Fit me dá percentual de gordura, massa magra e índice de hidratação. Com esses dados, eu consigo enxergar o que a balança esconde: a aluna pode estar perdendo gordura e ganhando músculo ao mesmo tempo — e a balança ficar quieta. Mas o Next Fit vai mostrar exatamente o que está acontecendo por dentro.<br><br>
+          <strong>Fotos.</strong><br>
+          Registro visual do ponto de partida. Frente, lado e costas. Não pra expor ninguém — pra que a aluna se veja daqui a 60 dias e entenda visualmente o que mudou. Às vezes o espelho do dia a dia não mostra. A comparação de foto mostra.
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0">
+      <div class="atom">
+        <div class="atom-label">🎬 B-roll sugerido</div>
+        <div class="camera-box">
+          Imagens do processo de avaliação: fita métrica na cintura, tela do Next Fit com dados, câmera registrando. Pode ser simulação — o que importa é dar contexto visual ao que está sendo descrito.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">📝 Nota de roteiro</div>
+        <div class="nota-box">
+          Aqui é um ótimo momento para mostrar um relatório comparativo real (com autorização da aluna, com nome ocultado se necessário). Um dado concreto de antes e depois gera muito mais credibilidade do que qualquer foto de transformação.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 07</span>
+      <span class="scene-title">Frase de Transição para Objetivos</span>
+      <span class="scene-duration">⏱ 8:00 – 8:30</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Ponte para próxima seção</div>
+        <div class="fala-box">
+          Com os dados em mãos, agora a gente tem um mapa. A gente sabe exatamente de onde está saindo.<br><br>
+          Aí vem o próximo passo: definir para onde vai.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Transição</div>
+        <div class="camera-box">
+          <span class="cam-icon">✂️</span> Corte direto ou fade rápido. Pode usar texto na tela: <strong>"ETAPA 3 — OBJETIVOS E METAS"</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 4 — OBJETIVOS E METAS
+══════════════════════════════════════════════ -->
+<div class="page" id="objetivos">
+
+  <div class="chapter">
+    <div class="chapter-num">04</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Etapa 3 · 8:30 – 11:00</div>
+      <h2 class="chapter-title">Objetivos e <acc class="acc">Metas Reais</acc></h2>
+      <p class="chapter-desc">A diferença entre sonho e meta é a especificidade. Aqui Fabiano explica como transforma desejos vagos em alvos mensuráveis e alcançáveis.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 08</span>
+      <span class="scene-title">O Problema com "Quero Emagrecer"</span>
+      <span class="scene-duration">⏱ 8:30 – 9:30</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          Quando pergunto qual é o objetivo de uma aluna, a resposta mais comum é: "quero emagrecer".<br><br>
+          <em>Pausa. Tom amigável mas direto:</em><br><br>
+          Tudo bem. Mas isso não é uma meta. Isso é um desejo.<br><br>
+          Uma meta tem número, tem prazo e tem realidade.<br><br>
+          "Quero perder 6 centímetros de cintura em 90 dias" — isso é uma meta.<br>
+          "Quero estar com X quilos até tal mês" — isso é uma meta.<br>
+          "Quero ter energia pra subir uma escada sem cansar" — isso é uma meta.<br><br>
+          Quando a meta é específica, eu consigo calibrar o protocolo. E a aluna consegue saber quando chegou lá.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Câmera principal. Tom levemente professoral. Pode usar os dedos pra contar os exemplos de metas.<br><br>
+          <span class="cam-icon">💡</span> Dica de performance: pequena pausa dramática antes de "Isso é um desejo." — deixa o espectador processar.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 09</span>
+      <span class="scene-title">Metas Alcançáveis — O que é Realista em 12 Semanas</span>
+      <span class="scene-duration">⏱ 9:30 – 11:00</span>
+    </div>
+    <div class="scene-body single">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — dados reais do protocolo</div>
+        <div class="fala-box">
+          Aqui eu vou ser honesto com você — porque honestidade é o que gera resultado a longo prazo.<br><br>
+          Não existe protocolo que entrega 20 quilos em 30 dias de forma saudável. Quem promete isso está te vendendo ilusão.<br><br>
+          <em>Tom firme e confiante:</em><br><br>
+          O que o Legacy Burn 45, seguido com consistência de 3 a 5 vezes por semana, entrega em 12 semanas:<br><br>
+          <strong>• Redução de 8% a 15% no percentual de gordura corporal.</strong><br>
+          <strong>• Ganho de 2 a 3 quilos de massa magra.</strong><br>
+          <strong>• Redução de 4 a 6 centímetros de cintura.</strong><br>
+          <strong>• Aumento de até 30% na força física.</strong><br>
+          <strong>• Melhora significativa de energia, sono e autoestima.</strong><br><br>
+          Isso não é promessa. É o que os dados das nossas alunas mostram. Medido. Documentado. Real.<br><br>
+          E olha que o mais importante geralmente não aparece na balança — aparece no espelho, na postura, na roupa que voltou a servir, na disposição que voltou a existir.
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0;">
+      <div class="atom">
+        <div class="atom-label">🎬 Tela — colocar os dados em texto enquanto fala</div>
+        <div class="camera-box">
+          Ao citar cada resultado, aparecer o dado na tela:<br>
+          <strong>"−8% a −15% gordura"</strong> | <strong>"+2–3 kg massa magra"</strong> | <strong>"−4–6 cm cintura"</strong><br><br>
+          Isso ancora o dado e reforça credibilidade técnica.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">📝 Frase de Transição para o Protocolo</div>
+        <div class="nota-box">
+          Terminar essa cena com: <em>"Agora que você sabe onde começa e para onde vai — deixa eu te mostrar como o protocolo funciona por dentro."</em> Isso cria antecipação para a parte central do vídeo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 5 — O PROTOCOLO LEGACY BURN 45
+══════════════════════════════════════════════ -->
+<div class="page" id="protocolo">
+
+  <div class="chapter">
+    <div class="chapter-num">05</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Etapa 4 · 11:00 – 18:00 — Coração do Vídeo</div>
+      <h2 class="chapter-title">O Protocolo <acc class="acc">Legacy Burn 45</acc></h2>
+      <p class="chapter-desc">A estrutura científica dos três blocos. A parte mais técnica e mais valiosa do vídeo — explica o porquê de cada escolha.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 10</span>
+      <span class="scene-title">Introdução ao Protocolo — O que é e por que funciona</span>
+      <span class="scene-duration">⏱ 11:00 – 12:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          O Legacy Burn 45 não é uma aula. É um protocolo.<br><br>
+          <em>Pausa. Tom de professor:</em><br><br>
+          Qual é a diferença? Uma aula pode ser qualquer coisa — depende do humor do professor, do equipamento disponível, do tempo que sobrou. Um protocolo é uma sequência de estímulos calculada, com propósito fisiológico definido para cada etapa.<br><br>
+          Aqui na Legacy, cada aluna treina o mesmo protocolo — mas com a intensidade e as adaptações certas pro seu corpo e seu nível.<br><br>
+          O protocolo tem 45 minutos. Dividido em 3 blocos. E a ordem desses blocos não é aleatória — ela segue a fisiologia do exercício.<br><br>
+          Vou te explicar cada um.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Tela + Produção</div>
+        <div class="camera-box">
+          Colocar na tela enquanto fala:<br><br>
+          <strong>LEGACY BURN 45</strong><br>
+          🔥 Bloco 1 — Acelerador · 5 min<br>
+          ⚡ Bloco 2 — Funcional · 20 min<br>
+          🏋 Bloco 3 — Máquinas · 20 min<br><br>
+          <strong>Total: 45 minutos</strong><br><br>
+          Esse gráfico fica na tela pelos próximos 10–15 segundos enquanto você faz a transição para o Bloco 1.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- BLOCO 1 -->
+<div class="page" id="b1">
+
+  <div class="section-sep"><span class="label">Bloco 1 · Acelerador da Queima de Gordura</span><span class="line"></span><span class="badge red">5 minutos</span></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 11</span>
+      <span class="scene-title">🔥 Bloco 1 — Método Acelerador da Queima de Gordura</span>
+      <span class="scene-duration">⏱ 12:00 – 13:30</span>
+    </div>
+    <div class="scene-body single">
+      <div class="proto-block">
+        <div class="proto-header b1">
+          <span class="proto-icon">🔥</span>
+          <span class="proto-name">Bloco 1 · Acelerador</span>
+          <span class="proto-time">5 minutos</span>
+        </div>
+        <div class="proto-body">
+          <div class="proto-point">Ativação metabólica intensa de 5 minutos — antes do treino principal.</div>
+          <div class="proto-point">Objetivo: elevar frequência cardíaca rapidamente e liberar catecolaminas (adrenalina e noradrenalina).</div>
+          <div class="proto-point">Catecolaminas mobilizam a gordura estocada para ser usada como energia durante todo o treino seguinte.</div>
+          <div class="proto-point">Formato: 2 exercícios de alta intensidade alternados, sem descanso.</div>
+          <div class="proto-point">Exemplos: burpees, agachamento com salto, prancha com batida de pernas, corrida estacionária intensa.</div>
+          <div class="proto-point">Prepara articulações e músculos para os blocos 2 e 3 — reduz risco de lesão e amplifica o resultado seguinte.</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0;">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala Principal do Bloco 1</div>
+        <div class="fala-box">
+          O primeiro bloco é o que eu chamo de Acelerador da Queima de Gordura. São 5 minutos de ativação metabólica de alta intensidade.<br><br>
+          A pergunta que eu mais ouço é: "Por que começar com isso? Não é melhor esquentar devagar?"<br><br>
+          <em>Resposta técnica, tom firme:</em><br><br>
+          Esse bloco existe por um motivo fisiológico muito específico: ele força o corpo a liberar catecolaminas. Adrenalina e noradrenalina. Esses hormônios são os responsáveis por mobilizar a gordura que está estocada no seu corpo e colocá-la como combustível disponível para os próximos 40 minutos de treino.<br><br>
+          Sem esse bloco, o corpo demora muito mais tempo para acessar a gordura como fonte de energia. Com ele, você já começa o funcional e a musculação com o metabolismo em modo de queima ativa.<br><br>
+          Em 5 minutos, o corpo já está preparado. A temperatura sobe, a frequência cardíaca sobe, o sistema nervoso está ativado.<br><br>
+          Tudo que vem depois funciona melhor por causa disso.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Câmera principal para a fala. Intercalar com B-roll: alunas fazendo burpees, agachamento com salto, corrida.<br><br>
+          <span class="cam-icon">💡</span> Enquanto cita as catecolaminas — colocar na tela o texto: <strong>"CATECOLAMINAS = mobilizam gordura estocada"</strong><br><br>
+          <span class="cam-icon">🎬</span> Fechar a cena mostrando o visual do Bloco 1 em ação — 20 a 30 segundos de B-roll real do treino.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- BLOCO 2 -->
+<div class="page" id="b2">
+
+  <div class="section-sep"><span class="label">Bloco 2 · Treinamento Físico Funcional</span><span class="line"></span><span class="badge cyan">20 minutos</span></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 12</span>
+      <span class="scene-title">⚡ Bloco 2 — Treinamento Físico Funcional</span>
+      <span class="scene-duration">⏱ 13:30 – 15:30</span>
+    </div>
+    <div class="scene-body single">
+      <div class="proto-block">
+        <div class="proto-header b2">
+          <span class="proto-icon">⚡</span>
+          <span class="proto-name">Bloco 2 · Funcional</span>
+          <span class="proto-time">20 minutos</span>
+        </div>
+        <div class="proto-body">
+          <div class="proto-point">Circuito composto por 5 exercícios fundamentais — 4 voltas completas.</div>
+          <div class="proto-point">Categorias: empurrar, puxar, pernas, core (centro) e cardio.</div>
+          <div class="proto-point">Tempo de execução: 40 a 50 segundos por exercício. Descanso: 60–90 segundos ao final de cada volta.</div>
+          <div class="proto-point">Trabalha múltiplos grupos musculares simultaneamente — força + resistência cardiovascular + estabilidade.</div>
+          <div class="proto-point">Mantém a frequência cardíaca elevada — maximizando a queima calórica durante e após o treino.</div>
+          <div class="proto-point">Exemplos: flexão, remada curvada, agachamento livre, prancha isométrica, polichinelos.</div>
+          <div class="proto-point">Adaptável a todos os níveis: iniciante (70–80% esforço) até avançado (90–100% esforço).</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0;">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala Principal do Bloco 2</div>
+        <div class="fala-box">
+          O segundo bloco é o Treinamento Físico Funcional. E esse é o bloco que mais assusta quem está começando — e é o que mais transforma.<br><br>
+          São 20 minutos de circuito composto por 5 movimentos fundamentais que trabalham o corpo de forma integrada: força, resistência cardiovascular e estabilidade do core — tudo ao mesmo tempo.<br><br>
+          <em>Tom explicativo:</em><br><br>
+          O circuito tem 4 voltas. Cada exercício dura 40 a 50 segundos, com 60 a 90 segundos de descanso apenas ao final de cada volta completa.<br><br>
+          Os exercícios seguem categorias: um empurrar, um puxar, um de pernas, um de core e um de cardio. Isso garante que nenhum grupo muscular seja sobrecarregado enquanto outro descansa — e que o metabolismo fique alto o tempo inteiro.<br><br>
+          <em>Ponto importante:</em><br><br>
+          Uma dúvida muito comum: "Funcional é muito intenso pra mim." Não é. O funcional do Legacy Burn 45 começa do condicionamento atual da aluna, com progressão gradual. O desafio cresce com você — não te exige ser o que você ainda não é.<br><br>
+          Você não precisa estar pronta pra treinar. Você treina pra estar pronta.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> B-roll do circuito funcional em ação. Se possível, mostra as 4 categorias de exercício rapidamente.<br><br>
+          <span class="cam-icon">💡</span> Na fala sobre as categorias, colocar na tela:<br>
+          <strong>EMPURRAR → PUXAR → PERNAS → CORE → CARDIO</strong><br><br>
+          <span class="cam-icon">✂️</span> A frase final — <em>"Você treina pra estar pronta"</em> — pode virar um freeze frame ou um texto fixo na tela por 2 segundos. É uma das frases mais fortes do vídeo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- BLOCO 3 -->
+<div class="page" id="b3">
+
+  <div class="section-sep"><span class="label">Bloco 3 · Musculação nas Máquinas</span><span class="line"></span><span class="badge green">20 minutos</span></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 13</span>
+      <span class="scene-title">🏋 Bloco 3 — Musculação nas Máquinas</span>
+      <span class="scene-duration">⏱ 15:30 – 17:00</span>
+    </div>
+    <div class="scene-body single">
+      <div class="proto-block">
+        <div class="proto-header b3">
+          <span class="proto-icon">🏋</span>
+          <span class="proto-name">Bloco 3 · Máquinas</span>
+          <span class="proto-time">20 minutos</span>
+        </div>
+        <div class="proto-body">
+          <div class="proto-point">4 a 6 exercícios em máquinas, halteres ou elásticos. 1 a 2 séries de 10 a 15 repetições.</div>
+          <div class="proto-point">Foco em isolamento muscular com segurança e precisão — aproveita o metabolismo já acelerado pelos blocos anteriores.</div>
+          <div class="proto-point">Objetivo: definição corporal, hipertrofia leve e preservação da massa magra.</div>
+          <div class="proto-point">Protege articulações (mais seguro que pesos livres para iniciantes).</div>
+          <div class="proto-point">Progressão de carga adaptada ao nível de cada aluna — aumenta quando fica fácil.</div>
+          <div class="proto-point">Exemplos: peck deck, puxador alto, leg press, cadeira extensora, mesa flexora.</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-body" style="padding-top:0;">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala Principal do Bloco 3</div>
+        <div class="fala-box">
+          O terceiro bloco é a musculação nas máquinas. E antes que alguém pense "ah, musculação é pra quem quer ficar enorme" — para. Não é isso.<br><br>
+          <em>Tom direto:</em><br><br>
+          Musculação é o que preserva a massa magra enquanto você perde gordura. E isso importa muito, especialmente para mulheres acima dos 40, onde a perda muscular acontece mais rápido se não for estimulada.<br><br>
+          Emagrecer sem musculação = você perde peso E massa magra. O resultado é uma pessoa mais leve, mas flácida. Isso não é o que queremos.<br><br>
+          Com o Bloco 3, a gente define, tonifica e sustenta o resultado. O metabolismo já está acelerado pelos blocos anteriores — então as máquinas trabalham com o máximo de aproveitamento.<br><br>
+          São 4 a 6 exercícios, com 1 a 2 séries cada, de 10 a 15 repetições. Cadência controlada. Execução correta. Progressão de carga gradual.<br><br>
+          <em>Fechar com ênfase:</em><br><br>
+          E aqui está a sinergia que faz o Legacy Burn 45 funcionar: o Acelerador prepara o metabolismo, o Funcional mantém a queima alta, e as Máquinas definem o corpo — tudo em 45 minutos.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Câmera + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> B-roll das máquinas. Mostra leg press, puxador alto, peck deck em uso.<br><br>
+          <span class="cam-icon">💡</span> Na frase sobre emagrecer sem musculação — colocar na tela:<br>
+          <strong>"PERDA DE PESO + FLACIDEZ = método errado"</strong><br>
+          <strong>"PERDA DE GORDURA + DEFINIÇÃO = Legacy Burn 45"</strong><br><br>
+          <span class="cam-icon">🎬</span> A frase da sinergia final pode ter uma edição mais dinâmica — os 3 blocos aparecendo em sequência rápida na tela enquanto você fala.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 14</span>
+      <span class="scene-title">O Efeito EPOC — Por que o Corpo Continua Queimando</span>
+      <span class="scene-duration">⏱ 17:00 – 18:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Fechamento Científico do Protocolo</div>
+        <div class="fala-box">
+          Depois que o treino termina, o trabalho do corpo não termina.<br><br>
+          Isso tem nome: EPOC. Consumo excessivo de oxigênio pós-exercício.<br><br>
+          Em linguagem simples: o metabolismo continua acelerado por até 48 horas depois de um treino de alta intensidade bem feito.<br><br>
+          Isso significa que a aluna que treinou às 7 da manhã ainda está queimando gordura às 7 da manhã do dia seguinte.<br><br>
+          <em>Tom de encerramento do bloco técnico:</em><br><br>
+          Não é milagre. É fisiologia. E é o que acontece quando você aplica o estímulo certo, na sequência certa, no tempo certo.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">💡</span> Tela: <strong>"EPOC = queima de gordura por até 48h após o treino"</strong><br><br>
+          <span class="cam-icon">✂️</span> Encerrar com corte limpo antes de entrar no bloco de acompanhamento.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 6 — ACOMPANHAMENTO E EVOLUÇÃO
+══════════════════════════════════════════════ -->
+<div class="page" id="acompanhamento">
+
+  <div class="chapter">
+    <div class="chapter-num">06</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Etapa 5 · 18:00 – 21:00</div>
+      <h2 class="chapter-title">Acompanhamento e <acc class="acc">Evolução Documentada</acc></h2>
+      <p class="chapter-desc">O ciclo que se repete: reavaliação periódica, dados reais, ajustes no protocolo. O que separa uma academia de um método.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 15</span>
+      <span class="scene-title">A Reavaliação Periódica — Ciclo de 30, 60 e 90 Dias</span>
+      <span class="scene-duration">⏱ 18:00 – 20:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          O protocolo não é estático. Ele evolui junto com a aluna.<br><br>
+          A cada 30 dias, a gente refaz a avaliação. Peso, medidas, composição corporal via Next Fit, novas fotos.<br><br>
+          E aí os dados dizem tudo:<br><br>
+          <strong>Percentual de gordura caiu? Excelente — vamos aumentar a intensidade.</strong><br>
+          <strong>Massa magra subiu? Perfeito — o corpo está respondendo certo.</strong><br>
+          <strong>Cintura diminuiu? Isso é o primeiro sinal que a aluna percebe nas roupas.</strong><br><br>
+          <em>Tom empático:</em><br><br>
+          E na semana 3, quando a aluna chega pra mim dizendo que não está vendo resultado — eu abro o relatório e mostro: você perdeu X% de gordura. Você ganhou Y de massa magra. Você não está vendo — mas o dado está mostrando.<br><br>
+          Esse momento é um dos mais poderosos de todo o processo. É quando a aluna para de confiar no espelho e começa a confiar no dado.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 B-roll + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Mostrar tela de relatório Next Fit (com dados genéricos ou com autorização). Mostrar uma conversa entre você e uma aluna analisando os dados juntos.<br><br>
+          <span class="cam-icon">💡</span> Essa cena tem alto potencial emocional — pode desacelerar o ritmo de edição aqui, deixar o espectador respirar um pouco.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 16</span>
+      <span class="scene-title">O Checklist da Aluna Legacy</span>
+      <span class="scene-duration">⏱ 20:00 – 21:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          O treino é central. Mas o protocolo Legacy Burn 45 funciona muito melhor quando a aluna também cuida do resto.<br><br>
+          Cinco hábitos que amplificam os resultados do protocolo:<br><br>
+          <strong>1. Hidratação.</strong> 35ml de água por quilo de peso por dia. Parece simples — faz diferença enorme na composição corporal.<br>
+          <strong>2. Sono.</strong> 7 a 8 horas. 70% da recuperação muscular e queima de gordura acontecem durante o sono profundo.<br>
+          <strong>3. Proteína.</strong> 1,8 a 2,2g por quilo de peso. É o que preserva e constrói a massa magra.<br>
+          <strong>4. Consistência.</strong> 3 a 5 dias por semana. Um treino razoável todo dia vale mais que um treino perfeito por semana.<br>
+          <strong>5. Paciência com o processo.</strong> O resultado mais importante geralmente aparece depois do momento em que a maioria desiste.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Tela sugerida</div>
+        <div class="camera-box">
+          Checklist visual na tela enquanto enumera os 5 hábitos. Cada item aparece quando você cita — como uma lista animada simples.<br><br>
+          <strong>□ Hidratação</strong><br>
+          <strong>□ Sono 7–8h</strong><br>
+          <strong>□ Proteína adequada</strong><br>
+          <strong>□ Consistência 3–5x/sem</strong><br>
+          <strong>□ Paciência com o processo</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     SEÇÃO 7 — FECHAMENTO E CTA
+══════════════════════════════════════════════ -->
+<div class="page" id="fechamento">
+
+  <div class="chapter">
+    <div class="chapter-num">07</div>
+    <div class="chapter-body">
+      <div class="chapter-tag">Fechamento · 21:00 – 25:00</div>
+      <h2 class="chapter-title">Fechamento — <acc class="acc">Convite e CTA</acc></h2>
+      <p class="chapter-desc">Resumo emocional, reforço do posicionamento e convite direto para agir. O fechamento que converte espectador em lead.</p>
+    </div>
+  </div>
+  <div class="chapter-divider"></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 17</span>
+      <span class="scene-title">Resumo Emocional — O Caminho Completo</span>
+      <span class="scene-duration">⏱ 21:00 – 23:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Tom mais calmo, quase reflexivo</div>
+        <div class="fala-box">
+          Deixa eu recapitular o caminho completo de uma aluna Legacy:<br><br>
+          Ela chega. A gente conversa de verdade — entende de onde ela vem, o que ela já tentou, o que realmente importa pra ela.<br><br>
+          A gente avalia. Pesa, mede, tira foto, analisa a composição corporal. Estabelece o ponto de partida real — não o ideal.<br><br>
+          A gente define metas específicas, mensuráveis e alcançáveis pra 90 dias.<br><br>
+          E aí começa o protocolo.<br><br>
+          5 minutos de Acelerador que ativa o metabolismo e mobiliza gordura desde o primeiro exercício.<br>
+          20 minutos de Funcional que trabalha o corpo de forma integrada e mantém a queima alta.<br>
+          20 minutos de Musculação que define, tonifica e preserva a massa magra que vai sustentar o resultado.<br><br>
+          <em>Pausa. Tom mais pessoal:</em><br><br>
+          E a cada 30 dias a gente mede de novo. Mostra os dados pra ela. E ela para de se basear no espelho — e começa a confiar no processo.<br><br>
+          <em>Fechar com leveza:</em><br><br>
+          Esse é o caminho. Não tem atalho. Mas tem método. E método entrega resultado.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Produção — Fechamento Visual</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Câmera principal. Tom relaxado. Pode estar de pé ou mais próximo da câmera — cria intimidade.<br><br>
+          <span class="cam-icon">🎬</span> B-roll de fundo enquanto recapitula as etapas: imagens das alunas treinando, avaliação, sorrindo no final do treino.<br><br>
+          <span class="cam-icon">🎵</span> Música sobe levemente durante o resumo — cria sensação de fechamento e movimento.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 18</span>
+      <span class="scene-title">CTA Final — Convite Direto e Genuíno</span>
+      <span class="scene-duration">⏱ 23:00 – 24:30</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala — Tom direto, olho no olho com a câmera</div>
+        <div class="fala-box">
+          Se você chegou até aqui, você já sabe como funciona.<br><br>
+          Agora tem duas escolhas:<br><br>
+          Você pode fechar esse vídeo e continuar no mesmo ciclo de começar, parar e recomeçar. Sem julgamento — eu já vi isso acontecer mil vezes.<br><br>
+          <em>Pausa. Tom mais suave:</em><br><br>
+          Ou você pode dar um passo diferente.<br><br>
+          Me chama no WhatsApp. A primeira aula na Legacy é gratuita. Você vem, experimenta o protocolo, sente na prática o que eu acabei de explicar — e a gente conversa sobre o seu caso, do jeito que eu descrevi aqui.<br><br>
+          O link está na descrição desse vídeo.<br><br>
+          Não precisa estar pronta. Não precisa ter experiência. Precisa estar disposta a começar — de onde você está, com o que você tem, agora.
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 + Produção</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Close mais aproximado. Olho firme na câmera.<br><br>
+          <span class="cam-icon">💡</span> Tela com dados de contato:<br>
+          <strong>📲 WhatsApp: (55) 99155-4217</strong><br>
+          <strong>📸 @proffabianocosta</strong><br>
+          <strong>🏋 @legacyacademiasm</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">CENA 19</span>
+      <span class="scene-title">Encerramento do Canal — Inscrição e Próximo Vídeo</span>
+      <span class="scene-duration">⏱ 24:30 – 25:00</span>
+    </div>
+    <div class="scene-body">
+      <div class="atom">
+        <div class="atom-label">🎙 Fala</div>
+        <div class="fala-box">
+          Se esse vídeo foi útil pra você, <strong>deixa o like</strong> — ele me diz que esse tipo de conteúdo faz diferença.<br><br>
+          <strong>Se inscreve no canal</strong> pra não perder os próximos — porque vêm mais vídeos assim: conteúdo real, técnico, sem enrolação.<br><br>
+          E <strong>compartilha com alguém</strong> que você conhece que está nesse ciclo de começar e parar. Pode ser exatamente o que ela precisa ouvir hoje.<br><br>
+          Até o próximo. 🔥
+        </div>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎬 Produção Final</div>
+        <div class="camera-box">
+          <span class="cam-icon">📹</span> Sorriso natural no final — mostra o lado humano depois de um vídeo mais técnico.<br><br>
+          <span class="cam-icon">🎬</span> Tela de fim do YouTube com: botão de inscrição + card para próximo vídeo sugerido.<br><br>
+          <span class="cam-icon">🎵</span> Música sobe e fade out nos últimos 10 segundos.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════
+     CHECKLIST PRÉ-GRAVAÇÃO
+══════════════════════════════════════════════ -->
+<div class="page" style="padding-top:20px;">
+  <div class="section-sep"><span class="label">Checklist de Pré-Gravação</span><span class="line"></span></div>
+
+  <div class="scene-block">
+    <div class="scene-header">
+      <span class="scene-id">PRÉ</span>
+      <span class="scene-title">Tudo que você precisa ter antes de ligar a câmera</span>
+    </div>
+    <div class="scene-body triple">
+      <div class="atom">
+        <div class="atom-label">📷 Câmera / Imagem</div>
+        <ul class="check-list">
+          <li>Câmera estável (tripé)</li>
+          <li>Enquadramento testado</li>
+          <li>Fundo limpo ou com identidade Legacy</li>
+          <li>Iluminação frontal adequada</li>
+          <li>Roupa alinhada com a marca</li>
+        </ul>
+      </div>
+      <div class="atom">
+        <div class="atom-label">🎙 Áudio</div>
+        <ul class="check-list">
+          <li>Microfone lapela ou de mesa</li>
+          <li>Ambiente silencioso</li>
+          <li>Teste de som antes de gravar</li>
+          <li>Nenhum eco perceptível</li>
+        </ul>
+      </div>
+      <div class="atom">
+        <div class="atom-label">📋 Conteúdo</div>
+        <ul class="check-list">
+          <li>Roteiro impresso ou na tela</li>
+          <li>Dados reais de avaliação prontos</li>
+          <li>B-roll da academia gravado</li>
+          <li>Relatório Next Fit (genérico ou c/ autorização)</li>
+          <li>Equipamentos visíveis para as cenas de bloco</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block" style="margin-top:20px;">
+    <div class="scene-header">
+      <span class="scene-id">TÍTULO</span>
+      <span class="scene-title">Sugestões de Título para o YouTube</span>
+    </div>
+    <div class="scene-body single">
+      <div class="atom">
+        <div class="atom-label">🏆 Opções de Título — Escolher 1</div>
+        <ul class="tela-list">
+          <li><span class="tela-num">A</span><div class="tela-text"><strong>A JORNADA COMPLETA DA ALUNA LEGACY: do primeiro contato ao resultado real</strong><br><span style="color:var(--muted)">SEO forte, narrativo, claro. Recomendado.</span></div></li>
+          <li><span class="tela-num">B</span><div class="tela-text"><strong>Como funciona o Legacy Burn 45: passo a passo completo do protocolo de emagrecimento</strong><br><span style="color:var(--muted)">SEO técnico, bom para buscas específicas.</span></div></li>
+          <li><span class="tela-num">C</span><div class="tela-text"><strong>Por que 45 minutos é suficiente para emagrecer de verdade — com ciência, não com promessa</strong><br><span style="color:var(--muted)">Quebra de crença. Alto potencial de clique.</span></div></li>
+          <li><span class="tela-num">D</span><div class="tela-text"><strong>Do zero ao resultado: como eu acompanho cada aluna na Legacy do primeiro dia em diante</strong><br><span style="color:var(--muted)">Tom pessoal. Conecta bem com mulheres indecisas.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-block" style="margin-top:20px;">
+    <div class="scene-header">
+      <span class="scene-id">DESC</span>
+      <span class="scene-title">Descrição do Vídeo — Copiar e Ajustar</span>
+    </div>
+    <div class="scene-body single">
+      <div class="atom">
+        <div class="atom-label">📝 Descrição completa do YouTube</div>
+        <div class="fala-box" style="font-size:13px; line-height:1.75; border-left-color: var(--gold);">
+          Nesse vídeo você vai entender como funciona o caminho completo de uma aluna dentro da Legacy Academia — desde a primeira conversa até os resultados documentados com o protocolo Legacy Burn 45.<br><br>
+          ✅ O que eu investigo na primeira conversa com cada aluna<br>
+          ✅ Como funciona a avaliação física completa (com Next Fit)<br>
+          ✅ Como definir metas reais e alcançáveis em 90 dias<br>
+          ✅ Bloco 1 — Método Acelerador da Queima de Gordura (e o que são catecolaminas)<br>
+          ✅ Bloco 2 — Treinamento Físico Funcional (estrutura completa do circuito)<br>
+          ✅ Bloco 3 — Musculação nas Máquinas (por que ela preserva a massa magra)<br>
+          ✅ O efeito EPOC — por que o corpo queima gordura por até 48h depois do treino<br>
+          ✅ Como funciona o acompanhamento periódico na Legacy<br><br>
+          ─────────────────────────────────<br>
+          🏋 PRIMEIRA AULA GRATUITA NA LEGACY<br>
+          📲 WhatsApp: (55) 99155-4217<br>
+          📍 Itararé · Santa Maria – RS<br>
+          ─────────────────────────────────<br>
+          📸 Me segue no Instagram:<br>
+          Personal: @proffabianocosta<br>
+          Academia: @legacyacademiasm<br>
+          ─────────────────────────────────<br>
+          #LegacyBurn45 #PersonalTrainer #EmagrecimentoFeminino #SantaMaria #FabianoCostaPersonal #Protocolo #TreinoFeminino #EPOC
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip" style="margin-top:32px;">
+    <div class="cta-icon">🔥</div>
+    <div>
+      <div class="cta-label">Lembra disso antes de gravar</div>
+      <div class="cta-text">Você não precisa de um roteiro perfeito. Precisa de um mapa claro. Use esse documento como guia — leia cada cena antes de gravá-la, mas fale com suas palavras. A autenticidade é o que gera conexão. O roteiro é estrutura, não script engessado.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+<footer style="background:var(--surface); border-top:1px solid var(--border); padding:48px 32px; text-align:center; margin-top:60px;">
+  <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--red); letter-spacing:4px;">LEGACY BURN 45</div>
+  <p style="color:var(--muted); font-size:13px; margin-top:10px;">Roteiro YouTube · @fabianocostapersonal · Prof. Fabiano Costa · Santa Maria, RS</p>
+</footer>
+
+<script>
+  // Ativa o dot ativo na nav conforme scroll
+  const dots = document.querySelectorAll('.pn-dot');
+  const sections = ['cover','abertura','apresentacao','chegada','avaliacao','objetivos','protocolo','b1','b2','b3','acompanhamento','fechamento'];
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) cur = id;
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', sections[i] === cur);
+    });
+  });
+</script>
+
+</body>
+</html>

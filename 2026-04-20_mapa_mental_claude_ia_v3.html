@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como usar o Claude IA - Mapa Mental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --roxo-escuro: #1E0A4E;
+            --roxo-medio-1: #3A1878;
+            --roxo-medio-2: #6148B8;
+            --roxo-claro: #9B7FDD;
+            --roxo-palido: #F2EEFB;
+            --borda-roxo: #D6C8F2;
+            --rosa-vivo: #D43D8A;
+            --rosa-claro: #FDEAF5;
+            --borda-rosa: #F0B4D8;
+            --fundo-geral: #FAF8FF;
+            --branco: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--fundo-geral);
+            color: var(--roxo-escuro);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--roxo-escuro) 0%, var(--roxo-medio-1) 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            color: var(--branco);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .hero-circle-1 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--rosa-vivo);
+            filter: blur(80px);
+            opacity: 0.15;
+            top: -50px;
+            right: -50px;
+        }
+
+        .hero-circle-2 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--roxo-claro);
+            filter: blur(60px);
+            opacity: 0.15;
+            bottom: -30px;
+            left: -30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--rosa-vivo);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .hero p {
+            color: var(--roxo-claro);
+            font-size: 18px;
+            position: relative;
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .pill {
+            background: var(--branco);
+            border: 2px solid var(--borda-roxo);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--roxo-escuro);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--roxo-medio-2);
+            background: var(--roxo-palido);
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Product Cards */
+        .card {
+            background: var(--branco);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card-top { height: 8px; }
+        .bg-roxo { background: linear-gradient(to right, var(--roxo-medio-1), var(--roxo-medio-2)); }
+        .bg-rosa { background: linear-gradient(to right, var(--rosa-vivo), #FF7EB3); }
+        .bg-misto { background: linear-gradient(to right, var(--roxo-medio-2), var(--rosa-vivo)); }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .card-icon { font-size: 28px; margin-bottom: 10px; }
+        .card-title { font-weight: 800; font-size: 18px; margin-bottom: 4px; }
+        .card-subtitle { font-size: 12px; color: var(--roxo-claro); font-weight: 600; margin-bottom: 12px; }
+        .card-desc { font-size: 14px; color: #555; margin-bottom: 15px; }
+
+        .card-footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .footer-roxo { background: var(--roxo-palido); color: var(--roxo-medio-1); }
+        .footer-rosa { background: var(--rosa-claro); color: var(--rosa-vivo); }
+
+        /* SVG Mental Map */
+        .map-container {
+            margin: 40px 0;
+            text-align: center;
+            background: var(--branco);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--borda-roxo);
+        }
+
+        svg { max-width: 100%; height: auto; }
+        .node { cursor: pointer; transition: opacity 0.3s; }
+        .node:hover { opacity: 0.8; }
+        .node-text { font-weight: 700; font-size: 14px; fill: var(--roxo-escuro); pointer-events: none; }
+        .node-center text { fill: white; font-size: 16px; }
+
+        /* Accordion */
+        .accordion-item {
+            border: 1px solid var(--borda-roxo);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: var(--branco);
+        }
+
+        .accordion-header {
+            background-color: var(--roxo-palido);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            background: var(--branco);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-text { flex-grow: 1; }
+        .header-text h3 { font-size: 18px; font-weight: 800; }
+        .header-text p { font-size: 13px; color: var(--roxo-medio-2); }
+
+        .arrow {
+            transition: transform 0.3s ease;
+            width: 20px;
+            height: 20px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 30px 25px;
+            border-top: 1px solid var(--borda-roxo);
+        }
+
+        .accordion-item.active .accordion-content { display: block; }
+        .accordion-item.active .arrow { transform: rotate(180deg); }
+
+        /* Interior content styles */
+        .section-intro { margin-bottom: 25px; font-size: 15px; color: #444; }
+        
+        .mode-card {
+            border: 1px solid var(--borda-roxo);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .mode-header {
+            background: linear-gradient(to right, var(--roxo-escuro), var(--rosa-vivo));
+            color: white;
+            padding: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .mode-body { padding: 15px; font-size: 13px; }
+        .mode-badge {
+            background: var(--roxo-palido);
+            color: var(--roxo-medio-2);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Comparison Table-like Cards */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .comp-card { border-radius: 12px; padding: 20px; border-top: 4px solid; }
+        .comp-claude { background: #F8F5FF; border-color: var(--roxo-medio-2); }
+        .comp-chatgpt { background: #F0FAF5; border-color: #10A37F; }
+        .comp-gemini { background: #F0F4FA; border-color: #4285F4; }
+        .comp-card h4 { margin-bottom: 10px; font-weight: 800; }
+        .comp-card ul { list-style: none; font-size: 13px; }
+        .comp-card li { margin-bottom: 6px; position: relative; padding-left: 15px; }
+        .comp-card li::before { content: "•"; position: absolute; left: 0; font-weight: bold; }
+        .comp-footer { 
+            margin-top: 15px; 
+            padding: 12px; 
+            background: #fff; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-style: italic; 
+            border: 1px dashed #ccc; 
+        }
+
+        /* Models Grid */
+        .model-card {
+            border: 1px solid var(--borda-roxo);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .model-header { background: linear-gradient(135deg, var(--roxo-medio-1), var(--roxo-medio-2)); color: white; padding: 15px; position: relative; }
+        .model-tier { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+        .model-body { padding: 15px; font-size: 13px; flex-grow: 1; }
+        .model-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .model-tag { background: var(--rosa-claro); color: var(--rosa-vivo); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+
+        /* Plans */
+        .plan-card { padding: 20px; border-radius: 12px; }
+        .plan-roxo { background: var(--roxo-palido); border: 1px solid var(--borda-roxo); }
+        .plan-rosa { background: var(--rosa-claro); border: 1px solid var(--borda-rosa); }
+        .plan-card h4 { font-weight: 800; margin-bottom: 5px; }
+        .plan-card p { font-size: 13px; }
+
+        /* Tags Container */
+        .tags-wrapper { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+        .skill-tag { 
+            background: var(--branco); 
+            border: 1px solid var(--borda-roxo); 
+            padding: 6px 14px; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+        }
+        .tag-rosa { border-color: var(--borda-rosa); color: var(--rosa-vivo); }
+
+        /* Warning / Tip Cards */
+        .alert-card {
+            background: var(--rosa-claro);
+            border-left: 5px solid var(--rosa-vivo);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
+        /* Template Copiável */
+        .template-box {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 13px;
+            color: #333;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--roxo-medio-1);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .copy-btn.copied { background: var(--rosa-vivo); }
+
+        /* Steps */
+        .step-box { text-align: center; padding: 15px; }
+        .step-num { 
+            width: 32px; height: 32px; 
+            background: var(--roxo-escuro); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 10px; 
+            font-weight: 800;
+        }
+        .step-box h5 { font-size: 14px; margin-bottom: 5px; }
+        .step-box p { font-size: 12px; }
+
+        /* Tool Grid */
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        .tool-icon { font-size: 24px; }
+        .tool-info h5 { font-size: 14px; }
+        .tool-info p { font-size: 11px; color: #777; }
+
+        /* Style Box */
+        .style-item {
+            border-left: 5px solid;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--borda-roxo);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        footer a { color: var(--roxo-medio-1); text-decoration: none; }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .comp-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+        }
+
+        @media (max-width: 520px) {
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .hero { padding: 40px 20px; }
+            .hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Hero -->
+    <header class="hero" id="topo">
+        <div class="hero-circle-1"></div>
+        <div class="hero-circle-2"></div>
+        <span class="badge">Guia prático</span>
+        <h1>Como usar o Claude IA</h1>
+        <p>Domine a inteligência artificial da Anthropic para turbinar sua produtividade</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-pills">
+        <a href="#oq-e" class="pill" onclick="goTo('oq-e')">💡 O que é</a>
+        <a href="#memoria" class="pill" onclick="goTo('memoria')">📌 Memória</a>
+        <a href="#pref" class="pill" onclick="goTo('pref')">⚙️ Preferências</a>
+        <a href="#estilos" class="pill" onclick="goTo('estilos')">🎨 Estilos</a>
+        <a href="#skills" class="pill" onclick="goTo('skills')">📋 Skills</a>
+        <a href="#ferramentas" class="pill" onclick="goTo('ferramentas')">🔌 Ferramentas</a>
+    </nav>
+
+    <!-- Mental Map SVG -->
+    <div class="map-container">
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Connections -->
+            <line x1="300" y1="200" x2="300" y2="70" stroke="#D6C8F2" stroke-width="2" />
+            <line x1="300" y1="200" x2="480" y2="130" stroke="#F0B4D8" stroke-width="2" />
+            <line x1="300" y1="200" x2="480" y2="270" stroke="#D6C8F2" stroke-width="2" />
+            <line x1="300" y1="200" x2="300" y2="330" stroke="#F0B4D8" stroke-width="2" />
+            <line x1="300" y1="200" x2="120" y2="270" stroke="#D6C8F2" stroke-width="2" />
+            <line x1="300" y1="200" x2="120" y2="130" stroke="#F0B4D8" stroke-width="2" />
+
+            <!-- Center -->
+            <g class="node node-center" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <circle cx="300" cy="200" r="45" fill="#1E0A4E" />
+                <text x="300" y="205" text-anchor="middle" font-weight="800">Claude IA</text>
+            </g>
+
+            <!-- Nodes -->
+            <g class="node" onclick="goTo('oq-e')">
+                <rect x="240" y="45" width="120" height="50" rx="25" fill="#F2EEFB" stroke="#D6C8F2" stroke-width="2" />
+                <text x="300" y="75" text-anchor="middle" class="node-text">💡 O que é</text>
+            </g>
+            <g class="node" onclick="goTo('memoria')">
+                <rect x="420" y="105" width="120" height="50" rx="25" fill="#FDEAF5" stroke="#F0B4D8" stroke-width="2" />
+                <text x="480" y="135" text-anchor="middle" class="node-text">📌 Memória</text>
+            </g>
+            <g class="node" onclick="goTo('pref')">
+                <rect x="420" y="245" width="130" height="50" rx="25" fill="#F2EEFB" stroke="#D6C8F2" stroke-width="2" />
+                <text x="485" y="275" text-anchor="middle" class="node-text">⚙️ Preferências</text>
+            </g>
+            <g class="node" onclick="goTo('estilos')">
+                <rect x="240" y="305" width="120" height="50" rx="25" fill="#FDEAF5" stroke="#F0B4D8" stroke-width="2" />
+                <text x="300" y="335" text-anchor="middle" class="node-text">🎨 Estilos</text>
+            </g>
+            <g class="node" onclick="goTo('skills')">
+                <rect x="60" y="245" width="120" height="50" rx="25" fill="#F2EEFB" stroke="#D6C8F2" stroke-width="2" />
+                <text x="120" y="275" text-anchor="middle" class="node-text">📋 Skills</text>
+            </g>
+            <g class="node" onclick="goTo('ferramentas')">
+                <rect x="60" y="105" width="130" height="50" rx="25" fill="#FDEAF5" stroke="#F0B4D8" stroke-width="2" />
+                <text x="125" y="135" text-anchor="middle" class="node-text">🔌 Ferramentas</text>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Accordion Sections -->
+    <div class="accordion-container">
+        
+        <!-- Section 1: O que é -->
+        <div class="accordion-item active" id="oq-e">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">💡</div>
+                <div class="header-text">
+                    <h3>O que é o Claude IA</h3>
+                    <p>Entenda o ecossistema e os diferenciais</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>O Claude é uma inteligência artificial que escreve, analisa, cria código, monta sistemas e se conecta com ferramentas para automação. O grande diferencial em relação ao ChatGPT e Gemini é a integração fluida com ferramentas como Notion, Google Drive, Gmail, Canva e n8n para processos automáticos.</p>
+                    <p>Com o recurso Cowork, o Claude consegue inclusive usar o seu computador de forma autônoma para realizar tarefas repetitivas, abrindo um novo patamar de produtividade.</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="mode-card">
+                        <div class="mode-header">💬 Claude Chat</div>
+                        <div class="mode-body">Interface web direta, sem precisar instalar nada, ideal para uso diário. <br><span class="mode-badge">Uso geral</span></div>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-header">💻 Claude Code</div>
+                        <div class="mode-body">Específico para criar sistemas, sites e resolver bugs técnicos dentro do editor. <br><span class="mode-badge">Devs</span></div>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-header">🖥️ Cowork</div>
+                        <div class="mode-body">Capacidade de automação total controlando a tela do seu computador pessoal. <br><span class="mode-badge">Automação</span></div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                <h4 style="margin: 30px 0 15px;">Os Modelos</h4>
+                <div class="grid-3">
+                    <div class="model-card">
+                        <div class="model-header">
+                            <span class="model-tier">Free / Pro</span>
+                            <h5>Haiku 3.5</h5>
+                        </div>
+                        <div class="model-body">
+                            Veloz e econômico para tarefas simples.
+                            <div class="model-tags">
+                                <span class="model-tag">Rapidez</span>
+                                <span class="model-tag">Resumos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <div class="model-header" style="background: linear-gradient(135deg, var(--rosa-vivo), var(--roxo-medio-2));">
+                            <span class="model-tier">Equilibrado</span>
+                            <h5>Sonnet 3.5</h5>
+                        </div>
+                        <div class="model-body">
+                            O melhor custo-benefício em inteligência hoje.
+                            <div class="model-tags">
+                                <span class="model-tag">Código</span>
+                                <span class="model-tag">Escrita</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <div class="model-header" style="background: var(--roxo-escuro);">
+                            <span class="model-tier">Premium</span>
+                            <h5>Opus 3</h5>
+                        </div>
+                        <div class="model-body">
+                            Máxima capacidade de raciocínio profundo.
+                            <div class="model-tags">
+                                <span class="model-tag">Pesquisa</span>
+                                <span class="model-tag">Estratégia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 20px 0 15px;">Planos Disponíveis</h4>
+                <div class="grid-2">
+                    <div class="plan-card plan-roxo">
+                        <h4>Free</h4>
+                        <p>Acesso limitado ao Sonnet e ferramentas básicas.</p>
+                    </div>
+                    <div class="plan-card plan-rosa">
+                        <h4>Pro</h4>
+                        <p>Uso 5x maior, acesso antecipado e criação de Projetos.</p>
+                    </div>
+                    <div class="plan-card plan-roxo">
+                        <h4>Team</h4>
+                        <p>Para times compartilharem conhecimentos e faturamento central.</p>
+                    </div>
+                    <div class="plan-card plan-rosa">
+                        <h4>Enterprise</h4>
+                        <p>Controle administrativo total e segurança avançada.</p>
+                    </div>
+                </div>
+
+                <div class="tags-wrapper">
+                    <span class="skill-tag">escrever e revisar textos</span>
+                    <span class="skill-tag">criar código</span>
+                    <span class="skill-tag">analisar dados</span>
+                    <span class="skill-tag">pesquisar na web</span>
+                    <span class="skill-tag">montar documentos</span>
+                    <span class="skill-tag">gerar ideias</span>
+                    <span class="skill-tag">criar sistemas web</span>
+                    <span class="skill-tag">criar sites completos</span>
+                    <span class="skill-tag">criar planilhas</span>
+                    <span class="skill-tag tag-rosa">criar e editar no Canva</span>
+                    <span class="skill-tag tag-rosa">criar apresentações</span>
+                </div>
+
+                <div class="alert-card">
+                    A memória do Claude é poderosa mas precisa ser ativada e configurada para que ele realmente conheça o seu perfil.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Memória -->
+        <div class="accordion-item" id="memoria">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">📌</div>
+                <div class="header-text">
+                    <h3>Memória</h3>
+                    <p>Faça a IA lembrar de quem você é</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>A memória funciona como um post-it fixado no início de cada conversa. Com ela você evita ter que se apresentar todas as vezes que abrir um novo chat.</p>
+                    <p>Para configurar: Clique no seu nome (canto inferior esquerdo) → Settings → Custom Instructions (ou Memory, dependendo da versão).</p>
+                </div>
+                
+                <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>MEU PERFIL PROFISSIONAL:
+Nome: [Seu Nome]
+Cargo: [Seu Cargo]
+Área de atuação: [Sua Área]
+Segmento: [Ex: Educação, Tecnologia]
+Tamanho da equipe: [Ex: Sou autônomo / Time de 5 pessoas]
+Meu maior desafio atual: [Descreva em 1 frase]
+Meu objetivo para este trimestre: [Descreva o objetivo]
+Idioma de resposta preferido: Português (Brasil)</div>
+                
+                <div class="alert-card">
+                    Dica: Mantenha essas informações atualizadas conforme seus objetivos mudam.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Preferências -->
+        <div class="accordion-item" id="pref">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">⚙️</div>
+                <div class="header-text">
+                    <h3>Preferências de Perfil</h3>
+                    <p>Defina o comportamento padrão das respostas</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>Enquanto a memória diz "quem você é", as preferências dizem "como o Claude deve agir". Isso ajuda a filtrar respostas genéricas.</p>
+                    <p>Acesse Configurações → Preferências de perfil para colar o template abaixo.</p>
+                </div>
+
+                <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>COMO VOCÊ DEVE RESPONDER:
+- Cargo atual: [Cargo]
+- Área: [Área]
+- Anos de experiência: [X anos]
+- Meu público-alvo: [Descreva quem lê o que você produz]
+
+PREFERÊNCIAS:
+- Seja direto e evite introduções longas
+- Use um tom [Ex: casual / formal / técnico]
+- Formate listas em bullet points
+- Sempre sugira um próximo passo ao final da resposta</div>
+            </div>
+        </div>
+
+        <!-- Section 4: Estilos -->
+        <div class="accordion-item" id="estilos">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">🎨</div>
+                <div class="header-text">
+                    <h3>Estilos de Resposta</h3>
+                    <p>Trajes diferentes para ocasiões específicas</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>Estilos são como trajes: você não usa a mesma roupa para ir à academia e a um casamento. Você pode salvar estilos no menu lateral para alternar rapidamente.</p>
+                    <p>Acesse Configurações → Estilos para criar os seus.</p>
+                </div>
+
+                <div class="style-item" style="border-color: var(--roxo-medio-2);">
+                    <h4 style="color: var(--roxo-medio-2);">Profissional</h4>
+                    <p style="font-size: 13px; margin-bottom: 10px;">Para relatórios e emails corporativos</p>
+                    <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>ESTILO: Profissional e Analítico
+- Tom: Sóbrio e autoritário
+- Estrutura: Introdução, tópicos de dados, conclusão prática
+- Evite: Emojis ou gírias</div>
+                </div>
+
+                <div class="style-item" style="border-color: var(--rosa-vivo);">
+                    <h4 style="color: var(--rosa-vivo);">Educacional</h4>
+                    <p style="font-size: 13px; margin-bottom: 10px;">Para explicar conceitos complexos</p>
+                    <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>ESTILO: Didático e Simples
+- Tom: Encorajador e paciente
+- Estrutura: Analogias primeiro, depois a parte técnica
+- Inclua: Exemplos práticos do dia a dia</div>
+                </div>
+
+                <div class="style-item" style="border-color: var(--roxo-escuro);">
+                    <h4 style="color: var(--roxo-escuro);">Marketing e Redes Sociais</h4>
+                    <p style="font-size: 13px; margin-bottom: 10px;">Para posts e anúncios</p>
+                    <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>ESTILO: Persuasivo e Viral
+- Tom: Energético e curioso
+- Estrutura: Gancho forte (headline), corpo curto, CTA clara
+- Use: Emojis estratégicos e quebras de linha</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Skills -->
+        <div class="accordion-item" id="skills">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">📋</div>
+                <div class="header-text">
+                    <h3>Skills</h3>
+                    <p>O briefing permanente sobre o seu negócio</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>Uma "Skill" no contexto do Claude é um documento de referência que você sobe para que a IA sempre saiba os detalhes técnicos do que você faz sem você precisar repetir.</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="step-box">
+                        <div class="step-num">1</div>
+                        <h5>Mapeie</h5>
+                        <p>Escreva tudo sobre um serviço específico.</p>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-num">2</div>
+                        <h5>Formate</h5>
+                        <p>Use o template para organizar os dados.</p>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-num">3</div>
+                        <h5>Salve</h5>
+                        <p>Coloque na memória ou use em um Projeto.</p>
+                    </div>
+                </div>
+
+                <h5 style="margin-bottom: 10px;">Template de Skill (Ex: Web Designer)</h5>
+                <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>SKILL: Especialista em Landing Pages
+SOBRE O NEGÓCIO: Criação de sites focados em conversão para infoprodutores.
+PÚBLICO: Especialistas que vendem cursos online e mentorias.
+TOM: Moderno, focado em vendas e UX.
+PRODUTOS/SERVIÇOS: Landing Page, Página de Obrigado, Checkout Personalizado.
+INSTRUÇÕES: Sempre sugira melhorias na copy focadas em gatilhos mentais.</div>
+
+                <div class="alert-card">
+                    Dica: Se você usa o plano Pro, utilize o recurso de "Projetos". Lá você pode subir PDFs com essas Skills e o Claude consultará esses arquivos em todas as conversas daquele projeto.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Ferramentas -->
+        <div class="accordion-item" id="ferramentas">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="icon-box">🔌</div>
+                <div class="header-text">
+                    <h3>Ferramentas e Criar</h3>
+                    <p>Conecte o Claude ao mundo real</p>
+                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A1878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E" class="arrow" alt="seta">
+            </div>
+            <div class="accordion-content">
+                <div class="section-intro">
+                    <p>O Claude não vive mais isolado. Através das integrações oficiais ou via API, ele consegue ler e escrever arquivos em diversos apps que você já usa.</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="tool-item">
+                        <div class="tool-icon">📁</div>
+                        <div class="tool-info"><h5>Google Drive</h5><p>Lê e resume seus docs</p></div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon">✉️</div>
+                        <div class="tool-info"><h5>Gmail</h5><p>Rascunha e envia emails</p></div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon">📅</div>
+                        <div class="tool-info"><h5>Calendar</h5><p>Organiza sua agenda</p></div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon">📓</div>
+                        <div class="tool-info"><h5>Notion</h5><p>Alimenta seu banco de dados</p></div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon" style="color:var(--rosa-vivo);">🎨</div>
+                        <div class="tool-info"><h5>Canva</h5><p>Cria designs direto no app</p></div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon">📽️</div>
+                        <div class="tool-info"><h5>Gamma</h5><p>Cria apresentações slides</p></div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 30px 0 15px;">O que é possível criar</h4>
+                <div class="grid-2">
+                    <div class="tool-item"><span>📊</span> <div>planilhas</div></div>
+                    <div class="tool-item"><span>📄</span> <div>documentos Word e PDF</div></div>
+                    <div class="tool-item"><span>📽️</span> <div>apresentações</div></div>
+                    <div class="tool-item"><span>📥</span> <div>arquivos para download</div></div>
+                    <div class="tool-item"><span>🌐</span> <div>sites e landing pages</div></div>
+                    <div class="tool-item"><span>⚙️</span> <div>sistemas web</div></div>
+                    <div class="tool-item" style="border-color: var(--borda-rosa); color: var(--rosa-vivo);"><span>🎨</span> <div>criar peças no Canva</div></div>
+                    <div class="tool-item" style="border-color: var(--borda-rosa); color: var(--rosa-vivo);"><span>✏️</span> <div>editar designs no Canva</div></div>
+                    <div class="tool-item"><span>📝</span> <div>roteiros e textos</div></div>
+                    <div class="tool-item"><span>📧</span> <div>emails e sequências</div></div>
+                </div>
+
+                <h5 style="margin-bottom: 10px;">Template para criar landing page (Artefatos)</h5>
+                <div class="template-box">
+<button class="copy-btn" onclick="copyTemplate(this)">Copiar</button>Aja como um desenvolvedor front-end sênior.
+Crie o código HTML e CSS de uma landing page para [Seu Produto].
+- Estilo: Minimalista e moderno
+- Cores: [Sua Paleta]
+- Seções: Hero, Benefícios, Depoimentos, FAQ e Rodapé.
+- Use a funcionalidade de Artifacts para exibir o resultado visual.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Descomplicando Sites · por Micaela Soares · <a href="https://descomplicandosites.com.br" target="_blank">descomplicandosites.com.br</a>
+    </footer>
+</div>
+
+<script>
+    function toggleAccordion(header) {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        // Fecha todos
+        document.querySelectorAll('.accordion-item').forEach(i => {
+            i.classList.remove('active');
+        });
+
+        // Se não estava ativo, abre
+        if (!isActive) {
+            item.classList.add('active');
+        }
+    }
+
+    function goTo(id) {
+        // Fecha todos antes
+        document.querySelectorAll('.accordion-item').forEach(i => {
+            i.classList.remove('active');
+        });
+        
+        // Abre o alvo
+        const target = document.getElementById(id);
+        if(target) {
+            target.classList.add('active');
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function copyTemplate(btn) {
+        const container = btn.parentElement;
+        // Pega o texto ignorando o botão "Copiar"
+        let text = container.innerText.replace('Copiar', '').trim();
+        
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = "Copiar";
+            btn.innerText = "✓ Copiado!";
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('copied');
+            }, 2500);
+        });
+    }
+</script>
+
+</body>
+</html>

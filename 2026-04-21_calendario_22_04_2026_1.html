@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Content Plan — Quarta 22/04/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0c;
+    --cream: #f5f1e8;
+    --paper: #faf6ed;
+    --burn: #d84727;
+    --burn-deep: #a8321b;
+    --gold: #c9a961;
+    --muted: #6b655a;
+    --line: #1a1a18;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    padding: 48px 24px;
+  }
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  /* HEADER */
+  .masthead {
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 24px 0 20px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 32px;
+  }
+  .masthead .issue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-style: italic;
+  }
+  .masthead h1 .accent {
+    color: var(--burn);
+    font-style: normal;
+  }
+  .masthead .date-block {
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .masthead .date-block strong {
+    display: block;
+    font-size: 18px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-top: 4px;
+  }
+
+  /* INTRO BAR */
+  .intro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin-bottom: 56px;
+    background: var(--cream);
+  }
+  .intro-cell {
+    padding: 20px 22px;
+    border-right: 1px solid var(--ink);
+  }
+  .intro-cell:last-child { border-right: none; }
+  .intro-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .intro-cell .value {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* POST CARD */
+  .post {
+    margin-bottom: 64px;
+    border: 1px solid var(--ink);
+    background: white;
+    overflow: hidden;
+  }
+  .post-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 18px 24px;
+    background: var(--ink);
+    color: var(--cream);
+    gap: 20px;
+  }
+  .post-number {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .post-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .post-title .sub {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .post-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-align: right;
+    letter-spacing: 0.1em;
+  }
+  .post-meta .time {
+    font-size: 20px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--burn);
+    letter-spacing: 0;
+    display: block;
+  }
+  .post-body {
+    padding: 32px 28px;
+  }
+
+  .field {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed rgba(26,26,24,0.15);
+  }
+  .field:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .field-label {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--burn);
+    padding: 3px 8px;
+    border: 1px solid var(--burn);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .field-content {
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .hook {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--ink);
+    padding: 16px 20px;
+    background: var(--paper);
+    border-left: 4px solid var(--burn);
+  }
+  .legenda {
+    font-size: 14.5px;
+    line-height: 1.7;
+    white-space: pre-line;
+  }
+  .legenda strong { font-weight: 700; }
+  .cta-block {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 18px 22px;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .cta-block .trigger {
+    display: inline-block;
+    background: var(--burn);
+    color: white;
+    padding: 2px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin: 0 4px;
+    vertical-align: middle;
+  }
+  .hashtags {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--burn-deep);
+    word-spacing: 8px;
+    line-height: 1.8;
+  }
+  .steps {
+    counter-reset: step;
+    list-style: none;
+  }
+  .steps li {
+    counter-increment: step;
+    padding-left: 44px;
+    position: relative;
+    margin-bottom: 14px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--burn);
+  }
+  .steps li strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  /* STORIES */
+  .stories-section {
+    margin-top: 48px;
+    margin-bottom: 56px;
+    border: 1px solid var(--ink);
+    background: white;
+  }
+  .stories-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--ink);
+    background: var(--gold);
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stories-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    font-style: italic;
+  }
+  .stories-header .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .stories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .stories-col {
+    padding: 28px 24px;
+  }
+  .stories-col:first-child { border-right: 1px solid var(--ink); }
+  .stories-col h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--burn);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .story-frame {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    background: var(--paper);
+    border-left: 3px solid var(--ink);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .story-frame .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--burn);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+  }
+
+  /* FOOTER */
+  .footer-note {
+    margin-top: 72px;
+    padding: 32px 28px;
+    background: var(--ink);
+    color: var(--cream);
+    border-left: 6px solid var(--burn);
+  }
+  .footer-note h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-style: italic;
+    margin-bottom: 12px;
+    color: var(--gold);
+  }
+  .footer-note p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .footer-note p:last-child { margin-bottom: 0; }
+
+  /* END MARK */
+  .end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    margin: 64px 0 24px;
+    color: var(--muted);
+    letter-spacing: 0.3em;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 12px; }
+    .masthead { grid-template-columns: 1fr; gap: 12px; text-align: left; }
+    .masthead .date-block { text-align: left; }
+    .intro { grid-template-columns: 1fr; }
+    .intro-cell { border-right: none; border-bottom: 1px solid var(--ink); }
+    .intro-cell:last-child { border-bottom: none; }
+    .post-header { grid-template-columns: auto 1fr; }
+    .post-meta { grid-column: 1 / -1; text-align: left; border-top: 1px solid rgba(245,241,232,0.2); padding-top: 12px; margin-top: 4px; }
+    .stories-grid { grid-template-columns: 1fr; }
+    .stories-col:first-child { border-right: none; border-bottom: 1px solid var(--ink); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="issue">Legacy Content Plan<br>Ed. 001</div>
+    <h1>Dia <span class="accent">01</span></h1>
+    <div class="date-block">
+      Quarta-feira
+      <strong>22 · abril · 2026</strong>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-cell">
+      <div class="label">Eixo do dia</div>
+      <div class="value">Mulher 40+<br>hormônios & sarcopenia</div>
+    </div>
+    <div class="intro-cell">
+      <div class="label">Referências aplicadas</div>
+      <div class="value">Dra. Sandra Gordilho<br>+ MTOR biomecânica</div>
+    </div>
+    <div class="intro-cell">
+      <div class="label">Objetivo comercial</div>
+      <div class="value">Gerar DM com<br>palavra-gatilho QUARENTA</div>
+    </div>
+  </div>
+
+  <!-- POST 1 -->
+  <div class="post">
+    <div class="post-header">
+      <div class="post-number">01</div>
+      <div class="post-title">
+        <span class="sub">@proffabianocosta · manhã · reel 30–45s</span>
+        Por que treinar igual aos 20 não funciona mais
+      </div>
+      <div class="post-meta">
+        Postar às
+        <span class="time">08:30</span>
+        pilar: autoridade
+      </div>
+    </div>
+    <div class="post-body">
+
+      <div class="field">
+        <span class="field-label">Gancho 3s (texto na tela)</span>
+        <div class="hook">"Depois dos 40, seu corpo não traiu você. Só mudou as regras."</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Roteiro do reel</span>
+        <ol class="steps">
+          <li><strong>0–3s · Gancho</strong>Fabiano olhando na câmera, frase acima aparece em texto grande na tela.</li>
+          <li><strong>3–10s · Tensão</strong>"Se você faz os mesmos treinos que fazia aos 25 e não vê resultado, não é falta de esforço. É fisiologia."</li>
+          <li><strong>10–25s · Conteúdo</strong>"Depois dos 40, três coisas mudam: queda do estrogênio, aumento do cortisol, perda natural de massa magra. Isso se chama sarcopenia. E cardio leve não resolve nenhuma das três."</li>
+          <li><strong>25–40s · Virada</strong>"O que resolve é treino de força combinado com queima metabólica curta e intensa. É por isso que o Legacy Burn 45 tem 45 minutos, não 2 horas."</li>
+          <li><strong>40–45s · CTA</strong>"Comenta QUARENTA aqui embaixo que eu te mando o vídeo completo sobre o que muda depois dos 40."</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Legenda</span>
+        <div class="field-content legenda"><strong>Seu corpo não traiu você. Ele só mudou as regras.</strong>
+
+Depois dos 40, três coisas acontecem ao mesmo tempo: o estrogênio cai, o cortisol sobe, e a massa magra começa a ir embora silenciosamente. Isso tem nome: sarcopenia.
+
+A maioria das mulheres tenta resolver fazendo cardio leve e comendo menos. Resultado: cansaço, flacidez e a balança travada.
+
+Não é falta de força de vontade. É falta de método que respeita sua fisiologia.
+
+O Legacy Burn 45 existe pra isso. Três blocos em 45 minutos: acelerador metabólico, funcional e musculação nas máquinas. Queima de gordura com preservação de massa magra. Do jeito que o seu corpo agora precisa.
+
+Comenta <strong>QUARENTA</strong> que eu te mando o vídeo completo explicando o que muda depois dos 40 e como treinar do jeito certo.</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">CTA + palavra-gatilho</span>
+        <div class="cta-block">
+          Comenta <span class="trigger">QUARENTA</span> que eu te mando o vídeo completo.
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Hashtags</span>
+        <div class="hashtags">#MulherDe40 #EmagrecimentoFeminino #LegacyBurn45 #Sarcopenia #PersonalSantaMaria</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Mídia sugerida</span>
+        <div class="field-content">Você em frente às máquinas da Legacy, cenário bem iluminado. Pode intercalar B-roll de uma aluna 40+ executando um exercício de força. Close no rosto no gancho inicial + textão grande na tela.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="post">
+    <div class="post-header">
+      <div class="post-number">02</div>
+      <div class="post-title">
+        <span class="sub">@legacyacademiasm · manhã · reel 20–30s</span>
+        Execução correta: agachamento pra quem tem joelho sensível
+      </div>
+      <div class="post-meta">
+        Postar às
+        <span class="time">09:00</span>
+        pilar: retenção
+      </div>
+    </div>
+    <div class="post-body">
+
+      <div class="field">
+        <span class="field-label">Gancho 3s (texto na tela)</span>
+        <div class="hook">"Se seu joelho dói no agachamento, não é o exercício. É o ângulo."</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Roteiro do reel</span>
+        <ol class="steps">
+          <li><strong>0–3s · Gancho</strong>Plano fechado no joelho de uma aluna no agachamento, texto-bomba na tela.</li>
+          <li><strong>3–10s · Erro</strong>Você mostra o agachamento comum: joelho desabando pra dentro, peso no antepé, lombar cedendo.</li>
+          <li><strong>10–22s · Correção</strong>"Três ajustes: pé afastado na largura do quadril, peso no meio do pé, joelho seguindo a direção do segundo dedo. Pronto, dor some."</li>
+          <li><strong>22–30s · CTA</strong>"Aqui não é treino. É método. Manda DIAGNÓSTICO pra gente avaliar sua execução."</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Legenda</span>
+        <div class="field-content legenda"><strong>Joelho dói no agachamento? A culpa não é do exercício.</strong>
+
+Na maioria das vezes é execução. Três erros comuns que a gente corrige na primeira avaliação:
+
+• Pé muito junto ou muito aberto
+• Peso no antepé (devia estar no meio do pé)
+• Joelho desabando pra dentro em vez de seguir o segundo dedo
+
+Na Legacy, antes de carga existe execução. Antes de resultado existe método.
+
+Quer uma avaliação técnica da sua execução? Manda <strong>DIAGNÓSTICO</strong> no direct.
+
+📍 Itararé, Santa Maria/RS
+📱 (55) 99155-4217</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">CTA + palavra-gatilho</span>
+        <div class="cta-block">
+          Manda <span class="trigger">DIAGNÓSTICO</span> no direct. Aqui não é treino. É método.
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Hashtags</span>
+        <div class="hashtags">#ExecuçãoCorreta #AgachamentoPerfeito #LegacyAcademia #SantaMariaRS #TreinoComMétodo</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Mídia sugerida</span>
+        <div class="field-content">Grava hoje na academia com uma aluna voluntária. Duas tomadas do agachamento (errado + certo), lado a lado. Texto em cada correção piscando na tela. 20 segundos de vídeo resolve.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="post">
+    <div class="post-header">
+      <div class="post-number">03</div>
+      <div class="post-title">
+        <span class="sub">@proffabianocosta · noite · estático (frase de impacto)</span>
+        Frase-salvação sobre cortisol e emagrecimento
+      </div>
+      <div class="post-meta">
+        Postar às
+        <span class="time">19:00</span>
+        pilar: autoridade
+      </div>
+    </div>
+    <div class="post-body">
+
+      <div class="field">
+        <span class="field-label">Arte do post (frase central)</span>
+        <div class="hook">"Treinar 2 horas por dia não te faz mais saudável. Te deixa mais cansada, com mais cortisol e com menos resultado."</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Legenda</span>
+        <div class="field-content legenda"><strong>Mais treino não significa mais resultado. Significa mais cortisol.</strong>
+
+O cortisol é o hormônio do estresse. Em picos controlados ele ajuda. Em excesso crônico ele faz três coisas que sabotam seu objetivo:
+
+• Aumenta o armazenamento de gordura abdominal
+• Reduz a sensibilidade à insulina
+• Atrasa a recuperação muscular
+
+Pra mulher acima dos 35 isso é pior, porque o corpo já está lidando com queda de estrogênio.
+
+O Legacy Burn 45 é curto por uma razão fisiológica. Intensidade concentrada, descanso respeitado, cortisol no lugar certo.
+
+Menos tempo. Mais resultado.
+
+Comenta <strong>CORTISOL</strong> que eu te mando o material completo sobre o que está te travando.</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">CTA + palavra-gatilho</span>
+        <div class="cta-block">
+          Comenta <span class="trigger">CORTISOL</span> que eu te mando o material completo.
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Hashtags</span>
+        <div class="hashtags">#Cortisol #EmagrecimentoFeminino #FisiologiaDoExercicio #LegacyBurn45 #MulherQueTreina</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Mídia sugerida</span>
+        <div class="field-content">Post estático. Fundo escuro (preto ou grafite), tipografia grande em branco com a palavra "cortisol" em vermelho Legacy. Assinatura "@proffabianocosta · Legacy Burn 45" no rodapé.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="post">
+    <div class="post-header">
+      <div class="post-number">04</div>
+      <div class="post-title">
+        <span class="sub">@legacyacademiasm · noite · reel 30–45s</span>
+        Bastidor: aluna 48 anos treinando o bloco 3 do Legacy Burn 45
+      </div>
+      <div class="post-meta">
+        Postar às
+        <span class="time">19:30</span>
+        pilar: prova social
+      </div>
+    </div>
+    <div class="post-body">
+
+      <div class="field">
+        <span class="field-label">Gancho 3s (texto na tela)</span>
+        <div class="hook">"Ela tem 48 anos. E está preservando massa magra enquanto a gordura cai."</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Roteiro do reel</span>
+        <ol class="steps">
+          <li><strong>0–3s · Gancho</strong>Plano fechado na aluna executando um exercício do bloco 3 (leg press ou cadeira flexora), texto-bomba na tela.</li>
+          <li><strong>3–12s · Contexto</strong>Voz sua em off: "Essa é a Fulana. 48 anos. Começou há 3 meses achando que balança era termômetro de resultado."</li>
+          <li><strong>12–25s · Prova</strong>Mostre um print do Next Fit (borrado se precisar): -4% de gordura, +1,2kg de massa magra, -3cm de cintura. "A balança mostrou 1kg a menos. O Next Fit mostrou a verdade."</li>
+          <li><strong>25–40s · Método</strong>"Bloco 3 do Legacy Burn 45 é musculação nas máquinas. Por isso ela perde gordura sem ficar flácida."</li>
+          <li><strong>40–45s · CTA</strong>"Quer saber se o método serve pra você? Manda AVALIAÇÃO no direct."</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Legenda</span>
+        <div class="field-content legenda"><strong>A balança mente. O Next Fit mostra.</strong>
+
+Em 3 meses a Fulana (48 anos) teve:
+
+• -4% de gordura corporal
+• +1,2kg de massa magra
+• -3cm de cintura
+• -1kg na balança
+
+Olhou só pra balança, não viu resultado. Olhou pra composição, viu tudo.
+
+É por isso que a gente não mede aluna por peso. A gente mede por Next Fit. E treina em 3 blocos com o Legacy Burn 45 pra garantir que a gordura cai e o músculo fica.
+
+Quer uma avaliação completa da sua composição atual? Manda <strong>AVALIAÇÃO</strong> no direct. Só 3 vagas essa semana.
+
+📍 Legacy Academia · Itararé · Santa Maria/RS</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">CTA + palavra-gatilho</span>
+        <div class="cta-block">
+          Manda <span class="trigger">AVALIAÇÃO</span> no direct. Só 3 vagas essa semana.
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Hashtags</span>
+        <div class="hashtags">#AlunaLegacy #NextFit #BalançaMente #EmagrecimentoReal #LegacyAcademia</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Mídia sugerida</span>
+        <div class="field-content">Filma uma aluna real (com autorização) executando um exercício de máquina. Intercala com print borrado da composição corporal do Next Fit. Essa é prova social ouro — use alunas reais sempre que possível.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STORIES -->
+  <div class="stories-section">
+    <div class="stories-header">
+      <h2>Stories do dia</h2>
+      <div class="count">5 por perfil · 10 no total</div>
+    </div>
+    <div class="stories-grid">
+
+      <div class="stories-col">
+        <h3>@proffabianocosta</h3>
+        <div class="story-frame"><span class="num">S1</span><strong>Enquete:</strong> "Você já achou que era preguiça o que na verdade era cortisol? Sim / Não"</div>
+        <div class="story-frame"><span class="num">S2</span><strong>Dado rápido:</strong> Foto sua com texto: "Mulheres com cortisol cronicamente alto armazenam até 30% mais gordura abdominal."</div>
+        <div class="story-frame"><span class="num">S3</span><strong>Bastidor:</strong> Vídeo curto seu explicando em 15s: "Por isso seu treino precisa ser curto e intenso, não longo e moderado."</div>
+        <div class="story-frame"><span class="num">S4</span><strong>CTA:</strong> "Comenta QUARENTA no post de hoje que eu te mando o vídeo completo sobre o que muda depois dos 40." (Link colado do post da manhã)</div>
+        <div class="story-frame"><span class="num">S5</span><strong>Teaser:</strong> "Amanhã: o erro de execução que está fazendo seu treino de perna não render."</div>
+      </div>
+
+      <div class="stories-col">
+        <h3>@legacyacademiasm</h3>
+        <div class="story-frame"><span class="num">S1</span><strong>Abertura bastidor:</strong> Câmera andando pela academia de manhã, texto: "Quarta-feira. Quem chegou cedo?"</div>
+        <div class="story-frame"><span class="num">S2</span><strong>Execução:</strong> Clipe de 10s mostrando a correção do agachamento do post da manhã.</div>
+        <div class="story-frame"><span class="num">S3</span><strong>Prova:</strong> Print da composição corporal da aluna do post da noite. Texto: "-4% gordura · +1,2kg massa magra · 3 meses."</div>
+        <div class="story-frame"><span class="num">S4</span><strong>Urgência:</strong> "3 vagas abertas essa semana para avaliação gratuita. Manda AVALIAÇÃO." (Contador regressivo de 48h)</div>
+        <div class="story-frame"><span class="num">S5</span><strong>Segmentação:</strong> Enquete: "Você é de Santa Maria ✅ / Fora de SM 🌐" (serve pra direcionar presencial vs Next Fit)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="footer-note">
+    <h3>Nota do dia</h3>
+    <p>Hoje a estreia é pesada de propósito. Eixo "Mulher 40+" é o que mais converte em DM pro seu público. Os 4 posts usam 3 palavras-gatilho diferentes (QUARENTA, DIAGNÓSTICO, CORTISOL, AVALIAÇÃO) pra você testar qual tem maior taxa de resposta nos próximos 7 dias.</p>
+    <p><strong>O que medir hoje:</strong> comentários com a palavra-gatilho, salvamentos do post 3, mensagens no direct pedindo avaliação. Me manda esses números amanhã que eu calibro os próximos.</p>
+    <p><strong>Produção fácil:</strong> Post 2 e Post 4 você grava hoje mesmo, de manhã, na academia. 20 minutos cada. Post 1 é só câmera + você. Post 3 é estático — faz no Canva em 10 minutos.</p>
+  </div>
+
+  <div class="end">· · · fim do dia 01 · · ·</div>
+
+</div>
+</body>
+</html>

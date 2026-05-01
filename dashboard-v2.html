@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Legacy Academia · v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #11111a;
+    --bg-card: #15151f;
+    --bg-card-hover: #1a1a26;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.12);
+    --text-primary: #f5f5f7;
+    --text-secondary: #a0a0b0;
+    --text-tertiary: #60606d;
+    --neon-green: #39ff9e;
+    --neon-green-dim: #39ff9e30;
+    --neon-purple: #b152ff;
+    --neon-purple-dim: #b152ff30;
+    --accent-blue: #4ab6ff;
+    --accent-orange: #ff9b4a;
+    --accent-pink: #ff5ec4;
+    --accent-yellow: #ffd447;
+    --danger: #ff5470;
+    --success: #39ff9e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Space Grotesk', -apple-system, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(177,82,255,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: driftA 18s ease-in-out infinite alternate;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%;
+    right: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(57,255,158,0.06), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: driftB 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes driftA { to { transform: translate(8%, 5%); } }
+  @keyframes driftB { to { transform: translate(-5%, -5%); } }
+
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .brand { display: flex; flex-direction: column; gap: 8px; }
+
+  .brand-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--neon-green); text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--neon-green-dim);
+    border-radius: 20px;
+    width: fit-content;
+    background: rgba(57,255,158,0.05);
+  }
+
+  .brand-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--neon-green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-size: 34px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle { color: var(--text-secondary); font-size: 14px; }
+
+  .header-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .period-filter {
+    display: flex;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 2px;
+  }
+
+  .period-btn {
+    background: transparent; border: none;
+    color: var(--text-secondary);
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: inherit; transition: all 0.2s;
+  }
+  .period-btn:hover { color: var(--text-primary); }
+  .period-btn.active { background: rgba(57,255,158,0.12); color: var(--neon-green); }
+
+  .clear-filter-btn {
+    display: none; align-items: center; gap: 6px;
+    background: rgba(255,84,112,0.1);
+    border: 1px solid rgba(255,84,112,0.3);
+    color: var(--danger);
+    padding: 8px 14px; border-radius: 10px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: inherit; transition: all 0.2s;
+  }
+  .clear-filter-btn.visible { display: inline-flex; }
+  .clear-filter-btn:hover { background: rgba(255,84,112,0.18); transform: translateY(-1px); }
+
+  .filter-banner {
+    display: none; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, rgba(177,82,255,0.12), rgba(57,255,158,0.06));
+    border: 1px solid var(--neon-purple-dim);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .filter-banner.visible { display: flex; }
+  .filter-banner strong { color: var(--neon-green); font-weight: 600; }
+
+  /* ALERT BANNER (para abril crítico) */
+  .alert-banner {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 20px;
+    background: linear-gradient(90deg, rgba(255,84,112,0.12), rgba(255,155,74,0.06));
+    border: 1px solid rgba(255,84,112,0.3);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .alert-banner .icon {
+    font-size: 20px; flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(255,84,112,0.5));
+  }
+  .alert-banner strong { color: var(--danger); font-weight: 700; }
+  .alert-banner .small { color: var(--text-secondary); margin-top: 4px; font-size: 12px; }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+  .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+  .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glow, var(--neon-green)), transparent);
+    opacity: 0.5;
+  }
+
+  .kpi-card.glow-green {
+    box-shadow: 0 0 0 1px rgba(57,255,158,0.15), 0 10px 40px -10px rgba(57,255,158,0.2);
+  }
+  .kpi-card.glow-green::after {
+    content: '';
+    position: absolute; top: -50%; right: -30%;
+    width: 60%; height: 100%;
+    background: radial-gradient(circle, rgba(57,255,158,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .kpi-card.glow-purple {
+    box-shadow: 0 0 0 1px rgba(177,82,255,0.15), 0 10px 40px -10px rgba(177,82,255,0.2);
+  }
+  .kpi-card.glow-purple::after {
+    content: '';
+    position: absolute; top: -50%; right: -30%;
+    width: 60%; height: 100%;
+    background: radial-gradient(circle, rgba(177,82,255,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .kpi-card.glow-danger {
+    box-shadow: 0 0 0 1px rgba(255,84,112,0.15), 0 10px 40px -10px rgba(255,84,112,0.2);
+  }
+  .kpi-card.glow-danger::after {
+    content: '';
+    position: absolute; top: -50%; right: -30%;
+    width: 60%; height: 100%;
+    background: radial-gradient(circle, rgba(255,84,112,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-3px);
+    background: var(--bg-card-hover);
+    border-color: var(--border-strong);
+  }
+
+  .kpi-label {
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--text-tertiary);
+    font-weight: 500; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+
+  .kpi-value {
+    font-size: 30px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1;
+    margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+
+  .kpi-value.green { color: var(--neon-green); text-shadow: 0 0 20px rgba(57,255,158,0.4); }
+  .kpi-value.purple { color: var(--neon-purple); text-shadow: 0 0 20px rgba(177,82,255,0.4); }
+  .kpi-value.danger { color: var(--danger); text-shadow: 0 0 20px rgba(255,84,112,0.4); }
+
+  .kpi-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px; position: relative; z-index: 1;
+  }
+
+  .kpi-change {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 600;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .kpi-change.positive { color: var(--success); background: rgba(57,255,158,0.08); }
+  .kpi-change.negative { color: var(--danger); background: rgba(255,84,112,0.08); }
+  .kpi-change.neutral { color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+
+  .kpi-sub { font-size: 11px; color: var(--text-tertiary); }
+
+  .section-title {
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--text-tertiary);
+    font-weight: 500; margin: 40px 0 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .section-title.accent { color: var(--neon-green); }
+  .section-title.accent::after { background: linear-gradient(90deg, var(--neon-green-dim), transparent); }
+
+  .kpi-row-secondary {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-bottom: 8px;
+  }
+
+  .kpi-card.small { padding: 18px 20px; }
+  .kpi-card.small .kpi-value { font-size: 24px; }
+
+  .chart-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 16px;
+  }
+  .chart-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .chart-grid.asymmetric { grid-template-columns: 2fr 1fr; }
+  .chart-grid.asymmetric-r { grid-template-columns: 1fr 2fr; }
+
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.3s;
+    transition: border-color 0.3s;
+  }
+  .chart-card:hover { border-color: var(--border-strong); }
+
+  .chart-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .chart-title {
+    font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+  }
+
+  .chart-subtitle { font-size: 12px; color: var(--text-tertiary); }
+
+  .chart-insight {
+    font-size: 12px; color: var(--text-secondary);
+    margin-bottom: 20px; line-height: 1.5;
+  }
+  .chart-insight strong { color: var(--neon-green); font-weight: 600; }
+  .chart-insight .warn { color: var(--danger); font-weight: 600; }
+
+  .chart-canvas-wrapper { position: relative; width: 100%; height: 280px; }
+  .chart-canvas-wrapper.tall { height: 340px; }
+
+  /* PROJEÇÕES — scenario cards */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .scenario-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative; overflow: hidden;
+  }
+
+  .scenario-card.conservative {
+    border-color: rgba(255,212,71,0.25);
+    box-shadow: 0 0 0 1px rgba(255,212,71,0.1), 0 10px 40px -10px rgba(255,212,71,0.15);
+  }
+  .scenario-card.realistic {
+    border-color: rgba(57,255,158,0.3);
+    box-shadow: 0 0 0 1px rgba(57,255,158,0.15), 0 10px 40px -10px rgba(57,255,158,0.2);
+  }
+  .scenario-card.aggressive {
+    border-color: rgba(177,82,255,0.3);
+    box-shadow: 0 0 0 1px rgba(177,82,255,0.15), 0 10px 40px -10px rgba(177,82,255,0.2);
+  }
+
+  .scenario-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .scenario-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .scenario-tag.conservative { background: rgba(255,212,71,0.12); color: var(--accent-yellow); }
+  .scenario-tag.realistic { background: rgba(57,255,158,0.12); color: var(--neon-green); }
+  .scenario-tag.aggressive { background: rgba(177,82,255,0.15); color: var(--neon-purple); }
+
+  .scenario-title { font-size: 17px; font-weight: 600; }
+
+  .scenario-mainvalue {
+    font-size: 32px; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 10px 0 4px;
+  }
+  .scenario-card.conservative .scenario-mainvalue { color: var(--accent-yellow); }
+  .scenario-card.realistic .scenario-mainvalue { color: var(--neon-green); }
+  .scenario-card.aggressive .scenario-mainvalue { color: var(--neon-purple); }
+
+  .scenario-subvalue { font-size: 13px; color: var(--text-tertiary); margin-bottom: 18px; }
+
+  .scenario-metrics {
+    display: flex; flex-direction: column; gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .scenario-metric {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .scenario-metric .label { color: var(--text-secondary); }
+  .scenario-metric .value { font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+  .scenario-assumptions {
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    font-size: 11px; color: var(--text-tertiary);
+    line-height: 1.6;
+  }
+
+  .scenario-assumptions strong { color: var(--text-secondary); font-weight: 600; }
+
+  /* TABLE */
+  .table-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 16px;
+    overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.4s;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+
+  thead th {
+    text-align: left; padding: 12px 16px;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-tertiary);
+    font-weight: 500; border-bottom: 1px solid var(--border);
+  }
+  thead th.num { text-align: right; }
+
+  tbody td {
+    padding: 14px 16px; font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  tbody td.num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  tbody tr.total-row {
+    background: linear-gradient(90deg, rgba(57,255,158,0.06), rgba(177,82,255,0.04));
+    font-weight: 600;
+  }
+  tbody tr.total-row td { color: var(--neon-green); }
+
+  .margin-badge {
+    display: inline-block; padding: 3px 8px;
+    border-radius: 6px; font-size: 11px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .margin-badge.high { background: rgba(57,255,158,0.12); color: var(--success); }
+  .margin-badge.med { background: rgba(255,212,71,0.12); color: var(--accent-yellow); }
+  .margin-badge.low { background: rgba(255,84,112,0.12); color: var(--danger); }
+
+  /* DESPESAS BREAKDOWN */
+  .despesas-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .despesas-list { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+
+  .despesa-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    transition: background 0.2s;
+  }
+  .despesa-row:hover { background: rgba(255,255,255,0.02); }
+
+  .despesa-nome { color: var(--text-primary); }
+  .despesa-valor { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--text-secondary); }
+  .despesa-pct { color: var(--text-tertiary); font-size: 11px; margin-left: 8px; }
+
+  .despesa-bar {
+    display: inline-block; height: 3px;
+    border-radius: 2px; margin-right: 10px;
+    background: var(--neon-green); vertical-align: middle;
+    box-shadow: 0 0 8px rgba(57,255,158,0.4);
+  }
+
+  .despesa-row.total {
+    margin-top: 10px;
+    padding: 14px 12px;
+    background: linear-gradient(90deg, rgba(255,84,112,0.08), rgba(255,155,74,0.04));
+    border: 1px solid rgba(255,84,112,0.2);
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .despesa-row.total .despesa-nome { color: var(--danger); }
+  .despesa-row.total .despesa-valor { color: var(--danger); font-size: 14px; }
+
+  footer {
+    margin-top: 60px; padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--text-tertiary);
+    flex-wrap: wrap; gap: 12px;
+  }
+  footer .tag { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+
+  @media (max-width: 1100px) {
+    .kpi-grid, .kpi-row-secondary { grid-template-columns: repeat(2, 1fr); }
+    .chart-grid, .chart-grid.three, .chart-grid.asymmetric, .chart-grid.asymmetric-r { grid-template-columns: 1fr; }
+    .scenario-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 20px; }
+    h1 { font-size: 26px; }
+    .kpi-grid, .kpi-row-secondary { grid-template-columns: 1fr; }
+    .kpi-value { font-size: 26px; }
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="brand">
+      <span class="brand-badge">Legacy Academia / Next Fit · DRE Real</span>
+      <h1>Dashboard Legacy Academia</h1>
+      <span class="subtitle">Visão executiva com DRE real — 03/01/2026 a 24/04/2026 · Santa Maria/RS</span>
+    </div>
+    <div class="header-right">
+      <div class="period-filter" id="periodFilter">
+        <button class="period-btn active" data-period="all">Tudo (4 meses)</button>
+        <button class="period-btn" data-period="3">3 meses</button>
+        <button class="period-btn" data-period="1">Abril</button>
+      </div>
+      <button class="clear-filter-btn" id="clearFilter">
+        <span>✕</span> Limpar filtro
+      </button>
+    </div>
+  </header>
+
+  <!-- ALERTA CRÍTICO -->
+  <div class="alert-banner">
+    <span class="icon">⚠️</span>
+    <div>
+      <strong>Atenção — Abril/26 operando próximo ao ponto de equilíbrio</strong>
+      <div class="small">Com a receita atual (R$ 8.887 até 24/04) e despesa fixa de R$ 8.649/mês, o lucro do mês é de apenas <strong style="color: var(--danger);">R$ 238,00 (margem 2,7%)</strong>. O mês ainda não fechou, mas o ritmo caiu 31% vs. fevereiro. Prioridade: reativar clientes inativos + converter os 16 sem avaliação física.</div>
+    </div>
+  </div>
+
+  <div class="filter-banner" id="filterBanner">
+    <span>🎯 Filtro ativo:</span>
+    <strong id="filterName">—</strong>
+    <span style="color: var(--text-tertiary); margin-left: auto;">Clique em outra fatia para trocar ou em "Limpar filtro"</span>
+  </div>
+
+  <!-- KPIs PRINCIPAIS -->
+  <div class="section-title">Indicadores financeiros · DRE real</div>
+  <div class="kpi-grid">
+    <div class="kpi-card glow-green" style="--glow: var(--neon-green);">
+      <div class="kpi-label">Receita total</div>
+      <div class="kpi-value green" id="kpiReceita">R$ 44.985,60</div>
+      <div class="kpi-footer">
+        <span class="kpi-change neutral" id="kpiReceitaChange">207 vendas pagas</span>
+        <span class="kpi-sub">4 meses</span>
+      </div>
+    </div>
+    <div class="kpi-card glow-danger" style="--glow: var(--danger);">
+      <div class="kpi-label">Despesas fixas</div>
+      <div class="kpi-value danger" id="kpiDespesas">R$ 34.596,00</div>
+      <div class="kpi-footer">
+        <span class="kpi-change negative">R$ 8.649/mês</span>
+        <span class="kpi-sub">12 rubricas</span>
+      </div>
+    </div>
+    <div class="kpi-card glow-purple" style="--glow: var(--neon-purple);">
+      <div class="kpi-label">Lucro líquido</div>
+      <div class="kpi-value purple" id="kpiLucro">R$ 10.389,60</div>
+      <div class="kpi-footer">
+        <span class="kpi-change positive">+R$ 2.597/mês médio</span>
+        <span class="kpi-sub">receita - despesa</span>
+      </div>
+    </div>
+    <div class="kpi-card glow-green" style="--glow: var(--neon-green);">
+      <div class="kpi-label">Margem líquida</div>
+      <div class="kpi-value green" id="kpiMargem">23,1%</div>
+      <div class="kpi-footer">
+        <span class="kpi-change neutral">benchmark: 15-25%</span>
+        <span class="kpi-sub">dentro da média</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs operacionais -->
+  <div class="section-title">Ticket, equilíbrio e produtividade</div>
+  <div class="kpi-row-secondary">
+    <div class="kpi-card small">
+      <div class="kpi-label">Ticket médio</div>
+      <div class="kpi-value" id="kpiTicket">R$ 217,32</div>
+      <div class="kpi-footer">
+        <span class="kpi-change positive">↑ 11,3% vs jan</span>
+        <span class="kpi-sub">por venda</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Ponto de equilíbrio</div>
+      <div class="kpi-value" style="color: var(--accent-yellow);">40 vendas</div>
+      <div class="kpi-footer">
+        <span class="kpi-change neutral">mínimo/mês</span>
+        <span class="kpi-sub">no ticket atual</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Vendas médias</div>
+      <div class="kpi-value" style="color: var(--accent-blue);">54/mês</div>
+      <div class="kpi-footer">
+        <span class="kpi-change positive">14 acima do break-even</span>
+        <span class="kpi-sub">média 4 meses</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Margem de segurança</div>
+      <div class="kpi-value" style="color: var(--neon-green);">23,1%</div>
+      <div class="kpi-footer">
+        <span class="kpi-change neutral">receita acima break-even</span>
+        <span class="kpi-sub">quanto pode cair</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Base de clientes -->
+  <div class="section-title">Base de clientes</div>
+  <div class="kpi-row-secondary">
+    <div class="kpi-card small">
+      <div class="kpi-label">Clientes ativos</div>
+      <div class="kpi-value" id="kpiAtivos">88</div>
+      <div class="kpi-footer">
+        <span class="kpi-change positive">+5 em Abril</span>
+        <span class="kpi-sub">75F · 13M</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Bloqueados / inativos</div>
+      <div class="kpi-value" style="color: var(--accent-yellow);">9</div>
+      <div class="kpi-footer">
+        <span class="kpi-change neutral">pagamento pendente</span>
+        <span class="kpi-sub">10,2% da base</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Risco de abandono</div>
+      <div class="kpi-value" style="color: var(--danger);">13</div>
+      <div class="kpi-footer">
+        <span class="kpi-change negative">baixa frequência</span>
+        <span class="kpi-sub">&lt; 3,5 pres./sem</span>
+      </div>
+    </div>
+    <div class="kpi-card small">
+      <div class="kpi-label">Sem avaliação física</div>
+      <div class="kpi-value" style="color: var(--accent-orange);">16</div>
+      <div class="kpi-footer">
+        <span class="kpi-change negative">18,2% da base</span>
+        <span class="kpi-sub">oportunidade</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRE + DESPESAS -->
+  <div class="section-title">Estrutura de custos</div>
+  <div class="chart-grid asymmetric">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita · Despesa · Lucro (mês a mês)</div>
+          <div class="chart-subtitle">DRE mensal consolidada</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Despesa fixa de <strong>R$ 8.649/mês</strong>. Em Abril o lucro caiu para <span class="warn">R$ 238,00</span> — é o alerta mais crítico da análise.
+      </div>
+      <div class="chart-canvas-wrapper tall"><canvas id="chartDRE"></canvas></div>
+    </div>
+    <div class="despesas-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Despesas fixas mensais</div>
+          <div class="chart-subtitle">12 rubricas · R$ 8.649,00</div>
+        </div>
+      </div>
+      <div class="despesas-list" id="despesasList"></div>
+    </div>
+  </div>
+
+  <!-- CHARTS: LINHA 1 -->
+  <div class="section-title">Performance por plano</div>
+  <div class="chart-grid asymmetric">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Evolução mensal · Receita vs Lucro líquido</div>
+          <div class="chart-subtitle">Com DRE real (despesa R$ 8.649/mês)</div>
+        </div>
+      </div>
+      <div class="chart-insight" id="insightEvolucao">
+        Margem líquida varia de <strong>2,7%</strong> (abril parcial) a <strong>32,9%</strong> (fevereiro). Janeiro foi estável, março e abril mostram queda.
+      </div>
+      <div class="chart-canvas-wrapper tall"><canvas id="chartReceitaLucro"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita por plano</div>
+          <div class="chart-subtitle">Clique em uma fatia para filtrar</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>Semestral Legacy</strong> concentra 42,7% da receita — é o motor do negócio.
+      </div>
+      <div class="chart-canvas-wrapper tall"><canvas id="chartDonutPlanos"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top planos mais vendidos</div>
+          <div class="chart-subtitle">Quantidade de transações no período</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>Mensal Família</strong> domina em volume (95 vendas), mas ticket baixo. Semestral tem menos vendas com ticket muito maior.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartTopPlanos"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita por plano (R$)</div>
+          <div class="chart-subtitle">Valor total faturado por categoria</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Top 3 planos respondem por <strong>85,9%</strong> da receita — foco estratégico claro com risco de concentração.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartReceitaPlano"></canvas></div>
+    </div>
+  </div>
+
+  <!-- DEMOGRAFIA -->
+  <div class="section-title">Perfil dos clientes e demografia</div>
+  <div class="chart-grid three">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Clientes por faixa etária</div>
+          <div class="chart-subtitle">Distribuição da base ativa</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>59%</strong> têm 41+ anos — persona <em>"mulheres 41-60"</em> totalmente atendida.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartFaixaEtaria"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Mix por sexo</div>
+          <div class="chart-subtitle">Base de clientes ativos</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Público majoritariamente <strong>feminino</strong> (85,2%) — alinhado ao Legacy Burn 45.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartSexo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Avaliação física</div>
+          <div class="chart-subtitle">Status da base ativa</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>16 clientes</strong> ainda sem avaliação — oportunidade de engajamento e venda consultiva.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartAvaliacao"></canvas></div>
+    </div>
+  </div>
+
+  <!-- MARGEM + PAGAMENTO -->
+  <div class="section-title">Análise temporal e pagamentos</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Evolução da margem líquida</div>
+          <div class="chart-subtitle">% de margem real mês a mês</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Tendência de queda: 29,5% → 32,9% → 20,9% → <span class="warn">2,7%</span>. Precisa reverter em maio.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartMargem"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Formas de pagamento</div>
+          <div class="chart-subtitle">Distribuição por método (caixa Abr/26)</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>Pix/Depósito</strong> lidera em frequência. Cartão de crédito responde pelos tickets mais altos.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartPagamento"></canvas></div>
+    </div>
+  </div>
+
+  <!-- RANKING + CONTRATOS -->
+  <div class="chart-grid asymmetric">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Ranking — meses mais lucrativos</div>
+          <div class="chart-subtitle">Lucro líquido por mês (DRE real)</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>Fevereiro</strong> foi o mês mais lucrativo (R$ 4.244,80). Abril fecha com apenas R$ 238.
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartRanking"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Clientes por contrato</div>
+          <div class="chart-subtitle">Ativos em cada plano</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        <strong>Semestral Legacy</strong> lidera (37 clientes), seguido do Mensal Família (22).
+      </div>
+      <div class="chart-canvas-wrapper"><canvas id="chartContratos"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TABELA DRE -->
+  <div class="section-title">DRE mensal detalhada</div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th class="num">Vendas</th>
+          <th class="num">Receita</th>
+          <th class="num">Despesa fixa</th>
+          <th class="num">Lucro líquido</th>
+          <th class="num">Margem</th>
+          <th class="num">Ticket médio</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROJEÇÕES DE CRESCIMENTO — 3 CENÁRIOS
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section-title accent">🚀 Projeções de crescimento · 6 meses (Mai/26 – Out/26)</div>
+
+  <div class="chart-insight" style="margin-bottom: 20px; font-size: 13px; background: var(--bg-card); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border);">
+    Projeções construídas a partir da base atual (88 ativos · 54 vendas/mês · ticket R$ 217,32 · lucro médio R$ 2.597/mês). Cada cenário assume ações diferentes sobre a base existente e captação de novos clientes. Despesa fixa mantida em R$ 8.649/mês — reajustes (ex: aumento de aluguel, novo equipamento) reduzem o lucro proporcionalmente.
+  </div>
+
+  <div class="scenario-grid">
+    <!-- CONSERVADOR -->
+    <div class="scenario-card conservative">
+      <div class="scenario-header">
+        <div class="scenario-title">Conservador</div>
+        <span class="scenario-tag conservative">MANTER BASE</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Lucro 6 meses</div>
+      <div class="scenario-mainvalue">R$ 18.000</div>
+      <div class="scenario-subvalue">≈ R$ 3.000/mês · +15% vs. média atual</div>
+
+      <div class="scenario-metrics">
+        <div class="scenario-metric"><span class="label">Clientes ativos</span><span class="value">95</span></div>
+        <div class="scenario-metric"><span class="label">Vendas/mês</span><span class="value">58</span></div>
+        <div class="scenario-metric"><span class="label">Ticket médio</span><span class="value">R$ 225</span></div>
+        <div class="scenario-metric"><span class="label">Receita/mês</span><span class="value">R$ 13.050</span></div>
+        <div class="scenario-metric"><span class="label">Margem líquida</span><span class="value" style="color: var(--accent-yellow);">33,7%</span></div>
+      </div>
+
+      <div class="scenario-assumptions">
+        <strong>Premissas:</strong><br>
+        • Reduzir churn de 14,8% → 10%<br>
+        • Converter os 16 sem avaliação em clientes fidelizados<br>
+        • +2 clientes novos/mês (captação orgânica Instagram)<br>
+        • Zero investimento em mídia paga
+      </div>
+    </div>
+
+    <!-- REALISTA -->
+    <div class="scenario-card realistic">
+      <div class="scenario-header">
+        <div class="scenario-title">Realista</div>
+        <span class="scenario-tag realistic">CRESCIMENTO ATIVO</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Lucro 6 meses</div>
+      <div class="scenario-mainvalue">R$ 36.000</div>
+      <div class="scenario-subvalue">≈ R$ 6.000/mês · +131% vs. média atual</div>
+
+      <div class="scenario-metrics">
+        <div class="scenario-metric"><span class="label">Clientes ativos</span><span class="value">115</span></div>
+        <div class="scenario-metric"><span class="label">Vendas/mês</span><span class="value">72</span></div>
+        <div class="scenario-metric"><span class="label">Ticket médio</span><span class="value">R$ 240</span></div>
+        <div class="scenario-metric"><span class="label">Receita/mês</span><span class="value">R$ 17.280</span></div>
+        <div class="scenario-metric"><span class="label">Margem líquida</span><span class="value" style="color: var(--neon-green);">49,9%</span></div>
+      </div>
+
+      <div class="scenario-assumptions">
+        <strong>Premissas:</strong><br>
+        • Churn reduzido para 8%<br>
+        • Migração gradual Mensal → Semestral (↑ticket)<br>
+        • +6 clientes novos/mês via Instagram + indicação<br>
+        • Venda ativa do Legacy Burn 45 como upsell<br>
+        • Investimento leve em mídia (~R$ 300/mês)
+      </div>
+    </div>
+
+    <!-- AGRESSIVO -->
+    <div class="scenario-card aggressive">
+      <div class="scenario-header">
+        <div class="scenario-title">Agressivo</div>
+        <span class="scenario-tag aggressive">ESCALA + ONLINE</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Lucro 6 meses</div>
+      <div class="scenario-mainvalue">R$ 72.000</div>
+      <div class="scenario-subvalue">≈ R$ 12.000/mês · +362% vs. média atual</div>
+
+      <div class="scenario-metrics">
+        <div class="scenario-metric"><span class="label">Clientes ativos</span><span class="value">150</span></div>
+        <div class="scenario-metric"><span class="label">Vendas/mês</span><span class="value">95</span></div>
+        <div class="scenario-metric"><span class="label">Ticket médio</span><span class="value">R$ 255</span></div>
+        <div class="scenario-metric"><span class="label">Receita/mês</span><span class="value">R$ 24.225</span></div>
+        <div class="scenario-metric"><span class="label">Margem líquida</span><span class="value" style="color: var(--neon-purple);">62,0%</span></div>
+      </div>
+
+      <div class="scenario-assumptions">
+        <strong>Premissas:</strong><br>
+        • Launch do Legacy Burn 45 online (escalável)<br>
+        • +10 presenciais + 20 online/mês<br>
+        • Funil estruturado (IG → YT → WhatsApp)<br>
+        • Parcerias + programa de indicação<br>
+        • Mídia paga R$ 800/mês + co-produção conteúdo<br>
+        • <em>Considerar +1 estagiário a partir do 4º mês</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO DE PROJEÇÃO -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Projeção de lucro acumulado (6 meses)</div>
+          <div class="chart-subtitle">Comparação dos 3 cenários · Mai/26 – Out/26</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Diferença entre Realista e Agressivo = <strong>R$ 36.000 em 6 meses</strong>. A principal alavanca é a versão online do Legacy Burn 45 (escala sem ampliar custo fixo).
+      </div>
+      <div class="chart-canvas-wrapper tall"><canvas id="chartProjecao"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Capital estimado em 12 meses</div>
+          <div class="chart-subtitle">Lucro projetado anual por cenário</div>
+        </div>
+      </div>
+      <div class="chart-insight">
+        Em 12 meses, o cenário Agressivo gera <strong>R$ 144 mil</strong> de capital — suficiente para montar um segundo espaço ou produtizar o método.
+      </div>
+      <div class="chart-canvas-wrapper tall"><canvas id="chartCapital12m"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ALAVANCAS DE MELHORIA -->
+  <div class="section-title accent">💡 Alavancas de melhoria · impacto estimado</div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Alavanca</th>
+          <th class="num">+ Clientes/mês</th>
+          <th class="num">+ Receita/mês</th>
+          <th class="num">+ Lucro/mês</th>
+          <th class="num">+ Lucro 6 meses</th>
+          <th>Esforço</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Converter 16 sem avaliação</strong><br><span style="font-size:11px;color:var(--text-tertiary);">1 avaliação/semana + follow-up</span></td>
+          <td class="num">+4</td>
+          <td class="num">R$ 870</td>
+          <td class="num" style="color: var(--neon-green);">R$ 870</td>
+          <td class="num" style="color: var(--neon-green);">R$ 5.220</td>
+          <td><span class="margin-badge high">Baixo</span></td>
+        </tr>
+        <tr>
+          <td><strong>Reduzir churn (13 em risco)</strong><br><span style="font-size:11px;color:var(--text-tertiary);">Ligação pessoal + treino especial</span></td>
+          <td class="num">+6 retidos</td>
+          <td class="num">R$ 1.300</td>
+          <td class="num" style="color: var(--neon-green);">R$ 1.300</td>
+          <td class="num" style="color: var(--neon-green);">R$ 7.800</td>
+          <td><span class="margin-badge high">Baixo</span></td>
+        </tr>
+        <tr>
+          <td><strong>Upsell Mensal → Semestral</strong><br><span style="font-size:11px;color:var(--text-tertiary);">22 clientes Mensal · migrar 8 em 6 meses</span></td>
+          <td class="num">0</td>
+          <td class="num">R$ 880</td>
+          <td class="num" style="color: var(--neon-green);">R$ 880</td>
+          <td class="num" style="color: var(--neon-green);">R$ 5.280</td>
+          <td><span class="margin-badge med">Médio</span></td>
+        </tr>
+        <tr>
+          <td><strong>Programa de indicação</strong><br><span style="font-size:11px;color:var(--text-tertiary);">Traz cliente → 10% desconto 1 mês</span></td>
+          <td class="num">+4</td>
+          <td class="num">R$ 870</td>
+          <td class="num" style="color: var(--neon-green);">R$ 870</td>
+          <td class="num" style="color: var(--neon-green);">R$ 5.220</td>
+          <td><span class="margin-badge high">Baixo</span></td>
+        </tr>
+        <tr>
+          <td><strong>Legacy Burn 45 Online</strong><br><span style="font-size:11px;color:var(--text-tertiary);">Produto escalável · custo marginal zero</span></td>
+          <td class="num">+20</td>
+          <td class="num">R$ 3.000</td>
+          <td class="num" style="color: var(--neon-purple);">R$ 2.700</td>
+          <td class="num" style="color: var(--neon-purple);">R$ 16.200</td>
+          <td><span class="margin-badge low">Alto</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mídia paga Instagram</strong><br><span style="font-size:11px;color:var(--text-tertiary);">R$ 500/mês · ticket R$ 217 · CAC ~R$ 125</span></td>
+          <td class="num">+4</td>
+          <td class="num">R$ 870</td>
+          <td class="num" style="color: var(--neon-green);">R$ 370</td>
+          <td class="num" style="color: var(--neon-green);">R$ 2.220</td>
+          <td><span class="margin-badge med">Médio</span></td>
+        </tr>
+        <tr class="total-row">
+          <td>POTENCIAL COMBINADO (6 meses)</td>
+          <td class="num">+38</td>
+          <td class="num">R$ 7.790</td>
+          <td class="num">R$ 6.990</td>
+          <td class="num">R$ 41.940</td>
+          <td><span class="margin-badge high">Plano ação</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <span>Dashboard gerado em 24/04/2026 · fonte: Next Fit + despesas reais informadas pelo gestor</span>
+    <span class="tag">DRE real · despesa fixa R$ 8.649/mês</span>
+  </footer>
+
+</div>
+
+<script>
+/* =================== DADOS =================== */
+
+const DESPESAS_MENSAIS = [
+  { nome: 'Aluguel do espaço',        valor: 3000.00 },
+  { nome: 'Aluguel de equipamentos',  valor: 2100.00 },
+  { nome: 'Impostos',                 valor: 1000.00 },
+  { nome: 'Estagiários',              valor: 900.00  },
+  { nome: 'Contadora',                valor: 525.00  },
+  { nome: 'Sistema Next Fit',         valor: 349.00  },
+  { nome: 'Luz',                      valor: 180.00  },
+  { nome: 'Água',                     valor: 180.00  },
+  { nome: 'Material de limpeza',      valor: 150.00  },
+  { nome: 'Parcela aluguel',          valor: 125.00  },
+  { nome: 'Internet',                 valor: 100.00  },
+  { nome: 'Spotify',                  valor: 40.00   },
+];
+const DESPESA_TOTAL = DESPESAS_MENSAIS.reduce((a,b) => a + b.valor, 0); // 8.649
+
+const DATA = {
+  meses: ['Janeiro/26', 'Fevereiro/26', 'Março/26', 'Abril/26*'],
+  mesesCurto: ['Jan', 'Fev', 'Mar', 'Abr*'],
+  receitaMensal: [12275.90, 12893.80, 10928.90, 8887.00],
+  vendasMensal: [64, 55, 56, 41],
+  despesaMensal: DESPESA_TOTAL,
+
+  // Planos — SEMESTRAL CONSOLIDADO
+  planos: [
+    { nome: 'Plano Semestral Legacy', receita: 19197.90, vendas: 29, ativos: 37, cor: '#39ff9e' },
+    { nome: 'Mensal Família',         receita: 11675.00, vendas: 95, ativos: 22, cor: '#b152ff' },
+    { nome: 'Start Legacy',           receita: 7261.70,  vendas: 53, ativos: 10, cor: '#4ab6ff' },
+    { nome: 'Fit Legacy',             receita: 3710.00,  vendas: 21, ativos: 6,  cor: '#ff9b4a' },
+    { nome: 'Start 2026',             receita: 1590.00,  vendas: 10, ativos: 7,  cor: '#ff5ec4' },
+    { nome: 'Performance Legacy',     receita: 1055.00,  vendas: 5,  ativos: 1,  cor: '#ffd447' },
+    { nome: 'Trimestral Legacy',      receita: 347.00,   vendas: 1,  ativos: 1,  cor: '#ff7a7a' },
+    { nome: 'Mensal avulso / Cortesia', receita: 149.00, vendas: 2,  ativos: 4,  cor: '#d4aaff' },
+  ],
+
+  // Receita por plano por mês (semestrais consolidados)
+  receitaPlanoMes: {
+    'Plano Semestral Legacy':    { Janeiro: 3205.00,  Fevereiro: 6471.90,  Março: 3242.00, Abril: 6279.00 },
+    'Mensal Família':            { Janeiro: 3018.00,  Fevereiro: 3045.00,  Março: 3526.00, Abril: 2086.00 },
+    'Start Legacy':              { Janeiro: 2821.00,  Fevereiro: 1778.70,  Março: 1664.00, Abril: 998.00  },
+    'Fit Legacy':                { Janeiro: 1183.00,  Fevereiro: 676.00,   Março: 907.00,  Abril: 944.00  },
+    'Start 2026':                { Janeiro: 0,        Fevereiro: 0,        Março: 954.00,  Abril: 636.00  },
+    'Performance Legacy':        { Janeiro: 398.00,   Fevereiro: 0,        Março: 428.00,  Abril: 229.00  },
+    'Trimestral Legacy':         { Janeiro: 0,        Fevereiro: 0,        Março: 347.00,  Abril: 0       },
+    'Mensal avulso / Cortesia':  { Janeiro: 149.00,   Fevereiro: 0,        Março: 0,       Abril: 0       },
+  },
+
+  vendasPlanoMes: {
+    'Plano Semestral Legacy':    { Janeiro: 5,  Fevereiro: 10, Março: 6,  Abril: 5  },
+    'Mensal Família':            { Janeiro: 25, Fevereiro: 25, Março: 28, Abril: 17 },
+    'Start Legacy':              { Janeiro: 20, Fevereiro: 13, Março: 11, Abril: 9  },
+    'Fit Legacy':                { Janeiro: 7,  Fevereiro: 4,  Março: 5,  Abril: 5  },
+    'Start 2026':                { Janeiro: 0,  Fevereiro: 0,  Março: 6,  Abril: 4  },
+    'Performance Legacy':        { Janeiro: 2,  Fevereiro: 0,  Março: 2,  Abril: 1  },
+    'Trimestral Legacy':         { Janeiro: 0,  Fevereiro: 0,  Março: 1,  Abril: 0  },
+    'Mensal avulso / Cortesia':  { Janeiro: 1,  Fevereiro: 0,  Março: 0,  Abril: 0  },
+  },
+
+  faixaEtaria: { labels: ['9-12', '13-20', '21-30', '31-40', '41-50', '50+'], valores: [1, 8, 9, 18, 24, 28] },
+  sexo:        { labels: ['Feminino', 'Masculino'], valores: [75, 13] },
+  avaliacao:   { labels: ['Com avaliação', 'Sem avaliação'], valores: [72, 16] },
+
+  contratos: [
+    { nome: 'Semestral Legacy',      qtd: 37 },
+    { nome: 'Mensal Família',        qtd: 22 },
+    { nome: 'Start Legacy',          qtd: 10 },
+    { nome: 'Start 2026',            qtd: 7  },
+    { nome: 'Fit Legacy',            qtd: 6  },
+    { nome: 'Cortesia / Fidelidade', qtd: 4  },
+    { nome: 'Outros',                qtd: 2  },
+  ],
+
+  pagamento: {
+    labels: ['Pix/Depósito', 'Cartão de Crédito', 'Dinheiro'],
+    valores: [5192.00, 3807.00, 413.00],
+    contagem: [31, 6, 3],
+  },
+
+  // PROJEÇÃO 6 MESES
+  projecao6m: {
+    meses: ['Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out'],
+    conservador: [2800, 2900, 3000, 3100, 3050, 3150],   // acumulado = 18.000
+    realista:    [4500, 5200, 5800, 6300, 6700, 7500],   // acumulado = 36.000
+    agressivo:   [7800, 9500, 11000, 12500, 14200, 17000], // acumulado = 72.000
+  },
+};
+
+/* =================== HELPERS =================== */
+
+const fmt = (v) => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtShort = (v) => 'R$ ' + v.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+const fmtPct = (v) => v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%';
+
+Chart.defaults.font.family = "'Space Grotesk', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#a0a0b0';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+
+const tooltipConfig = {
+  backgroundColor: 'rgba(21,21,31,0.96)',
+  titleColor: '#f5f5f7', bodyColor: '#f5f5f7',
+  borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
+  padding: 12, cornerRadius: 8,
+  titleFont: { weight: '600', size: 13 }, bodyFont: { size: 12 },
+  boxPadding: 6, displayColors: true,
+};
+
+/* =================== ESTADO =================== */
+
+let currentFilter = null;
+let currentPeriod = 'all';
+const charts = {};
+
+/* =================== DESPESAS LIST =================== */
+
+function renderDespesasList() {
+  const list = document.getElementById('despesasList');
+  const maxValor = Math.max(...DESPESAS_MENSAIS.map(d => d.valor));
+
+  const rows = DESPESAS_MENSAIS.map(d => {
+    const pct = (d.valor / DESPESA_TOTAL * 100).toFixed(1);
+    const barW = (d.valor / maxValor * 40).toFixed(0);
+    return `
+      <div class="despesa-row">
+        <span>
+          <span class="despesa-bar" style="width: ${barW}px;"></span>
+          <span class="despesa-nome">${d.nome}</span>
+        </span>
+        <span>
+          <span class="despesa-valor">${fmt(d.valor)}</span>
+          <span class="despesa-pct">${pct}%</span>
+        </span>
+      </div>`;
+  }).join('');
+
+  list.innerHTML = rows + `
+    <div class="despesa-row total">
+      <span class="despesa-nome">Total mensal</span>
+      <span class="despesa-valor">${fmt(DESPESA_TOTAL)}</span>
+    </div>`;
+}
+
+/* =================== CHARTS =================== */
+
+// 1. DRE — Receita / Despesa / Lucro (barras agrupadas + linha)
+function createDREChart() {
+  const ctx = document.getElementById('chartDRE');
+  const despesas = DATA.meses.map(() => DATA.despesaMensal);
+  const lucros = DATA.receitaMensal.map(r => r - DATA.despesaMensal);
+
+  charts.dre = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: DATA.meses,
+      datasets: [
+        {
+          label: 'Receita',
+          data: DATA.receitaMensal,
+          backgroundColor: 'rgba(57,255,158,0.75)',
+          borderRadius: 6,
+          borderSkipped: false,
+          barThickness: 22,
+        },
+        {
+          label: 'Despesa fixa',
+          data: despesas,
+          backgroundColor: 'rgba(255,84,112,0.75)',
+          borderRadius: 6,
+          borderSkipped: false,
+          barThickness: 22,
+        },
+        {
+          label: 'Lucro líquido',
+          data: lucros,
+          type: 'line',
+          borderColor: '#b152ff',
+          backgroundColor: '#b152ff',
+          borderWidth: 3,
+          tension: 0.3,
+          pointBackgroundColor: '#b152ff',
+          pointBorderColor: '#0a0a0f',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          yAxisID: 'y',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'end', labels: { usePointStyle: true, padding: 16 } },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: { label: (c) => `${c.dataset.label}: ${fmt(c.parsed.y)}` },
+        },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 2. Evolução Receita vs Lucro líquido (linhas)
+function createReceitaLucroChart() {
+  const ctx = document.getElementById('chartReceitaLucro');
+  const gR = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+  gR.addColorStop(0, 'rgba(57,255,158,0.25)');
+  gR.addColorStop(1, 'rgba(57,255,158,0)');
+  const gL = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+  gL.addColorStop(0, 'rgba(177,82,255,0.25)');
+  gL.addColorStop(1, 'rgba(177,82,255,0)');
+
+  charts.receitaLucro = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: DATA.meses,
+      datasets: [
+        {
+          label: 'Receita',
+          data: DATA.receitaMensal,
+          borderColor: '#39ff9e', backgroundColor: gR,
+          borderWidth: 2.5, fill: true, tension: 0.35,
+          pointBackgroundColor: '#39ff9e', pointBorderColor: '#0a0a0f',
+          pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 7,
+        },
+        {
+          label: 'Lucro líquido',
+          data: DATA.receitaMensal.map(r => r - DATA.despesaMensal),
+          borderColor: '#b152ff', backgroundColor: gL,
+          borderWidth: 2.5, fill: true, tension: 0.35,
+          pointBackgroundColor: '#b152ff', pointBorderColor: '#0a0a0f',
+          pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 7,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'end', labels: { usePointStyle: true, padding: 16 } },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `${c.dataset.label}: ${fmt(c.parsed.y)}` } },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 3. Donut — Receita por plano
+function createDonutChart() {
+  const ctx = document.getElementById('chartDonutPlanos');
+  charts.donut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: DATA.planos.map(p => p.nome),
+      datasets: [{
+        data: DATA.planos.map(p => p.receita),
+        backgroundColor: DATA.planos.map(p => p.cor),
+        borderColor: '#15151f', borderWidth: 2, hoverOffset: 14, hoverBorderColor: '#fff',
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: {
+        legend: { position: 'right', labels: { usePointStyle: true, padding: 10, font: { size: 11 }, boxWidth: 8 } },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.data.reduce((a,b) => a+b, 0);
+              return `${c.label}: ${fmt(c.parsed)} (${((c.parsed/total)*100).toFixed(1)}%)`;
+            },
+          },
+        },
+      },
+      onClick: (evt, elements) => {
+        if (elements.length > 0) applyFilter(DATA.planos[elements[0].index].nome);
+      },
+      onHover: (evt, elements) => { evt.native.target.style.cursor = elements.length > 0 ? 'pointer' : 'default'; },
+    },
+  });
+}
+
+// 4. Top planos (quantidade)
+function createTopPlanosChart() {
+  const ctx = document.getElementById('chartTopPlanos');
+  const top = [...DATA.planos].sort((a,b) => b.vendas - a.vendas).slice(0, 6);
+  charts.topPlanos = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: top.map(p => p.nome),
+      datasets: [{
+        label: 'Vendas', data: top.map(p => p.vendas),
+        backgroundColor: top.map(p => p.cor),
+        borderRadius: 8, borderSkipped: false, barThickness: 22,
+      }],
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `${c.parsed.x} vendas` } },
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { precision: 0 } },
+        y: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 5. Receita por plano (vertical)
+function createReceitaPlanoChart() {
+  const ctx = document.getElementById('chartReceitaPlano');
+  const top = [...DATA.planos].sort((a,b) => b.receita - a.receita).slice(0, 6);
+  charts.receitaPlano = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: top.map(p => p.nome.length > 14 ? p.nome.substring(0, 12) + '…' : p.nome),
+      datasets: [{
+        label: 'Receita', data: top.map(p => p.receita),
+        backgroundColor: (c) => {
+          const chart = c.chart; const { ctx: x, chartArea } = chart;
+          if (!chartArea) return '#39ff9e';
+          const g = x.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          g.addColorStop(0, 'rgba(57,255,158,0.3)'); g.addColorStop(1, 'rgba(57,255,158,1)');
+          return g;
+        },
+        borderRadius: 10, borderSkipped: false, barThickness: 32,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: { title: (items) => top[items[0].dataIndex].nome, label: (c) => fmt(c.parsed.y) },
+        },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      },
+    },
+  });
+}
+
+// 6-8: demografia
+function createFaixaEtariaChart() {
+  const ctx = document.getElementById('chartFaixaEtaria');
+  charts.faixa = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: DATA.faixaEtaria.labels,
+      datasets: [{
+        label: 'Clientes', data: DATA.faixaEtaria.valores,
+        backgroundColor: (c) => {
+          const x = c.chart.ctx; const area = c.chart.chartArea;
+          if (!area) return '#b152ff';
+          const g = x.createLinearGradient(0, area.bottom, 0, area.top);
+          g.addColorStop(0, 'rgba(177,82,255,0.3)'); g.addColorStop(1, 'rgba(177,82,255,1)');
+          return g;
+        },
+        borderRadius: 8, borderSkipped: false,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `${c.parsed.y} clientes` } },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { precision: 0 } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+function createSexoChart() {
+  const ctx = document.getElementById('chartSexo');
+  charts.sexo = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: DATA.sexo.labels,
+      datasets: [{
+        data: DATA.sexo.valores,
+        backgroundColor: ['#ff5ec4', '#4ab6ff'],
+        borderColor: '#15151f', borderWidth: 3, hoverOffset: 10,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14 } },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.data.reduce((a,b) => a+b, 0);
+              return `${c.label}: ${c.parsed} (${((c.parsed/total)*100).toFixed(1)}%)`;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function createAvaliacaoChart() {
+  const ctx = document.getElementById('chartAvaliacao');
+  charts.avaliacao = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: DATA.avaliacao.labels,
+      datasets: [{
+        data: DATA.avaliacao.valores,
+        backgroundColor: ['#39ff9e', '#ff9b4a'],
+        borderColor: '#15151f', borderWidth: 3, hoverOffset: 10,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14 } },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.data.reduce((a,b) => a+b, 0);
+              return `${c.label}: ${c.parsed} (${((c.parsed/total)*100).toFixed(1)}%)`;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+// 9. Margem líquida real
+function createMargemChart() {
+  const ctx = document.getElementById('chartMargem');
+  const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 280);
+  gradient.addColorStop(0, 'rgba(74,182,255,0.35)');
+  gradient.addColorStop(1, 'rgba(74,182,255,0)');
+
+  const margens = DATA.receitaMensal.map(r => ((r - DATA.despesaMensal) / r) * 100);
+
+  charts.margem = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: DATA.meses,
+      datasets: [{
+        label: 'Margem', data: margens,
+        borderColor: '#4ab6ff', backgroundColor: gradient,
+        borderWidth: 2.5, fill: true, tension: 0.3,
+        pointBackgroundColor: (c) => {
+          const v = margens[c.dataIndex];
+          if (v < 10) return '#ff5470';
+          if (v < 25) return '#ffd447';
+          return '#39ff9e';
+        },
+        pointBorderColor: '#0a0a0f', pointBorderWidth: 2, pointRadius: 6,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `Margem: ${c.parsed.y.toFixed(1)}%` } },
+      },
+      scales: {
+        y: { min: 0, max: 50, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => v + '%' } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 10. Pagamento
+function createPagamentoChart() {
+  const ctx = document.getElementById('chartPagamento');
+  charts.pagamento = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: DATA.pagamento.labels,
+      datasets: [{
+        data: DATA.pagamento.valores,
+        backgroundColor: ['#39ff9e', '#b152ff', '#ffd447'],
+        borderColor: '#15151f', borderWidth: 3, hoverOffset: 12,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '58%',
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14 } },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.data.reduce((a,b) => a+b, 0);
+              const count = DATA.pagamento.contagem[c.dataIndex];
+              return `${c.label}: ${fmt(c.parsed)} (${count} transações · ${((c.parsed/total)*100).toFixed(1)}%)`;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+// 11. Ranking — meses mais lucrativos (agora por LUCRO, não receita)
+function createRankingChart() {
+  const ctx = document.getElementById('chartRanking');
+  const sorted = DATA.meses.map((m,i) => ({
+    mes: m,
+    lucro: DATA.receitaMensal[i] - DATA.despesaMensal
+  })).sort((a,b) => b.lucro - a.lucro);
+
+  charts.ranking = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(s => s.mes),
+      datasets: [{
+        label: 'Lucro', data: sorted.map(s => s.lucro),
+        backgroundColor: sorted.map(s =>
+          s.lucro < 1000 ? '#ff5470' : s.lucro < 3000 ? '#ffd447' : '#39ff9e'
+        ),
+        borderRadius: 10, borderSkipped: false, barThickness: 32,
+      }],
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `Lucro: ${fmt(c.parsed.x)}` } },
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        y: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 12. Contratos
+function createContratosChart() {
+  const ctx = document.getElementById('chartContratos');
+  charts.contratos = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: DATA.contratos.map(c => c.nome.length > 11 ? c.nome.substring(0, 10) + '…' : c.nome),
+      datasets: [{
+        label: 'Clientes', data: DATA.contratos.map(c => c.qtd),
+        backgroundColor: (ctx) => {
+          const x = ctx.chart.ctx; const area = ctx.chart.chartArea;
+          if (!area) return '#39ff9e';
+          const g = x.createLinearGradient(0, area.bottom, 0, area.top);
+          g.addColorStop(0, 'rgba(177,82,255,0.3)'); g.addColorStop(1, 'rgba(57,255,158,0.9)');
+          return g;
+        },
+        borderRadius: 8, barThickness: 22,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: {
+            title: (items) => DATA.contratos[items[0].dataIndex].nome,
+            label: (c) => `${c.parsed.y} clientes ativos`,
+          },
+        },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { precision: 0 } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      },
+    },
+  });
+}
+
+// 13. PROJEÇÃO DE LUCRO ACUMULADO
+function createProjecaoChart() {
+  const ctx = document.getElementById('chartProjecao');
+
+  function acum(arr) {
+    const r = [];
+    let s = 0;
+    arr.forEach(v => { s += v; r.push(s); });
+    return r;
+  }
+
+  const gradC = ctx.getContext('2d').createLinearGradient(0, 0, 0, 340);
+  gradC.addColorStop(0, 'rgba(255,212,71,0.2)'); gradC.addColorStop(1, 'rgba(255,212,71,0)');
+  const gradR = ctx.getContext('2d').createLinearGradient(0, 0, 0, 340);
+  gradR.addColorStop(0, 'rgba(57,255,158,0.25)'); gradR.addColorStop(1, 'rgba(57,255,158,0)');
+  const gradA = ctx.getContext('2d').createLinearGradient(0, 0, 0, 340);
+  gradA.addColorStop(0, 'rgba(177,82,255,0.3)'); gradA.addColorStop(1, 'rgba(177,82,255,0)');
+
+  charts.projecao = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: DATA.projecao6m.meses,
+      datasets: [
+        {
+          label: 'Conservador', data: acum(DATA.projecao6m.conservador),
+          borderColor: '#ffd447', backgroundColor: gradC,
+          borderWidth: 2.5, fill: true, tension: 0.3,
+          pointBackgroundColor: '#ffd447', pointBorderColor: '#0a0a0f', pointBorderWidth: 2, pointRadius: 5,
+        },
+        {
+          label: 'Realista', data: acum(DATA.projecao6m.realista),
+          borderColor: '#39ff9e', backgroundColor: gradR,
+          borderWidth: 2.5, fill: true, tension: 0.3,
+          pointBackgroundColor: '#39ff9e', pointBorderColor: '#0a0a0f', pointBorderWidth: 2, pointRadius: 5,
+        },
+        {
+          label: 'Agressivo', data: acum(DATA.projecao6m.agressivo),
+          borderColor: '#b152ff', backgroundColor: gradA,
+          borderWidth: 2.5, fill: true, tension: 0.3,
+          pointBackgroundColor: '#b152ff', pointBorderColor: '#0a0a0f', pointBorderWidth: 2, pointRadius: 5,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'end', labels: { usePointStyle: true, padding: 16 } },
+        tooltip: { ...tooltipConfig, callbacks: { label: (c) => `${c.dataset.label}: ${fmt(c.parsed.y)} acumulado` } },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+// 14. CAPITAL EM 12 MESES
+function createCapital12mChart() {
+  const ctx = document.getElementById('chartCapital12m');
+  // Projetando o mesmo ritmo para mais 6 meses
+  const cap12m = { conservador: 36000, realista: 72000, agressivo: 144000 };
+
+  charts.capital = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Conservador', 'Realista', 'Agressivo'],
+      datasets: [{
+        label: 'Lucro acumulado 12 meses',
+        data: [cap12m.conservador, cap12m.realista, cap12m.agressivo],
+        backgroundColor: ['#ffd447', '#39ff9e', '#b152ff'],
+        borderRadius: 12, borderSkipped: false, barThickness: 60,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          ...tooltipConfig,
+          callbacks: { label: (c) => `${c.label}: ${fmt(c.parsed.y)} em 12 meses` },
+        },
+      },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: (v) => fmtShort(v) } },
+        x: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+/* =================== TABELA DRE =================== */
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  let totalReceita = 0, totalVendas = 0;
+
+  const rows = DATA.meses.map((mes, i) => {
+    const receita = DATA.receitaMensal[i];
+    const vendas = DATA.vendasMensal[i];
+    const custo = DATA.despesaMensal;
+    const lucro = receita - custo;
+    const margem = (lucro / receita) * 100;
+    const ticket = receita / vendas;
+    totalReceita += receita;
+    totalVendas += vendas;
+    const marginClass = margem >= 25 ? 'high' : margem >= 10 ? 'med' : 'low';
+    return `
+      <tr>
+        <td>${mes}</td>
+        <td class="num">${vendas}</td>
+        <td class="num">${fmt(receita)}</td>
+        <td class="num" style="color: var(--text-tertiary);">${fmt(custo)}</td>
+        <td class="num" style="color: ${lucro > 1000 ? 'var(--neon-purple)' : 'var(--danger)'};">${fmt(lucro)}</td>
+        <td class="num"><span class="margin-badge ${marginClass}">${margem.toFixed(1)}%</span></td>
+        <td class="num">${fmt(ticket)}</td>
+      </tr>`;
+  }).join('');
+
+  const totalCusto = DATA.despesaMensal * 4;
+  const totalLucro = totalReceita - totalCusto;
+  const totalMargem = (totalLucro / totalReceita) * 100;
+  const totalTicket = totalReceita / totalVendas;
+  const totalMarginClass = totalMargem >= 25 ? 'high' : totalMargem >= 10 ? 'med' : 'low';
+
+  tbody.innerHTML = rows + `
+    <tr class="total-row">
+      <td>TOTAL (4 meses)</td>
+      <td class="num">${totalVendas}</td>
+      <td class="num">${fmt(totalReceita)}</td>
+      <td class="num">${fmt(totalCusto)}</td>
+      <td class="num">${fmt(totalLucro)}</td>
+      <td class="num"><span class="margin-badge ${totalMarginClass}">${totalMargem.toFixed(1)}%</span></td>
+      <td class="num">${fmt(totalTicket)}</td>
+    </tr>`;
+}
+
+/* =================== FILTRO (clique na donut) =================== */
+
+function applyFilter(planoNome) {
+  currentFilter = planoNome;
+  document.getElementById('filterBanner').classList.add('visible');
+  document.getElementById('clearFilter').classList.add('visible');
+  document.getElementById('filterName').textContent = planoNome;
+
+  const plano = DATA.planos.find(p => p.nome === planoNome);
+  if (!plano) return;
+
+  document.getElementById('kpiReceita').textContent = fmt(plano.receita);
+  document.getElementById('kpiReceitaChange').textContent = `${plano.vendas} vendas`;
+
+  // Despesas são fixas — mostro as mesmas, mas recalculo lucro/margem só para o plano
+  const despesaPlano = DATA.despesaMensal * 4;
+  const lucroPlano = plano.receita - despesaPlano;
+  document.getElementById('kpiLucro').textContent = fmt(lucroPlano);
+  document.getElementById('kpiMargem').textContent = plano.receita > 0 ? fmtPct((lucroPlano / plano.receita) * 100) : '—';
+  document.getElementById('kpiTicket').textContent = fmt(plano.receita / Math.max(plano.vendas, 1));
+  document.getElementById('kpiAtivos').textContent = plano.ativos;
+
+  const rec = DATA.receitaPlanoMes[planoNome] || { Janeiro:0, Fevereiro:0, Março:0, Abril:0 };
+  const receitaF = [rec.Janeiro, rec.Fevereiro, rec.Março, rec.Abril];
+  charts.receitaLucro.data.datasets[0].data = receitaF;
+  charts.receitaLucro.data.datasets[1].data = receitaF.map(r => r - DATA.despesaMensal);
+  charts.receitaLucro.update();
+
+  const topPlanos = [...DATA.planos].sort((a,b) => b.vendas - a.vendas).slice(0, 6);
+  charts.topPlanos.data.datasets[0].backgroundColor = topPlanos.map(p =>
+    p.nome === planoNome ? p.cor : p.cor + '40'
+  );
+  charts.topPlanos.update();
+
+  const topRec = [...DATA.planos].sort((a,b) => b.receita - a.receita).slice(0, 6);
+  charts.receitaPlano.data.datasets[0].backgroundColor = topRec.map(p =>
+    p.nome === planoNome ? '#39ff9e' : '#39ff9e30'
+  );
+  charts.receitaPlano.update();
+
+  const rankingF = DATA.meses.map((m, i) => ({
+    mes: m, lucro: receitaF[i] - DATA.despesaMensal
+  })).sort((a,b) => b.lucro - a.lucro);
+  charts.ranking.data.labels = rankingF.map(r => r.mes);
+  charts.ranking.data.datasets[0].data = rankingF.map(r => r.lucro);
+  charts.ranking.data.datasets[0].backgroundColor = rankingF.map(s =>
+    s.lucro < 1000 ? '#ff5470' : s.lucro < 3000 ? '#ffd447' : '#39ff9e'
+  );
+  charts.ranking.update();
+
+  renderTableFiltered(planoNome);
+}
+
+function renderTableFiltered(planoNome) {
+  const tbody = document.getElementById('tableBody');
+  const rec = DATA.receitaPlanoMes[planoNome];
+  const vendas = DATA.vendasPlanoMes[planoNome];
+  const chaves = ['Janeiro', 'Fevereiro', 'Março', 'Abril'];
+
+  let totalR = 0, totalV = 0;
+  const rows = chaves.map((k, i) => {
+    const receita = rec[k];
+    const v = vendas[k];
+    const custo = DATA.despesaMensal;
+    const lucro = receita - custo;
+    const margem = receita > 0 ? (lucro/receita)*100 : 0;
+    const ticket = v > 0 ? receita/v : 0;
+    totalR += receita; totalV += v;
+    const marginClass = margem >= 25 ? 'high' : margem >= 10 ? 'med' : 'low';
+    return `
+      <tr>
+        <td>${DATA.meses[i]}</td>
+        <td class="num">${v}</td>
+        <td class="num">${fmt(receita)}</td>
+        <td class="num" style="color: var(--text-tertiary);">${fmt(custo)}</td>
+        <td class="num" style="color: ${lucro > 1000 ? 'var(--neon-purple)' : 'var(--danger)'};">${fmt(lucro)}</td>
+        <td class="num"><span class="margin-badge ${marginClass}">${margem.toFixed(1)}%</span></td>
+        <td class="num">${fmt(ticket)}</td>
+      </tr>`;
+  }).join('');
+
+  const totalC = DATA.despesaMensal * 4;
+  const totalL = totalR - totalC;
+  const totalM = totalR > 0 ? (totalL/totalR)*100 : 0;
+  const totalT = totalV > 0 ? totalR/totalV : 0;
+  const totalMarginClass = totalM >= 25 ? 'high' : totalM >= 10 ? 'med' : 'low';
+
+  tbody.innerHTML = rows + `
+    <tr class="total-row">
+      <td>TOTAL · ${planoNome}</td>
+      <td class="num">${totalV}</td>
+      <td class="num">${fmt(totalR)}</td>
+      <td class="num">${fmt(totalC)}</td>
+      <td class="num">${fmt(totalL)}</td>
+      <td class="num"><span class="margin-badge ${totalMarginClass}">${totalM.toFixed(1)}%</span></td>
+      <td class="num">${fmt(totalT)}</td>
+    </tr>`;
+}
+
+function clearFilter() {
+  currentFilter = null;
+  document.getElementById('filterBanner').classList.remove('visible');
+  document.getElementById('clearFilter').classList.remove('visible');
+
+  document.getElementById('kpiReceita').textContent = 'R$ 44.985,60';
+  document.getElementById('kpiReceitaChange').textContent = '207 vendas pagas';
+  document.getElementById('kpiLucro').textContent = 'R$ 10.389,60';
+  document.getElementById('kpiMargem').textContent = '23,1%';
+  document.getElementById('kpiTicket').textContent = 'R$ 217,32';
+  document.getElementById('kpiAtivos').textContent = '88';
+
+  charts.receitaLucro.data.datasets[0].data = DATA.receitaMensal;
+  charts.receitaLucro.data.datasets[1].data = DATA.receitaMensal.map(r => r - DATA.despesaMensal);
+  charts.receitaLucro.update();
+
+  const topPlanos = [...DATA.planos].sort((a,b) => b.vendas - a.vendas).slice(0, 6);
+  charts.topPlanos.data.datasets[0].backgroundColor = topPlanos.map(p => p.cor);
+  charts.topPlanos.update();
+
+  const topRec = [...DATA.planos].sort((a,b) => b.receita - a.receita).slice(0, 6);
+  charts.receitaPlano.data.datasets[0].backgroundColor = topRec.map(() => '#39ff9e');
+  charts.receitaPlano.update();
+
+  const sortedMeses = DATA.meses.map((m,i) => ({
+    mes: m, lucro: DATA.receitaMensal[i] - DATA.despesaMensal
+  })).sort((a,b) => b.lucro - a.lucro);
+  charts.ranking.data.labels = sortedMeses.map(s => s.mes);
+  charts.ranking.data.datasets[0].data = sortedMeses.map(s => s.lucro);
+  charts.ranking.data.datasets[0].backgroundColor = sortedMeses.map(s =>
+    s.lucro < 1000 ? '#ff5470' : s.lucro < 3000 ? '#ffd447' : '#39ff9e'
+  );
+  charts.ranking.update();
+
+  renderTable();
+}
+
+/* =================== PERÍODO =================== */
+
+function applyPeriodFilter(period) {
+  currentPeriod = period;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-period="${period}"]`).classList.add('active');
+  clearFilter();
+
+  let meses, receitas, vendas, nMeses;
+  if (period === 'all') {
+    meses = DATA.meses; receitas = DATA.receitaMensal; vendas = DATA.vendasMensal; nMeses = 4;
+  } else if (period === '3') {
+    meses = DATA.meses.slice(-3); receitas = DATA.receitaMensal.slice(-3); vendas = DATA.vendasMensal.slice(-3); nMeses = 3;
+  } else {
+    meses = [DATA.meses[3]]; receitas = [DATA.receitaMensal[3]]; vendas = [DATA.vendasMensal[3]]; nMeses = 1;
+  }
+
+  const totalR = receitas.reduce((a,b) => a+b, 0);
+  const totalV = vendas.reduce((a,b) => a+b, 0);
+  const totalD = DATA.despesaMensal * nMeses;
+  const lucro = totalR - totalD;
+  const margem = totalR > 0 ? (lucro/totalR)*100 : 0;
+
+  document.getElementById('kpiReceita').textContent = fmt(totalR);
+  document.getElementById('kpiReceitaChange').textContent = `${totalV} vendas no período`;
+  document.getElementById('kpiDespesas').textContent = fmt(totalD);
+  document.getElementById('kpiLucro').textContent = fmt(lucro);
+  document.getElementById('kpiMargem').textContent = fmtPct(margem);
+  document.getElementById('kpiTicket').textContent = fmt(totalR / Math.max(totalV, 1));
+
+  charts.receitaLucro.data.labels = meses;
+  charts.receitaLucro.data.datasets[0].data = receitas;
+  charts.receitaLucro.data.datasets[1].data = receitas.map(r => r - DATA.despesaMensal);
+  charts.receitaLucro.update();
+
+  charts.dre.data.labels = meses;
+  charts.dre.data.datasets[0].data = receitas;
+  charts.dre.data.datasets[1].data = receitas.map(() => DATA.despesaMensal);
+  charts.dre.data.datasets[2].data = receitas.map(r => r - DATA.despesaMensal);
+  charts.dre.update();
+
+  charts.margem.data.labels = meses;
+  charts.margem.data.datasets[0].data = receitas.map(r => ((r - DATA.despesaMensal)/r)*100);
+  charts.margem.update();
+
+  const sorted = meses.map((m,i) => ({
+    mes: m, lucro: receitas[i] - DATA.despesaMensal
+  })).sort((a,b) => b.lucro - a.lucro);
+  charts.ranking.data.labels = sorted.map(s => s.mes);
+  charts.ranking.data.datasets[0].data = sorted.map(s => s.lucro);
+  charts.ranking.data.datasets[0].backgroundColor = sorted.map(s =>
+    s.lucro < 1000 ? '#ff5470' : s.lucro < 3000 ? '#ffd447' : '#39ff9e'
+  );
+  charts.ranking.update();
+
+  const tbody = document.getElementById('tableBody');
+  let tR=0, tV=0;
+  const rows = meses.map((m,i) => {
+    const r = receitas[i], v = vendas[i];
+    const c = DATA.despesaMensal;
+    const l = r - c;
+    const margem = (l/r)*100;
+    const ticket = r/v;
+    tR += r; tV += v;
+    const cls = margem >= 25 ? 'high' : margem >= 10 ? 'med' : 'low';
+    return `
+      <tr>
+        <td>${m}</td>
+        <td class="num">${v}</td>
+        <td class="num">${fmt(r)}</td>
+        <td class="num" style="color: var(--text-tertiary);">${fmt(c)}</td>
+        <td class="num" style="color: ${l > 1000 ? 'var(--neon-purple)' : 'var(--danger)'};">${fmt(l)}</td>
+        <td class="num"><span class="margin-badge ${cls}">${margem.toFixed(1)}%</span></td>
+        <td class="num">${fmt(ticket)}</td>
+      </tr>`;
+  }).join('');
+  const tC = DATA.despesaMensal * nMeses, tL = tR - tC;
+  const tM = tR > 0 ? (tL/tR)*100 : 0;
+  const totalCls = tM >= 25 ? 'high' : tM >= 10 ? 'med' : 'low';
+  tbody.innerHTML = rows + `
+    <tr class="total-row">
+      <td>TOTAL</td>
+      <td class="num">${tV}</td>
+      <td class="num">${fmt(tR)}</td>
+      <td class="num">${fmt(tC)}</td>
+      <td class="num">${fmt(tL)}</td>
+      <td class="num"><span class="margin-badge ${totalCls}">${tM.toFixed(1)}%</span></td>
+      <td class="num">${fmt(tR/tV)}</td>
+    </tr>`;
+}
+
+/* =================== INIT =================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderDespesasList();
+  createDREChart();
+  createReceitaLucroChart();
+  createDonutChart();
+  createTopPlanosChart();
+  createReceitaPlanoChart();
+  createFaixaEtariaChart();
+  createSexoChart();
+  createAvaliacaoChart();
+  createMargemChart();
+  createPagamentoChart();
+  createRankingChart();
+  createContratosChart();
+  createProjecaoChart();
+  createCapital12mChart();
+  renderTable();
+
+  document.querySelectorAll('.period-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyPeriodFilter(btn.dataset.period));
+  });
+  document.getElementById('clearFilter').addEventListener('click', clearFilter);
+});
+</script>
+</body>
+</html>

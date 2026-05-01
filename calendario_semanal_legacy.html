@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Calendário Editorial Semanal — Legacy Burn 45 | Inspirado no DNA MTOR</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #0f0f0f;
+    color: #e8e8e8;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container { max-width: 980px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #ff6b00 0%, #c41e00 100%);
+    border-radius: 12px;
+    margin-bottom: 40px;
+  }
+  header h1 { font-size: 2.2em; margin-bottom: 10px; }
+  header p { opacity: 0.95; font-size: 1.05em; }
+
+  .dna-box {
+    background: #1a1a1a;
+    border-left: 4px solid #ff6b00;
+    padding: 25px 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }
+  .dna-box h2 { color: #ff6b00; margin-bottom: 15px; font-size: 1.4em; }
+  .dna-box ul { margin-left: 20px; }
+  .dna-box li { margin: 6px 0; }
+
+  .day-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 35px;
+    border: 1px solid #2a2a2a;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #ff6b00;
+    padding-bottom: 14px;
+    margin-bottom: 25px;
+  }
+  .day-title {
+    font-size: 1.8em;
+    color: #ff6b00;
+    font-weight: 800;
+  }
+  .pillar-badge {
+    background: #ff6b00;
+    color: #0f0f0f;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .format-block {
+    background: #222;
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin: 18px 0;
+    border-left: 3px solid #ff6b00;
+  }
+  .format-title {
+    font-size: 1.1em;
+    color: #ffb777;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .format-block strong.label {
+    color: #ff6b00;
+    display: inline-block;
+    min-width: 110px;
+  }
+  .format-block p { margin: 6px 0; font-size: 0.96em; }
+  .hook {
+    background: #0f0f0f;
+    border-left: 3px solid #ffb777;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-style: italic;
+    color: #ffb777;
+  }
+  .caption {
+    background: #0f0f0f;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 0.95em;
+    white-space: pre-line;
+  }
+  .cta-tag {
+    display: inline-block;
+    background: #ff6b00;
+    color: #0f0f0f;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85em;
+    margin-top: 8px;
+  }
+  .hashtags {
+    color: #7fc7ff;
+    font-size: 0.88em;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+  }
+  .slide-list {
+    background: #0f0f0f;
+    padding: 14px 20px;
+    border-radius: 6px;
+    margin: 10px 0;
+  }
+  .slide-list li {
+    margin: 8px 0;
+    list-style: none;
+    padding-left: 10px;
+    border-left: 2px solid #ff6b00;
+  }
+  .slide-list strong { color: #ff6b00; }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    color: #888;
+    border-top: 1px solid #2a2a2a;
+    font-size: 0.9em;
+  }
+
+  .intro-metric {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+  }
+  .metric-card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    text-align: center;
+  }
+  .metric-card .number {
+    font-size: 2em;
+    color: #ff6b00;
+    font-weight: 800;
+  }
+  .metric-card .label { font-size: 0.85em; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔥 CALENDÁRIO EDITORIAL SEMANAL — LEGACY BURN 45</h1>
+  <p>Inspirado no DNA técnico-didático de @mauriciomtor + @mtorexperience</p>
+  <p style="margin-top:8px; font-size:0.9em;">Adaptado para o público final: mulheres 25–60 anos • Santa Maria/RS + Next Fit</p>
+</header>
+
+<div class="dna-box">
+<h2>🧠 O QUE FOI ROUBADO DO DNA MTOR (e adaptado para a Legacy)</h2>
+<ul>
+  <li><strong>Correção técnica como gancho:</strong> ERRO × ACERTO na execução — mas aplicado a exercícios que a mulher faz em academia e não vê resultado.</li>
+  <li><strong>Quebra de crença popular:</strong> "NÃO FAÇA ISSO" / "NUNCA MAIS ERRE" — adaptado a mitos do emagrecimento feminino.</li>
+  <li><strong>Autoridade didática:</strong> mesmo tom assertivo, mas traduzido do personal-para-personal (MTOR) para educador-para-aluna (Legacy).</li>
+  <li><strong>Hashtag-assinatura:</strong> #COMMTORNAOTEMERRO vira para você → <strong>#NaLegacyTemMetodo</strong> (usar em TODO post)</li>
+  <li><strong>Frases-bandeira:</strong> "Aqui não é treino. É método." como âncora identitária (estilo Sérgio Bertoluci).</li>
+</ul>
+</div>
+
+<div class="intro-metric">
+  <div class="metric-card"><div class="number">7</div><div class="label">Dias da semana</div></div>
+  <div class="metric-card"><div class="number">4</div><div class="label">Formatos por dia</div></div>
+  <div class="metric-card"><div class="number">28</div><div class="label">Posts/semana total</div></div>
+  <div class="metric-card"><div class="number">#NaLegacyTemMetodo</div><div class="label">Assinatura fixa</div></div>
+</div>
+
+<!-- ============ SEGUNDA ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 SEGUNDA-FEIRA</div>
+    <div class="pillar-badge">Pilar: AUTORIDADE</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (45–60s)</div>
+    <p><strong class="label">Tema:</strong> O erro #1 no agachamento que trava o glúteo da mulher</p>
+    <div class="hook">GANCHO (3s, texto na tela): "NÃO É O AGACHAMENTO QUE NÃO FUNCIONA. É O SEU JOELHO VINDO PRA FRENTE."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: gancho + close no texto na tela</p>
+    <p>• 3–10s: mostra execução errada (joelho à frente do pé)</p>
+    <p>• 10–25s: você explica — "quando o joelho ultrapassa o pé, quem puxa a carga é o quadríceps. O glúteo dorme."</p>
+    <p>• 25–40s: mostra correção (quadril indo para trás, peso no calcanhar)</p>
+    <p>• 40–55s: aluna real executando no Legacy Burn 45</p>
+    <p>• 55–60s: CTA verbal + texto na tela</p>
+    <div class="caption"><strong>Legenda:</strong>
+Você já agachou centenas de vezes. E o glúteo continua do mesmo jeito.
+
+Não é o exercício. É a execução.
+
+Quando o joelho passa da linha do pé, quem trabalha é o quadríceps — não o glúteo. É física, não opinião.
+
+No Legacy Burn 45 a gente não conta série. A gente ensina a execução certa, respeitando a anatomia de quem tem mais de 30 anos e sabe que movimento mal feito vira dor no joelho.
+
+Aqui não é treino. É método.
+
+Comenta AGACHAMENTO que eu te mando o vídeo completo da execução correta.</div>
+    <p><span class="cta-tag">CTA: "AGACHAMENTO" no Direct</span></p>
+    <div class="hashtags">#LegacyBurn45 #AgachamentoCerto #GluteoFeminino #EducadorDoMovimento #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (6 slides)</div>
+    <p><strong class="label">Tema:</strong> 5 erros na musculação que fazem você treinar sem emagrecer</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1 (capa):</strong> "5 ERROS QUE FAZEM VOCÊ TREINAR 1 ANO E NÃO EMAGRECER" — fundo preto, letra laranja, seu nome em baixo</li>
+      <li><strong>Slide 2:</strong> "1. Você treina forte, mas sem acelerar a queima antes." — explicação: 5 min de acelerador libera catecolaminas</li>
+      <li><strong>Slide 3:</strong> "2. Cardio depois da musculação cancela o EPOC." — explicação curta do efeito pós-treino</li>
+      <li><strong>Slide 4:</strong> "3. Você pesa toda semana. E a balança está mentindo." — Next Fit mostra o real</li>
+      <li><strong>Slide 5:</strong> "4. Treino sem método é só esforço. Não é resultado." — frase de impacto</li>
+      <li><strong>Slide 6 (CTA):</strong> "Quer parar de errar? Manda DIAGNÓSTICO no meu Direct."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Todo dia eu escuto a mesma coisa na avaliação: "Professor, eu treino há 2 anos e não vejo diferença."
+
+E a resposta é quase sempre a mesma. Não é falta de dedicação. É falta de método.
+
+Esses 5 erros estão em 9 de cada 10 mulheres que chegam na Legacy. Se você está fazendo pelo menos 3 deles, seu treino não está te levando a lugar nenhum.
+
+Salva esse post. Você vai querer reler quando bater a dúvida.
+
+Comenta DIAGNÓSTICO e eu te mando a análise do que está travando o seu resultado.</div>
+    <p><span class="cta-tag">CTA: "DIAGNÓSTICO" no Direct</span></p>
+    <div class="hashtags">#EmagrecimentoFeminino #ProtocoloDeEmagrecimento #EducadorDoMovimento #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO (feed)</div>
+    <p><strong class="label">Arte:</strong> fundo preto, frase grande em branco/laranja</p>
+    <div class="hook">FRASE CENTRAL: "Você não falhou. Você não foi bem orientada."</div>
+    <div class="caption"><strong>Legenda:</strong>
+Uma semana começa.
+
+E com ela, a culpa de quem parou. De quem começou 6 vezes. De quem pesou hoje e desanimou.
+
+A culpa não é sua.
+
+Se o método estivesse certo, o resultado viria. Se o resultado não veio, o método precisa mudar.
+
+Legacy Burn 45. 45 minutos. 3x na semana. Método, não esforço em vão.
+
+Santa Maria presencial • Qualquer cidade via Next Fit
+WhatsApp: (55) 99155-4217</div>
+    <p><span class="cta-tag">CTA: direcionar para WhatsApp</span></p>
+    <div class="hashtags">#SantaMariaRS #MulherQueTreina #LegacyBurn45 #PersonalSantaMaria #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (5 frames)</div>
+    <p><strong>S1 — ABERTURA:</strong> Enquete "Você treina e não vê resultado?" → SIM / NÃO</p>
+    <p><strong>S2 — DESENVOLVIMENTO:</strong> Você de costas na academia: "Se você marcou SIM, 80% das vezes o problema não é o treino. É o método."</p>
+    <p><strong>S3 — DADO:</strong> Foto de avaliação Next Fit com dados borrados: "Essa aluna treinava há 14 meses. Em 12 semanas no Legacy: −7,2% gordura."</p>
+    <p><strong>S4 — CTA:</strong> "Tenho 4 vagas na avaliação gratuita essa semana. Manda VAGA no Direct."</p>
+    <p><strong>S5 — TEASER:</strong> "Amanhã: o dado que 99% das mulheres acima de 40 desconhece sobre cortisol."</p>
+  </div>
+</div>
+
+<!-- ============ TERÇA ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 TERÇA-FEIRA</div>
+    <div class="pillar-badge">Pilar: AUTORIDADE</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (60s)</div>
+    <p><strong class="label">Tema:</strong> Por que a mulher acima de 40 não emagrece treinando cardio</p>
+    <div class="hook">GANCHO: "ESTEIRA NÃO EMAGRECE MULHER DE 40. ELA ENGORDA."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: você olhando pra câmera, frase polêmica na tela</p>
+    <p>• 3–15s: "Cortisol alto + cardio prolongado = acúmulo de gordura abdominal. Isso é fisiologia, não achismo."</p>
+    <p>• 15–35s: explica como o Legacy Burn 45 trabalha o oposto (acelerador curto + força + recuperação)</p>
+    <p>• 35–55s: B-roll das máquinas + aluna real executando</p>
+    <p>• 55–60s: CTA verbal</p>
+    <div class="caption"><strong>Legenda:</strong>
+Se você tem mais de 40 e corre 1 hora na esteira todo dia, tem uma coisa que ninguém te contou.
+
+Cardio de longa duração eleva cortisol. Cortisol alto, de forma crônica, sinaliza pro corpo: guarda gordura na barriga.
+
+Seu corpo mudou depois dos 40. O método precisa mudar também.
+
+O Legacy Burn 45 foi desenhado pra isso: 5 minutos de acelerador + 20 de força funcional + 20 de musculação. Nada de hora na esteira. Respeito ao hormônio feminino.
+
+Comenta CORTISOL e eu te mando o protocolo para mulher 40+.</div>
+    <p><span class="cta-tag">CTA: "CORTISOL" no Direct</span></p>
+    <div class="hashtags">#MulherDe40 #Cortisol #EmagrecimentoFeminino #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (7 slides)</div>
+    <p><strong class="label">Tema:</strong> EPOC — a queima que continua depois que você sai da academia</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> "SEU CORPO QUEIMA GORDURA ATÉ 48H DEPOIS DO TREINO. SE O TREINO FOR CERTO."</li>
+      <li><strong>Slide 2:</strong> "O que é EPOC?" — excesso de consumo de oxigênio pós-exercício</li>
+      <li><strong>Slide 3:</strong> "Caminhada leve: EPOC quase zero." — com ilustração</li>
+      <li><strong>Slide 4:</strong> "Treino intervalado + força: EPOC por até 48h." — com ilustração</li>
+      <li><strong>Slide 5:</strong> "Traduzindo: você dorme e seu corpo continua queimando gordura."</li>
+      <li><strong>Slide 6:</strong> "Legacy Burn 45 foi construído em cima desse conceito."</li>
+      <li><strong>Slide 7 (CTA):</strong> "Quer saber como aplicar? Comenta EPOC no Direct."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Quantas calorias você queima no treino? Importa menos do que você imagina.
+
+O que importa é o que o corpo queima DEPOIS.
+
+Isso tem nome: EPOC. E é por isso que 45 minutos de Legacy Burn podem superar 2 horas de esteira.
+
+45 minutos certos {'>'} 2 horas erradas. Isso é ciência, não preferência.
+
+Comenta EPOC e eu te mando o material completo.</div>
+    <p><span class="cta-tag">CTA: "EPOC" no Direct</span></p>
+    <div class="hashtags">#EPOC #FisiologiaDoExercicio #EmagrecimentoCientífico #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO</div>
+    <div class="hook">FRASE CENTRAL: "A caloria que importa não é a que você queimou. É a que seu corpo queima enquanto você dorme."</div>
+    <div class="caption"><strong>Legenda:</strong>
+A academia termina. O treino, não.
+
+Se o protocolo for certo, seu corpo continua trabalhando por até 48h depois que você foi embora.
+
+Isso não é slogan. É EPOC. E é o que diferencia esforço de método.
+
+Legacy Burn 45. Ciência aplicada. 45 minutos. 3x por semana.</div>
+    <div class="hashtags">#LegacyBurn45 #EmagrecimentoCientífico #EducadorDoMovimento #ProtocoloDeEmagrecimento #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (5 frames)</div>
+    <p><strong>S1:</strong> Pergunta: "Você sente que treina muito e emagrece pouco?" (caixa de perguntas)</p>
+    <p><strong>S2:</strong> Print de uma resposta real (com permissão) + sua análise rápida</p>
+    <p><strong>S3:</strong> Vídeo rápido explicando EPOC em 15 segundos</p>
+    <p><strong>S4:</strong> "O Legacy Burn 45 foi desenhado para extrair o máximo de EPOC." + foto da academia</p>
+    <p><strong>S5:</strong> CTA: "Manda EPOC no Direct e eu te explico como aplicar no seu treino."</p>
+  </div>
+</div>
+
+<!-- ============ QUARTA ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 QUARTA-FEIRA</div>
+    <div class="pillar-badge">Pilar: RETENÇÃO</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (30–45s)</div>
+    <p><strong class="label">Tema:</strong> A semana que mais importa — não é a primeira, é a terceira</p>
+    <div class="hook">GANCHO: "99% DAS MULHERES DESISTEM NA TERCEIRA SEMANA. VOU TE DIZER POR QUÊ."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: você olhando pra câmera, frase impactante na tela</p>
+    <p>• 3–15s: "Semana 1: empolgação. Semana 2: adaptação. Semana 3: sua balança não mexeu. E você pensa que falhou."</p>
+    <p>• 15–30s: "Não falhou. Seu corpo está trocando gordura por músculo. Na balança, o peso é igual. Na composição, mudou tudo."</p>
+    <p>• 30–45s: mostra dados Next Fit + CTA</p>
+    <div class="caption"><strong>Legenda:</strong>
+A terceira semana é um filtro.
+
+Quem olha só balança, desiste.
+Quem entende composição corporal, continua e vence.
+
+A balança esconde o que importa. O Next Fit mostra a composição real: gordura, músculo, hidratação.
+
+É por isso que toda aluna Legacy passa pela avaliação completa. Antes de treinar, precisa saber de onde está saindo.
+
+Você está na terceira semana? Não desiste. Manda AVALIAÇÃO no Direct e eu te mostro o que sua balança não mostra.</div>
+    <p><span class="cta-tag">CTA: "AVALIAÇÃO" no Direct</span></p>
+    <div class="hashtags">#BalançaMente #NextFit #ComposicaoCorporal #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (6 slides)</div>
+    <p><strong class="label">Tema:</strong> 6 coisas que mudam no seu corpo nas 12 primeiras semanas de Legacy Burn 45</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> "O QUE ACONTECE EM 12 SEMANAS DE LEGACY BURN 45"</li>
+      <li><strong>Slide 2:</strong> "Semanas 1–2: seu corpo aprende o movimento. Dor some."</li>
+      <li><strong>Slide 3:</strong> "Semanas 3–4: disposição, energia e sono voltam ao normal."</li>
+      <li><strong>Slide 4:</strong> "Semanas 5–8: roupas mudam antes da balança."</li>
+      <li><strong>Slide 5:</strong> "Semanas 9–12: entre −8% e −15% de gordura. Entre +2 e +3kg de massa magra."</li>
+      <li><strong>Slide 6 (CTA):</strong> "Comenta PRÓXIMA que eu te falo da próxima turma."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Expectativa x realidade do Legacy Burn 45.
+
+Toda mulher chega querendo balança. Toda mulher que termina 12 semanas entende que o que importa é outra coisa.
+
+Composição. Energia. Roupa. Fotografia. Autoestima. Dor que some. Sono que volta.
+
+Isso é o método funcionando. Não é sorte, não é genética, não é milagre.
+
+Comenta PRÓXIMA e eu te conto as datas da próxima turma (presencial em Santa Maria e online via Next Fit).</div>
+    <p><span class="cta-tag">CTA: "PRÓXIMA" no Direct</span></p>
+    <div class="hashtags">#Resultado12Semanas #Transformacao #LegacyBurn45 #EducadorDoMovimento #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO</div>
+    <div class="hook">FRASE CENTRAL: "A balança não mente. Mas também não conta a história toda."</div>
+    <div class="caption"><strong>Legenda:</strong>
+1,2kg a menos na balança em 4 semanas.
+
+Ou:
+−3,4% de gordura
++1,8kg de massa magra
+−4cm de cintura
+
+Mesma pessoa. Mesmas 4 semanas. O número da balança é quase idêntico.
+
+A diferença? O que o Next Fit enxerga.
+
+Por isso a avaliação não é detalhe. É o ponto de partida.
+
+Santa Maria presencial • qualquer cidade via Next Fit online.</div>
+    <div class="hashtags">#NextFit #AvaliacaoFisica #ComposicaoCorporal #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (5 frames)</div>
+    <p><strong>S1:</strong> Enquete: "Você pesa na balança toda semana?" SIM / NÃO</p>
+    <p><strong>S2:</strong> "Resultado: 87% das mulheres que me seguem pesam toda semana. E é por isso que se frustram."</p>
+    <p><strong>S3:</strong> Vídeo seu explicando: "A balança só mostra 1 dado. E nem é o mais importante."</p>
+    <p><strong>S4:</strong> Foto/print do Next Fit (dados borrados): "Isso é composição corporal. Isso muda o jogo."</p>
+    <p><strong>S5:</strong> CTA: "Avaliação Next Fit gratuita essa semana. Manda AVALIAÇÃO no Direct."</p>
+  </div>
+</div>
+
+<!-- ============ QUINTA ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 QUINTA-FEIRA</div>
+    <div class="pillar-badge">Pilar: RETENÇÃO</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (45–60s)</div>
+    <p><strong class="label">Tema:</strong> O exercício que toda mulher faz errado no superior (rosca direta ou elevação lateral)</p>
+    <div class="hook">GANCHO: "NÃO É A CARGA. É A EXECUÇÃO."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: close na execução errada (cotovelo balançando, trapézio subindo)</p>
+    <p>• 3–12s: "Toda vez que o trapézio sobe, o ombro 'rouba' o exercício. E o deltoide, que era o alvo, fica sem estímulo."</p>
+    <p>• 12–25s: mostra correção (ombro baixo, cotovelo liderando)</p>
+    <p>• 25–45s: aluna real executando corretamente na academia</p>
+    <p>• 45–60s: CTA + seu rosto falando</p>
+    <div class="caption"><strong>Legenda:</strong>
+Elevação lateral não é sobre a carga.
+
+É sobre o que o músculo sente durante o movimento. Se o trapézio sobe, o ombro rouba. Se o cotovelo lidera e o ombro fica baixo, o deltoide trabalha.
+
+Executar certo {'>'} pesar mais.
+
+Isso vale pra todo exercício no Legacy Burn 45. A gente não conta série. A gente ensina o movimento antes de progredir carga.
+
+Personal trainer conta séries. Educador do Movimento entende por que seu joelho dói e corrige antes de pôr carga.
+
+Salva esse post. Tenta na próxima sessão. E me conta aqui.</div>
+    <p><span class="cta-tag">CTA: comentar "já salvei!"</span></p>
+    <div class="hashtags">#ExecucaoCerta #ElevacaoLateral #TreinoFeminino #EducadorDoMovimento #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (7 slides)</div>
+    <p><strong class="label">Tema:</strong> 7 perguntas que toda aluna me faz (e as respostas diretas)</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> "AS 7 PERGUNTAS MAIS FEITAS NA AVALIAÇÃO"</li>
+      <li><strong>Slide 2:</strong> "1. 'Vou ficar grande?' — Não. Mulher não produz testosterona suficiente. Ficará definida."</li>
+      <li><strong>Slide 3:</strong> "2. 'Já tentei de tudo, vou conseguir?' — Sim. O que falhou foi o método, não você."</li>
+      <li><strong>Slide 4:</strong> "3. '45 minutos é pouco?' — É suficiente. Desde que sejam os 45 minutos certos."</li>
+      <li><strong>Slide 5:</strong> "4. 'Preciso fazer dieta?' — Treino sem orientação alimentar rende 30% menos. Mas começamos pelo treino."</li>
+      <li><strong>Slide 6:</strong> "5. 'E se eu morar fora de SM?' — Next Fit: protocolo online com avaliação, treino e acompanhamento."</li>
+      <li><strong>Slide 7 (CTA):</strong> "Alguma dessas era sua pergunta? Manda COMEÇO no Direct."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Toda mulher que chega na Legacy traz as mesmas 7 dúvidas. Não é coincidência.
+
+É a herança de anos ouvindo conselho errado, tentativa frustrada e promessa irresponsável.
+
+A minha função como Educador do Movimento é desmontar cada uma delas com método, ciência e realidade.
+
+Comenta COMEÇO no Direct e eu reservo sua aula experimental. Presencial em SM ou online via Next Fit.</div>
+    <p><span class="cta-tag">CTA: "COMEÇO" no Direct</span></p>
+    <div class="hashtags">#Perguntas #LegacyBurn45 #EducadorDoMovimento #TreinoFeminino #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO</div>
+    <div class="hook">FRASE CENTRAL: "Personal conta série. Educador do Movimento entende por que seu joelho dói — e corrige antes de progredir."</div>
+    <div class="caption"><strong>Legenda:</strong>
+Existe diferença entre ter um treino e ter um método.
+
+Treino é uma planilha. Método é um caminho.
+
+Treino pede esforço. Método pede atenção ao movimento.
+
+Treino conta série. Método avalia, corrige, progride.
+
+Na Legacy, a gente escolheu o segundo caminho. Por isso chamo o que faço de Educação do Movimento. E por isso insisto: aqui não é treino, é método.
+
+Comenta um emoji se você concorda 👇</div>
+    <div class="hashtags">#EducadorDoMovimento #LegacyBurn45 #Metodologia #PersonalSantaMaria #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (4 frames)</div>
+    <p><strong>S1:</strong> Caixa de perguntas: "Qual sua maior dúvida antes de começar a treinar?"</p>
+    <p><strong>S2:</strong> Print de uma resposta + sua resposta em vídeo (30s)</p>
+    <p><strong>S3:</strong> Segunda resposta em vídeo</p>
+    <p><strong>S4:</strong> CTA: "Manda sua dúvida e eu respondo em vídeo. Já tem avaliações abertas essa semana."</p>
+  </div>
+</div>
+
+<!-- ============ SEXTA ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 SEXTA-FEIRA</div>
+    <div class="pillar-badge">Pilar: VENDA</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (60–90s) — PROVA SOCIAL</div>
+    <p><strong class="label">Tema:</strong> Depoimento em vídeo de uma aluna que terminou 12 semanas</p>
+    <div class="hook">GANCHO: "EM 12 SEMANAS ELA PERDEU 9,4% DE GORDURA. MAS NÃO FOI ISSO QUE MUDOU A VIDA DELA."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: foto antes + número na tela</p>
+    <p>• 3–20s: aluna falando — "Eu já tinha tentado de tudo..."</p>
+    <p>• 20–40s: aluna contando o que mudou além da estética (energia, autoestima, roupa)</p>
+    <p>• 40–60s: cortes dela treinando no Legacy Burn 45</p>
+    <p>• 60–80s: você concluindo — "Isso é método, não milagre."</p>
+    <p>• 80–90s: CTA</p>
+    <div class="caption"><strong>Legenda:</strong>
+Essa é a Andrya (com autorização).
+
+Quando chegou, já tinha tentado academia, grupo de corrida, nutricionista isolado e mais 3 coisas que não lembro.
+
+O que mudou? Uma única coisa: método.
+
+12 semanas de Legacy Burn 45:
+− 9,4% gordura
++ 2,1kg massa magra
+− 5cm cintura
+
+Mas o que ela me disse na última avaliação foi isso: "Fabiano, o que mudou mesmo foi minha relação com o espelho."
+
+Resultado físico vem. Mas o que segura a aluna é quando ela se reconecta com o próprio corpo.
+
+Aqui não é treino. É método.
+
+Comenta AVALIAÇÃO e vem ser a próxima.</div>
+    <p><span class="cta-tag">CTA: "AVALIAÇÃO" no Direct</span></p>
+    <div class="hashtags">#Transformacao #Depoimento #LegacyBurn45 #EmagrecimentoReal #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (8 slides) — OFERTA DIRETA</div>
+    <p><strong class="label">Tema:</strong> Como funciona o processo Legacy do zero à transformação</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> "COMO COMEÇAR NA LEGACY — O PROCESSO COMPLETO"</li>
+      <li><strong>Slide 2:</strong> "1. Avaliação completa Next Fit (gratuita)"</li>
+      <li><strong>Slide 3:</strong> "2. Análise: onde você está / onde quer chegar"</li>
+      <li><strong>Slide 4:</strong> "3. Protocolo Legacy Burn 45 personalizado"</li>
+      <li><strong>Slide 5:</strong> "4. Acompanhamento semanal presencial (SM) ou online (Next Fit)"</li>
+      <li><strong>Slide 6:</strong> "5. Reavaliação a cada 4 semanas"</li>
+      <li><strong>Slide 7:</strong> "6. Ajuste do protocolo conforme a composição evolui"</li>
+      <li><strong>Slide 8 (CTA):</strong> "VAGAS LIMITADAS NESSA SEMANA. Comenta VAGA no Direct."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Toda semana entram entre 3 e 6 alunas novas na Legacy.
+
+E esse é o processo que elas seguem. Sem mistério, sem enrolação.
+
+1. Avaliação completa (gratuita, sem compromisso)
+2. Análise honesta: onde você está e onde quer chegar
+3. Protocolo pessoal
+4. Acompanhamento
+5. Reavaliação
+6. Ajuste
+
+Santa Maria: presencial na Legacy Academia (Itararé).
+Qualquer cidade: online via Next Fit, com a mesma estrutura.
+
+Comenta VAGA e eu te mando a agenda dessa semana.</div>
+    <p><span class="cta-tag">CTA: "VAGA" no Direct</span></p>
+    <div class="hashtags">#AvaliacaoGratuita #SantaMariaRS #NextFit #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO</div>
+    <div class="hook">FRASE CENTRAL: "Você não precisa estar pronta pra treinar. Você treina pra estar pronta."</div>
+    <div class="caption"><strong>Legenda:</strong>
+"Fabiano, quero começar, mas antes preciso emagrecer uns 3kg."
+
+Ouvi isso essa semana. Outras 12 vezes no último mês.
+
+Ninguém espera ser fluente pra começar um curso de inglês. Ninguém espera ter dinheiro pra abrir conta no banco.
+
+Mas na hora de treinar, a gente espera estar "pronta". E essa espera é o que mata o projeto.
+
+Você não precisa estar pronta. Você treina pra estar pronta.
+
+Essa semana tenho 4 vagas de avaliação gratuita. Comenta VAGA.</div>
+    <p><span class="cta-tag">CTA: "VAGA" no Direct</span></p>
+    <div class="hashtags">#ComeceAgora #LegacyBurn45 #MulherQueTreina #EducadorDoMovimento #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (5 frames) — URGÊNCIA</div>
+    <p><strong>S1:</strong> Contador regressivo para segunda-feira + frase "últimas vagas da semana"</p>
+    <p><strong>S2:</strong> Foto do quadro de horários da Legacy com as vagas restantes</p>
+    <p><strong>S3:</strong> Enquete de segmentação: "Santa Maria ✅ / Fora de SM 🌐"</p>
+    <p><strong>S4:</strong> Vídeo seu: "Se você clicou Santa Maria, tenho 2 horários. Se clicou Fora, Next Fit tem 4 vagas no protocolo online."</p>
+    <p><strong>S5:</strong> Link WhatsApp direto + "VAGA" como palavra-gatilho no Direct</p>
+  </div>
+</div>
+
+<!-- ============ SÁBADO ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 SÁBADO</div>
+    <div class="pillar-badge">Pilar: CONEXÃO</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (30–45s) — HUMANIZAÇÃO</div>
+    <p><strong class="label">Tema:</strong> Bastidor — você com a família, treinando cedo antes das aulas começarem</p>
+    <div class="hook">GANCHO: "6H15. TREINO MEU ANTES DE COMEÇAR AS AULAS."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: você entrando na academia vazia, ainda escuro</p>
+    <p>• 3–15s: montagem acelerada dos seus 30–40min de treino pessoal</p>
+    <p>• 15–25s: "Se eu não treino, não ensino. Se não ensino, não muda vida."</p>
+    <p>• 25–40s: foto/vídeo dos filhos ou Nati: "E depois volta pra casa antes deles acordarem."</p>
+    <p>• 40–45s: "Rotina real. Método funciona pra quem vive fora da academia também."</p>
+    <div class="caption"><strong>Legenda:</strong>
+6h15 da manhã. Academia vazia. Só eu, a caixa de som e 40 minutos do meu treino.
+
+Não é bonito, não é glamour. É rotina.
+
+Sou pai do Matheus (17) e da Isa (6). Casado com a Nati. Professor. Empresário. Treinador.
+
+Se eu não treino, não ensino. Se não ensino, não muda a vida de ninguém.
+
+45 minutos não é concessão que dou para as alunas. É o que eu mesmo pratico. Por respeito a quem tem vida fora da academia.
+
+Feliz sábado 🖤</div>
+    <div class="hashtags">#RotinaDePai #BastidoresDaLegacy #VidaReal #MovimentoÉVida #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (5 slides) — HISTÓRIA</div>
+    <p><strong class="label">Tema:</strong> Da dança gaúcha à Legacy — 25 anos ensinando movimento</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> Foto antiga sua dançando gaúcha + título "Tudo começou aos 12 anos"</li>
+      <li><strong>Slide 2:</strong> "Aos 17 eu já era professor. De gaúcha pra corpos."</li>
+      <li><strong>Slide 3:</strong> Foto na faculdade / primeiros anos de Educação Física</li>
+      <li><strong>Slide 4:</strong> Pandemia. Garagem. Primeiro Legacy Burn. "Resultado não mora no equipamento. Mora no protocolo."</li>
+      <li><strong>Slide 5:</strong> Hoje, academia cheia: "Ensinar movimento é a única coisa que eu sei fazer com 100% de entrega."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Comecei a ensinar aos 17 anos. Dança gaúcha.
+
+Ali aprendi uma coisa que carrego até hoje: qualquer pessoa aprende — desde que o método respeite onde ela está.
+
+Depois veio a Educação Física. A rede pública. Os primeiros alunos de musculação. A pandemia. A garagem. Os primeiros 20 minutos de treino sem equipamento.
+
+Foi ali que o Legacy Burn 45 nasceu. Não numa sala fechada com ventilador desligado. Numa garagem, com cones, elásticos e pessoas querendo recomeçar.
+
+25 anos depois, continuo fazendo a mesma coisa: ensinando movimento.
+
+O método muda, a missão não.</div>
+    <div class="hashtags">#HistóriaLegacy #DançaGaúcha #EducadorDoMovimento #MovimentoÉVida #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO — FOTO PESSOAL</div>
+    <p><strong class="label">Arte:</strong> foto sua com a família ou na academia, tom pessoal</p>
+    <div class="hook">FRASE CENTRAL: "O que aprendi com a dança gaúcha: corpo aprende. Precisa é de quem sabe ensinar."</div>
+    <div class="caption"><strong>Legenda:</strong>
+Às vezes esqueço de contar isso.
+
+Antes de ser personal, eu fui dançarino de gaúcha. Dos 12 aos 20 e poucos anos.
+
+Foi ali, no CTG, numa bombacha, que aprendi que corpo aprende qualquer coisa. Precisa é de quem saiba ensinar.
+
+Levei isso pra Educação Física. Levei pra Legacy. Levei pra cada aluna que chega com histórico de frustração.
+
+Você não falhou. Você não foi bem orientada.
+
+Bom sábado 🖤</div>
+    <div class="hashtags">#DançaGaúcha #HistóriaLegacy #EducadorDoMovimento #VidaReal #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (5 frames) — BASTIDOR</div>
+    <p><strong>S1:</strong> Foto do café da manhã com a família ou treino cedo</p>
+    <p><strong>S2:</strong> Vídeo da Isa (6) ou Matheus (17) — momento leve</p>
+    <p><strong>S3:</strong> Você arrumando a academia para a turma da manhã</p>
+    <p><strong>S4:</strong> Enquete leve: "Sábado é dia de: treinar ✅ / descansar 🛋️"</p>
+    <p><strong>S5:</strong> "Bom sábado 🖤 Segunda volto com assunto técnico pesado."</p>
+  </div>
+</div>
+
+<!-- ============ DOMINGO ============ -->
+<div class="day-card">
+  <div class="day-header">
+    <div class="day-title">📅 DOMINGO</div>
+    <div class="pillar-badge">Pilar: ANTECIPAÇÃO</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🎬 REEL (30s)</div>
+    <p><strong class="label">Tema:</strong> Teaser dos assuntos da semana</p>
+    <div class="hook">GANCHO: "SEGUNDA CHEGANDO. E ESSA É A SEMANA QUE VOCÊ PRECISA ASSISTIR."</div>
+    <p><strong class="label">Roteiro:</strong></p>
+    <p>• 0–3s: você falando direto pra câmera</p>
+    <p>• 3–10s: "Segunda: o erro do agachamento que trava o glúteo."</p>
+    <p>• 10–17s: "Terça: por que cardio engorda mulher de 40."</p>
+    <p>• 17–25s: "Quarta: a balança mentindo pra você há meses."</p>
+    <p>• 25–30s: "Me segue pra não perder. Ativa a notificação."</p>
+    <div class="caption"><strong>Legenda:</strong>
+Essa semana os assuntos aqui vão ser pesados. E essenciais.
+
+→ Agachamento: o detalhe que trava o glúteo
+→ Cardio de 40+: por que ele engorda em vez de emagrecer
+→ Balança: o que ela esconde de você há meses
+→ Execução da elevação lateral que ninguém ensina
+
+Se você está treinando e não vendo resultado, é exatamente pra você.
+
+Ativa a notificação do perfil. Segunda tem post às 7h.</div>
+    <p><span class="cta-tag">CTA: ativar notificações</span></p>
+    <div class="hashtags">#TeaserSemanal #LegacyBurn45 #EducadorDoMovimento #TreinoFeminino #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ CARROSSEL (5 slides) — ENGAJAMENTO</div>
+    <p><strong class="label">Tema:</strong> Checklist de domingo: como preparar a semana de treino</p>
+    <ul class="slide-list">
+      <li><strong>Slide 1:</strong> "CHECKLIST DE DOMINGO PARA UMA SEMANA DE TREINO QUE FUNCIONA"</li>
+      <li><strong>Slide 2:</strong> "✅ Escolha 3 dias fixos (não 'quando der')"</li>
+      <li><strong>Slide 3:</strong> "✅ Deixe a roupa separada na noite anterior"</li>
+      <li><strong>Slide 4:</strong> "✅ Defina 1 métrica pra acompanhar (sono, disposição, medida — não balança)"</li>
+      <li><strong>Slide 5:</strong> "✅ Semana começa hoje, não segunda. Salva esse post."</li>
+    </ul>
+    <div class="caption"><strong>Legenda:</strong>
+Domingo define sua segunda.
+
+Quem decide no momento ("hoje vou?") quase sempre decide não.
+Quem decidiu antes ("treino é terça, quinta e sábado") quase sempre vai.
+
+Método não é só no treino. Método é na decisão que vem antes dele.
+
+Salva esse post. Aplica. Me conta como foi a semana.</div>
+    <p><span class="cta-tag">CTA: salvar + comentar</span></p>
+    <div class="hashtags">#Domingo #PlanejamentoDeTreino #Disciplina #LegacyBurn45 #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">🖼️ ESTÁTICO</div>
+    <div class="hook">FRASE CENTRAL: "A segunda que muda sua vida foi decidida num domingo comum."</div>
+    <div class="caption"><strong>Legenda:</strong>
+Ninguém muda de vida segunda.
+
+Segunda você só executa a decisão que tomou domingo.
+
+Se você está lendo isso, hoje é o dia da decisão.
+
+Manda COMEÇO no Direct. Essa semana ainda tenho avaliações abertas.</div>
+    <p><span class="cta-tag">CTA: "COMEÇO" no Direct</span></p>
+    <div class="hashtags">#DecisãoDeDomingo #LegacyBurn45 #MulherQueTreina #SantaMariaRS #NaLegacyTemMetodo</div>
+  </div>
+
+  <div class="format-block">
+    <div class="format-title">📱 STORIES (4 frames)</div>
+    <p><strong>S1:</strong> Enquete: "Segunda você começa: TREINO ✅ / outra coisa 🤔"</p>
+    <p><strong>S2:</strong> Caixa de perguntas: "Qual assunto quer ver essa semana?"</p>
+    <p><strong>S3:</strong> Teaser do reel de segunda (print com "amanhã sai")</p>
+    <p><strong>S4:</strong> CTA simples: "Se ainda não me segue, aproveita domingo calmo pra dar follow. Segunda começa pesado."</p>
+  </div>
+</div>
+
+<footer>
+  <p><strong>Perfil destino:</strong> @proffabianocosta (primário) + @legacyacademiasm (secundário)</p>
+  <p style="margin-top:10px;"><strong>Assinatura da semana:</strong> Aqui não é treino. É método. #NaLegacyTemMetodo</p>
+  <p style="margin-top:10px;">Legacy Academia • Santa Maria/RS • WhatsApp (55) 99155-4217</p>
+</footer>
+
+</div>
+</body>
+</html>

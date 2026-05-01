@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquina de Conteúdo · Fabiano Costa · Legacy Burn 45</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070e;
+  --s1: #0f0f1a;
+  --s2: #161624;
+  --s3: #1e1e30;
+  --border: rgba(255,255,255,0.07);
+  --red: #e52012;
+  --red2: #ff3d1f;
+  --orange: #ff6b2b;
+  --gold: #d4a843;
+  --cyan: #00d4ef;
+  --green: #1fc97a;
+  --purple: #9b5de5;
+  --white: #ededea;
+  --muted: #555;
+  --muted2: #888;
+  /* pilares */
+  --autoridade: #e52012;
+  --conexao: #d4a843;
+  --retencao: #00d4ef;
+  --venda: #1fc97a;
+  --youtube: #ff0000;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:60px 48px;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(229,32,18,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(229,32,18,0.04) 1px,transparent 1px);background-size:60px 60px;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(229,32,18,0.2) 0%,transparent 65%),radial-gradient(ellipse 40% 30% at 90% 10%,rgba(0,212,239,0.06) 0%,transparent 60%);}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:20px;position:relative;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before{content:'';width:40px;height:2px;background:var(--red);}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,130px);line-height:.88;letter-spacing:1px;position:relative;}
+.hero h1 em{color:var(--red);font-style:normal;}
+.hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2.5vw,24px);font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);position:relative;margin-top:12px;max-width:700px;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;position:relative;}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:2px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.pill.aut{background:rgba(229,32,18,.12);border:1px solid rgba(229,32,18,.3);color:var(--autoridade);}
+.pill.con{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);color:var(--conexao);}
+.pill.ret{background:rgba(0,212,239,.08);border:1px solid rgba(0,212,239,.2);color:var(--retencao);}
+.pill.ven{background:rgba(31,201,122,.08);border:1px solid rgba(31,201,122,.2);color:var(--venda);}
+.pill.yt{background:rgba(255,0,0,.1);border:1px solid rgba(255,0,0,.25);color:var(--youtube);}
+
+/* ── LEGEND STICKY ── */
+.legend{position:sticky;top:0;z-index:200;background:rgba(7,7,14,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:10px 48px;display:flex;gap:24px;flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--muted2);}
+.leg-dot{width:8px;height:8px;border-radius:50%;}
+
+/* ── PAGE WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+/* ── DAY SECTION ── */
+.day-section{padding:80px 32px 48px;}
+.day-header{max-width:1200px;margin:0 auto 48px;}
+.day-tag{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.day-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,96px);line-height:.9;letter-spacing:1px;}
+.day-title em{font-style:normal;}
+.day-desc{color:var(--muted2);font-size:14px;margin-top:10px;max-width:600px;}
+.day-line{height:2px;background:linear-gradient(90deg,var(--red) 0%,rgba(229,32,18,0) 60%);margin-top:20px;}
+
+/* ── CONTENT GRID ── */
+.content-grid{max-width:1200px;margin:0 auto;display:grid;gap:20px;}
+.content-grid.g2{grid-template-columns:1fr 1fr;}
+.content-grid.g3{grid-template-columns:1fr 1fr 1fr;}
+.content-grid.g1{grid-template-columns:1fr;}
+
+/* ── CONTENT CARD ── */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:rgba(229,32,18,.2);}
+.card-top{padding:14px 20px;background:var(--s2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.card-format{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--white);display:flex;align-items:center;gap:10px;}
+.card-format .fmt-icon{font-size:16px;}
+.card-body{padding:20px;}
+
+/* ── PILAR BADGE ── */
+.pilar{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:2px;}
+.pilar.aut{background:rgba(229,32,18,.12);border:1px solid rgba(229,32,18,.3);color:var(--autoridade);}
+.pilar.con{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);color:var(--conexao);}
+.pilar.ret{background:rgba(0,212,239,.08);border:1px solid rgba(0,212,239,.2);color:var(--retencao);}
+.pilar.ven{background:rgba(31,201,122,.08);border:1px solid rgba(31,201,122,.2);color:var(--venda);}
+.pilar.yt{background:rgba(255,0,0,.08);border:1px solid rgba(255,0,0,.2);color:var(--youtube);}
+
+/* ── LABEL ── */
+.lbl{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── GANCHO ── */
+.gancho{background:rgba(229,32,18,.07);border-left:3px solid var(--red);border-radius:0 4px 4px 0;padding:14px 16px;margin-bottom:16px;}
+.g-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.g-text{font-size:16px;font-weight:700;line-height:1.4;color:var(--white);font-style:italic;}
+
+/* ── LEGENDA BOX ── */
+.legenda{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:14px;font-size:13px;line-height:1.75;color:#ccc;}
+.legenda strong{color:var(--white);}
+.legenda em{color:var(--gold);font-style:normal;font-weight:600;}
+
+/* ── SLIDE TRACK ── */
+.slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:14px;}
+.slide{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px;}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--red);margin-bottom:4px;}
+.st{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:6px;}
+.sd{font-size:12px;color:#aaa;line-height:1.5;}
+
+/* ── STORIES ── */
+.stories{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:thin;scrollbar-color:var(--red) transparent;}
+.story{min-width:150px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px 12px;}
+.s-step{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:7px;}
+.s-txt{font-size:12px;color:#ccc;line-height:1.5;}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,rgba(229,32,18,.14),rgba(255,107,43,.07));border:1px solid rgba(229,32,18,.25);border-radius:4px;padding:14px 16px;margin-top:14px;display:flex;gap:12px;align-items:flex-start;}
+.cta-i{font-size:18px;margin-top:2px;flex-shrink:0;}
+.cta-l{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:5px;}
+.cta-t{font-size:13px;color:var(--white);line-height:1.55;}
+
+/* ── ENGAJAMENTO ── */
+.eng{background:rgba(0,212,239,.05);border:1px solid rgba(0,212,239,.15);border-radius:4px;padding:12px 15px;margin-top:10px;}
+.eng-l{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:5px;}
+.eng-t{font-size:12px;color:#bbb;line-height:1.5;}
+
+/* ── HASHTAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+.tag{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:var(--cyan);font-size:11px;padding:4px 10px;border-radius:2px;}
+
+/* ── TELA FRAMES ── */
+.telas{background:var(--bg);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:16px;margin-bottom:14px;position:relative;}
+.telas::before{content:'TELAS / TEXTO NA CÂMERA';position:absolute;top:-1px;right:12px;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--muted);background:var(--s2);padding:2px 8px;border-radius:0 0 3px 3px;}
+.tela-item{border-bottom:1px solid var(--border);padding:8px 0;font-size:13px;color:#ccc;display:flex;gap:10px;}
+.tela-item:last-child{border-bottom:none;}
+.tela-n{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);line-height:1.1;min-width:18px;}
+
+/* ── YOUTUBE SECTION ── */
+.yt-section{padding:80px 32px;}
+.yt-header{max-width:1200px;margin:0 auto 48px;}
+.yt-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,88px);line-height:.9;}
+.yt-title em{color:var(--youtube);font-style:normal;}
+
+.yt-card{background:var(--s1);border:1px solid rgba(255,0,0,.15);border-radius:6px;overflow:hidden;margin-bottom:20px;}
+.yt-card-top{background:rgba(255,0,0,.08);border-bottom:1px solid rgba(255,0,0,.15);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.yt-format{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;color:var(--white);display:flex;align-items:center;gap:10px;}
+.yt-dur{font-size:12px;font-weight:700;background:rgba(255,0,0,.15);border:1px solid rgba(255,0,0,.2);color:var(--youtube);padding:3px 10px;border-radius:2px;}
+.yt-body{padding:20px;}
+
+.step-list{list-style:none;}
+.step-list li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:#ccc;line-height:1.55;}
+.step-list li:last-child{border-bottom:none;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--youtube);line-height:1;min-width:22px;flex-shrink:0;}
+
+.checklist{list-style:none;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:13px;color:#ccc;border-bottom:1px solid rgba(255,255,255,.04);}
+.checklist li:last-child{border-bottom:none;}
+.checklist li::before{content:'□';color:var(--red);font-size:15px;line-height:1.3;flex-shrink:0;}
+
+/* ── WEEKLY OVERVIEW ── */
+.week-bar{max-width:1200px;margin:0 auto 60px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.wb-day{border-radius:3px;padding:12px 8px;text-align:center;}
+.wb-day.seg{background:rgba(229,32,18,.15);border:1px solid rgba(229,32,18,.25);}
+.wb-day.ter{background:rgba(229,32,18,.1);border:1px solid rgba(229,32,18,.2);}
+.wb-day.qua{background:rgba(0,212,239,.1);border:1px solid rgba(0,212,239,.18);}
+.wb-day.qui{background:rgba(0,212,239,.07);border:1px solid rgba(0,212,239,.13);}
+.wb-day.sex{background:rgba(31,201,122,.1);border:1px solid rgba(31,201,122,.18);}
+.wb-day.sab{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.18);}
+.wb-day.dom{background:rgba(155,93,229,.1);border:1px solid rgba(155,93,229,.18);}
+.wb-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;}
+.wb-day.seg .wb-name,.wb-day.ter .wb-name{color:var(--autoridade);}
+.wb-day.qua .wb-name,.wb-day.qui .wb-name{color:var(--retencao);}
+.wb-day.sex .wb-name{color:var(--venda);}
+.wb-day.sab .wb-name{color:var(--conexao);}
+.wb-day.dom .wb-name{color:var(--purple);}
+.wb-pilar{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);margin-top:4px;}
+.wb-count{font-size:11px;color:var(--muted);margin-top:6px;}
+
+/* ── SECTION DIVIDER ── */
+.div-sec{height:1px;background:linear-gradient(90deg,transparent,rgba(229,32,18,.3),transparent);margin:0 32px;}
+
+/* ── NOTE BOX ── */
+.note{background:rgba(212,168,67,.06);border:1px solid rgba(212,168,67,.18);border-radius:4px;padding:14px 16px;margin-top:14px;font-size:12px;color:var(--gold);line-height:1.6;}
+.note strong{color:var(--gold);}
+
+/* ── ANALYSIS BOX ── */
+.analysis{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:32px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.analysis-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;color:var(--white);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.analysis-title span{color:var(--red);}
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.an-item{background:var(--s3);border:1px solid var(--border);border-radius:4px;padding:14px;}
+.an-name{font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:8px;}
+.an-text{font-size:12px;color:#bbb;line-height:1.6;}
+
+/* ── FOOTER ── */
+footer{background:var(--s1);border-top:1px solid var(--border);padding:48px 32px;text-align:center;margin-top:80px;}
+footer .logo{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);letter-spacing:4px;}
+footer p{color:var(--muted2);font-size:12px;margin-top:8px;}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#fff;color:#111;}
+  .legend,.no-print{display:none!important;}
+  .card,.yt-card{border:1px solid #ddd!important;background:#fafafa!important;}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:800px){
+  .content-grid.g2,.content-grid.g3{grid-template-columns:1fr;}
+  .hero{padding:48px 24px;}
+  .day-section,.yt-section{padding:60px 20px 40px;}
+  .week-bar{grid-template-columns:repeat(4,1fr);}
+  .analysis-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">Máquina de Conteúdo · Semana Completa · 2025</div>
+  <h1>CONTEÚDO<br>QUE <em>VIRALIZA</em><br>E <em>CONVERTE</em></h1>
+  <p class="hero-sub">Instagram + YouTube · 7 Dias · 4 Pilares · Resultados Reais</p>
+  <div class="hero-pills">
+    <span class="pill aut">● Autoridade</span>
+    <span class="pill con">● Conexão</span>
+    <span class="pill ret">● Retenção</span>
+    <span class="pill ven">● Venda</span>
+    <span class="pill yt">▶ YouTube</span>
+  </div>
+</section>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--autoridade)"></div> Autoridade</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--conexao)"></div> Conexão</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--retencao)"></div> Retenção</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--venda)"></div> Venda</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--youtube)"></div> YouTube</div>
+  <div class="leg-item" style="margin-left:auto;font-size:10px;color:var(--muted)">@proffabianocosta · @legacyacademiasm · @fabianocostapersonal</div>
+</div>
+
+<!-- ANÁLISE DOS PERFIS QUE MAIS VIRALIZAM -->
+<div class="day-section" style="padding-bottom:20px;">
+  <div class="day-header">
+    <div class="day-tag">Inteligência de Mercado</div>
+    <h2 class="day-title" style="font-size:clamp(32px,5vw,64px);">O QUE OS <em style="color:var(--red)">TOPS DO NICHO</em> FAZEM</h2>
+    <p class="day-desc">Análise dos perfis de personal trainer + emagrecimento feminino que mais crescem no Brasil. Estratégias extraídas e adaptadas para o seu posicionamento.</p>
+    <div class="day-line"></div>
+  </div>
+  <div class="analysis">
+    <div class="analysis-title"><span>⚡</span> O que os perfis virais têm em comum — e como você vai usar</div>
+    <div class="analysis-grid">
+      <div class="an-item">
+        <div class="an-name">🎯 Gancho nos 3 primeiros segundos</div>
+        <div class="an-text">Carol Vaz (7,4M), @gimourao (1,8M) e os tops do nicho começam SEMPRE com a dor ou o paradoxo. "Você treina e não emagrece?" → Para imediatamente. Aplicar em 100% dos Reels.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">📊 Dado concreto + transformação visual</div>
+        <div class="an-text">Posts com números reais (−6cm, −8% gordura) performam 3× mais que motivacionais genéricos. Seu Next Fit é uma vantagem enorme — poucos personal trainers mostram dados de composição corporal.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">🔁 Série de conteúdo (não post avulso)</div>
+        <div class="an-text">Perfis com 100k+ criam séries: "Semana 1 do protocolo", "Dúvidas reais das alunas", "Erro que faz parar na 3ª semana". Cada série treina o algoritmo a entregar seu conteúdo para o público certo.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">🤝 Humanização estratégica</div>
+        <div class="an-text">Pai, marido, dança gaúcha, pandemia na garagem — sua história é ouro. Os maiores perfis alternam conteúdo técnico com momento pessoal. Isso gera o "eu confio nessa pessoa" antes da venda.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">📍 Geolocalização nas hashtags</div>
+        <div class="an-text">#SantaMaria #SantaMariaRS #PersonalSantaMaria são mais poderosas do que #fitness (milhões de posts). Local converte em treino presencial. Global converte em Next Fit/app para quem está fora.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">💬 CTA que cria urgência real</div>
+        <div class="an-text">"Tenho 3 vagas esta semana" converte mais que "me chama". "Manda BURN no Direct" cria ação imediata e filtra lead qualificado. CTAs com palavra-gatilho específica aumentam taxa de resposta em 4×.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">🎬 Reels de 7–15 segundos → alcance; 45–90s → conversão</div>
+        <div class="an-text">Reels curtos (7–15s) chegam em pessoas novas. Reels médios (45–90s) aprofundam a relação e vendem. Use os dois: curtos para crescer seguidores, médios para converter em leads.</div>
+      </div>
+      <div class="an-item">
+        <div class="an-name">📱 3–5 Stories DIÁRIOS (mesmo sem post no feed)</div>
+        <div class="an-text">Stories diários mantêm o perfil vivo no algoritmo e no topo da mente. Não precisam ser produzidos — bastidores de treino, resposta de pergunta, resultado de aluna, enquete rápida.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW SEMANAL -->
+<div class="day-section" style="padding-top:0;">
+  <div class="day-header">
+    <div class="day-tag">Visão Geral</div>
+    <h2 class="day-title" style="font-size:clamp(28px,4vw,56px);">MAPA DA <em style="color:var(--red)">SEMANA</em></h2>
+    <div class="day-line"></div>
+  </div>
+  <div class="week-bar">
+    <div class="wb-day seg"><div class="wb-name">SEG</div><div class="wb-pilar">Autoridade</div><div class="wb-count">3 posts + stories</div></div>
+    <div class="wb-day ter"><div class="wb-name">TER</div><div class="wb-pilar">Autoridade</div><div class="wb-count">3 posts + stories</div></div>
+    <div class="wb-day qua"><div class="wb-name">QUA</div><div class="wb-pilar">Retenção</div><div class="wb-count">3 posts + stories</div></div>
+    <div class="wb-day qui"><div class="wb-name">QUI</div><div class="wb-pilar">Retenção</div><div class="wb-count">3 posts + stories</div></div>
+    <div class="wb-day sex"><div class="wb-name">SEX</div><div class="wb-pilar">Venda</div><div class="wb-count">3 posts + stories</div></div>
+    <div class="wb-day sab"><div class="wb-name">SÁB</div><div class="wb-pilar">Conexão</div><div class="wb-count">2 posts + stories</div></div>
+    <div class="wb-day dom"><div class="wb-name">DOM</div><div class="wb-pilar">Conexão</div><div class="wb-count">1 post + stories</div></div>
+  </div>
+</div>
+
+<div class="div-sec"></div>
+
+<!-- ═══════════════════════════════════
+     INÍCIO DE SEMANA — SEG + TER
+     PILAR: AUTORIDADE
+═══════════════════════════════════ -->
+<div class="day-section" id="inicio">
+  <div class="day-header">
+    <div class="day-tag">Início de Semana · Segunda & Terça · Pilar</div>
+    <h2 class="day-title"><em style="color:var(--autoridade)">AUTORIDADE</em></h2>
+    <p class="day-desc">Segunda e terça são os dias de maior atenção e disposição. O público está com cabeça fresca, aberto a aprender. É quando o conteúdo técnico performa melhor. Você entra na semana deles como referência.</p>
+    <div class="day-line" style="background:linear-gradient(90deg,var(--autoridade) 0%,transparent 60%);"></div>
+  </div>
+
+  <!-- SEGUNDA -->
+  <div class="wrap" style="margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--autoridade);letter-spacing:3px;">⚡ SEGUNDA-FEIRA · @proffabianocosta + @legacyacademiasm</div>
+  </div>
+
+  <div class="content-grid g3 wrap">
+
+    <!-- S1: REEL -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · 30–45s</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — primeiros 3 segundos</div>
+          <div class="g-text">"O que acontece no seu corpo nas próximas 48h depois de um treino Legacy Burn 45."</div>
+        </div>
+        <div class="lbl">Telas / texto na câmera</div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>"Você treinou. E o trabalho não parou."</div>
+          <div class="tela-item"><span class="tela-n">2</span>"EPOC: seu corpo queima gordura até 48h depois."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"É por isso que 45 min certos batem 2h erradas."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"Método. Não sorte."</div>
+        </div>
+        <div class="lbl">Legenda completa</div>
+        <div class="legenda">Você fechou o aplicativo, saiu da academia, foi pra vida.<br><br>Mas o seu corpo não fechou nada.<br><br>O efeito EPOC — consumo excessivo de oxigênio pós-exercício — mantém o metabolismo acelerado por até 48 horas depois de um treino de alta intensidade bem estruturado.<br><br>Isso é o que acontece depois de cada sessão Legacy Burn 45.<br><br>Você queima gordura dormindo. Você queima gordura no almoço do dia seguinte. Enquanto trabalha, enquanto cuida dos filhos, enquanto vive.<br><br><strong>Não é milagre. É fisiologia. É método.</strong></div>
+        <div class="cta">
+          <div class="cta-i">🔥</div>
+          <div>
+            <div class="cta-l">CTA Principal</div>
+            <div class="cta-t">Comenta "EPOC" aqui embaixo que eu te mando um material exclusivo explicando como turbinar esse efeito na sua rotina. 👇</div>
+          </div>
+        </div>
+        <div class="eng">
+          <div class="eng-l">Gatilho de Engajamento</div>
+          <div class="eng-t">Salva esse post — toda vez que alguém disser que 45 minutos não é suficiente, você tem a resposta. 💾</div>
+        </div>
+        <div class="tags"><span class="tag">#EPOC</span><span class="tag">#LegacyBurn45</span><span class="tag">#EmagrecimentoCientífico</span><span class="tag">#PersonalSantaMaria</span><span class="tag">#TreinoInteligente</span></div>
+      </div>
+    </div>
+
+    <!-- S2: CARROSSEL -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">📑</span> Carrossel · 6 slides</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Slide capa</div>
+          <div class="g-text">"5 motivos pelos quais você treina há meses e não vê resultado. O 3º vai te surpreender."</div>
+        </div>
+        <div class="slides">
+          <div class="slide"><div class="sn">01</div><div class="st">Capa</div><div class="sd">"5 motivos pelos quais você treina e não emagrece" + sua foto de autoridade</div></div>
+          <div class="slide"><div class="sn">02</div><div class="st">Erro 1</div><div class="sd">Treino sem progressão: corpo se adapta e para de responder. Precisa de estímulo novo toda semana.</div></div>
+          <div class="slide"><div class="sn">03</div><div class="st">Erro 2</div><div class="sd">Cortisol elevado: treinos longos demais elevam estresse hormonal e bloqueiam a queima de gordura.</div></div>
+          <div class="slide"><div class="sn">04</div><div class="st">Erro 3 ★</div><div class="sd">Você está perdendo massa magra sem saber. Balança não mostra. Next Fit mostra. Aqui está a diferença.</div></div>
+          <div class="slide"><div class="sn">05</div><div class="st">Erro 4</div><div class="sd">Ausência de acompanhamento real. Sem dados, não tem ajuste. Sem ajuste, não tem evolução.</div></div>
+          <div class="slide"><div class="sn">06</div><div class="st">CTA</div><div class="sd">"Se você se identificou com algum desses — manda DIAGNÓSTICO no Direct. Vou te ajudar."</div></div>
+        </div>
+        <div class="lbl">Legenda</div>
+        <div class="legenda">A maioria das pessoas não falta esforço.<br><br>Falta direção.<br><br>Arrasta e descobre qual desses 5 erros está travando o seu resultado. Depois me conta nos comentários qual foi o que mais te identificou. 👉</div>
+        <div class="cta">
+          <div class="cta-i">💬</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Manda <strong>DIAGNÓSTICO</strong> no Direct. Respondo todo mundo hoje. Vamos entender o que está travando o seu resultado.</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#EmagrecimentoFeminino</span><span class="tag">#PersonalTrainer</span><span class="tag">#ErrosDeTreino</span><span class="tag">#LegacyBurn45</span><span class="tag">#ResultadoReal</span></div>
+      </div>
+    </div>
+
+    <!-- S3: ESTÁTICO -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Frase</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central da Imagem</div>
+          <div class="g-text">"Personal trainer diz quantas séries fazer. Educador do movimento entende por que você para de evoluir."</div>
+        </div>
+        <div class="lbl">Legenda</div>
+        <div class="legenda">14 anos. Dança gaúcha. Educação pública. Pandemia na garagem.<br><br>Essa trajetória me ensinou que resultado não vem de treino. Vem de método aplicado no corpo certo, no momento certo, com o acompanhamento certo.<br><br><strong>Você não é uma matrícula. É uma pessoa com história, com rotina e com potencial que eu quero ver acontecer.</strong><br><br>Isso é o que me diferencia. E é por isso que as alunas da Legacy não desistem.</div>
+        <div class="cta">
+          <div class="cta-i">❤️</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Salva esse post. E manda pra alguém que você conhece que precisa de um treino de verdade — não de mais uma academia.</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#EducadorDoMovimento</span><span class="tag">#PersonalFabiano</span><span class="tag">#LegacyAcademia</span><span class="tag">#TreinoComPropósito</span><span class="tag">#SantaMariaRS</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STORIES SEGUNDA -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Segunda-Feira</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Abertura</div><div class="s-txt"><strong>Segunda começa com dado:</strong> "Sabia que depois de 40 anos o metabolismo cai até 5% por década? Me responde: você já sentiu isso no corpo?"<br><em style="color:var(--gold)">→ Enquete: Sim, sinto / Não noto diferença</em></div></div>
+      <div class="story"><div class="s-step">Story 02 · Educação</div><div class="s-txt">"Pra quem respondeu SIM — esse é exatamente o problema que o Legacy Burn 45 resolve. Vou postar um reel hoje explicando como."<br><em style="color:var(--gold)">→ Cria expectativa para o Reel do dia</em></div></div>
+      <div class="story"><div class="s-step">Story 03 · Bastidor</div><div class="s-txt">Vídeo rápido: você chegando na Legacy de manhã.<br>"Mais um dia de transformar vidas. Você está me acompanhando?"<br><em style="color:var(--gold)">→ Humaniza e mantém presença</em></div></div>
+      <div class="story"><div class="s-step">Story 04 · CTA</div><div class="s-txt">"Tenho <strong>2 vagas</strong> abertas para treino experimental GRATUITO essa semana. Manda VAGA no Direct antes que acabe."<br><em style="color:var(--gold)">→ Urgência real. Limitar vagas converte.</em></div></div>
+    </div>
+  </div>
+
+  <!-- TERÇA -->
+  <div class="wrap" style="margin-top:48px;margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--autoridade);letter-spacing:3px;">⚡ TERÇA-FEIRA · @proffabianocosta + @legacyacademiasm</div>
+  </div>
+
+  <div class="content-grid g3 wrap">
+
+    <!-- T1: REEL -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · 45–60s</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — primeiros 3 segundos</div>
+          <div class="g-text">"Esse é o motivo pelo qual treinar mais de 1 hora pode estar IMPEDINDO o seu emagrecimento."</div>
+        </div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>"Você treina 1h30. Come pouco. A balança não mexe."</div>
+          <div class="tela-item"><span class="tela-n">2</span>"Isso tem nome: Armadilha do Cortisol."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"Treino longo → cortisol alto → gordura retida + músculo perdido."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"A solução: 45 minutos com protocolo. Intensidade, não duração."</div>
+        </div>
+        <div class="legenda">Esse paradoxo é mais comum do que você imagina.<br><br>Você se esforça. Você é consistente. Você come menos. E o corpo não responde.<br><br>O problema pode ser o cortisol — o hormônio do estresse que sobe quando o treino dura mais do que deveria.<br><br>Cortisol cronicamente elevado:<br>→ Retém líquido<br>→ Acumula gordura abdominal<br>→ Destrói massa magra (catabolismo)<br><br><strong>Não é falta de vontade. É excesso de treino sem protocolo.</strong><br><br>O Legacy Burn 45 foi projetado para esse equilíbrio exato.</div>
+        <div class="cta">
+          <div class="cta-i">📲</div>
+          <div>
+            <div class="cta-l">CTA de Alta Conversão</div>
+            <div class="cta-t">Manda <strong>CORTISOL</strong> no Direct. Vou te enviar um protocolo de análise rápida do que pode estar travando o seu resultado. Hoje. 📲</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#Cortisol</span><span class="tag">#EmagrecimentoFeminino</span><span class="tag">#LegacyBurn45</span><span class="tag">#PersonalTrainerRS</span><span class="tag">#CiênciaDoTreino</span></div>
+      </div>
+    </div>
+
+    <!-- T2: CARROSSEL A Tríade -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">📑</span> Carrossel · @legacyacademiasm</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Slide capa</div>
+          <div class="g-text">"A ordem dos exercícios muda o resultado. Aqui está a lógica por trás dos 3 blocos do Legacy Burn 45."</div>
+        </div>
+        <div class="slides">
+          <div class="slide"><div class="sn">01</div><div class="st">Capa</div><div class="sd">Texto forte + logo Legacy. "3 blocos. 45 minutos. Resultado que a ciência explica."</div></div>
+          <div class="slide"><div class="sn">02</div><div class="st">Por Que a Ordem</div><div class="sd">Cada bloco prepara o corpo para o próximo. Inverter = resultado diferente (menor). Isso é protocolo.</div></div>
+          <div class="slide"><div class="sn">03</div><div class="st">Bloco 1 🔥</div><div class="sd">Acelerador: 5 min. Libera catecolaminas. Mobiliza gordura estocada ANTES do treino principal.</div></div>
+          <div class="slide"><div class="sn">04</div><div class="st">Bloco 2 ⚡</div><div class="sd">Funcional: 20 min. Força + resistência + cardio. Frequência cardíaca elevada = queima máxima.</div></div>
+          <div class="slide"><div class="sn">05</div><div class="st">Bloco 3 🏋</div><div class="sd">Máquinas: 20 min. Isolamento muscular. Define e preserva massa magra enquanto metabolismo ainda está alto.</div></div>
+          <div class="slide"><div class="sn">06</div><div class="st">Sinergia</div><div class="sd">"Ativação → Funcional → Máquinas = EPOC ativado por até 48h. Você sai treinando e o corpo continua trabalhando."</div></div>
+        </div>
+        <div class="legenda">Não é treino. É protocolo.<br><br>Diferença: treino é o que você faz. Protocolo é o porquê de cada escolha, na sequência certa, com a intensidade certa. 👉 Arrasta e entende cada bloco.</div>
+        <div class="cta">
+          <div class="cta-i">🆓</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Primeira aula GRATUITA na Legacy. Você sente os 3 blocos na prática e entende porque funciona. Manda <strong>QUERO TREINAR</strong> no Direct ou clica no link da bio. 🔥</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#TriadeLegacy</span><span class="tag">#LegacyBurn45</span><span class="tag">#AcademiaSantaMaria</span><span class="tag">#ProtocoloDeEmagrecimento</span><span class="tag">#TreinoFeminino</span></div>
+      </div>
+    </div>
+
+    <!-- T3: ESTÁTICO -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Dado</div>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central da Imagem</div>
+          <div class="g-text">"Em 12 semanas de Legacy Burn 45: −15% gordura · +3kg massa magra · −6cm cintura. Isso é dado. Não foto de ângulo bom."</div>
+        </div>
+        <div class="legenda">A balança pode ficar igual enquanto você transforma o corpo completamente.<br><br>É por isso que na Legacy a gente mede com o Next Fit — percentual de gordura, massa magra, hidratação.<br><br>Os dados mostram o que o espelho demora para mostrar.<br><br><strong>Resultado real precisa de medição real. E nós temos as duas coisas.</strong></div>
+        <div class="cta">
+          <div class="cta-i">📊</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Manda <strong>AVALIAÇÃO</strong> no Direct. A avaliação completa com Next Fit é gratuita para quem agenda essa semana. Vagas limitadas. 📊</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#ComposiçãoCorporal</span><span class="tag">#NextFit</span><span class="tag">#ResultadoDocumentado</span><span class="tag">#LegacyAcademia</span><span class="tag">#EmagrecerDe Verdade</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STORIES TERÇA -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Terça-Feira</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Educação</div><div class="s-txt">Caixa de pergunta: <strong>"Me manda a sua maior dúvida sobre emagrecimento que eu respondo aqui hoje."</strong><em style="color:var(--gold)">→ Gera material para mais stories e para futuros posts</em></div></div>
+      <div class="story"><div class="s-step">Story 02 · Prova</div><div class="s-txt">Resultado de aluna (com autorização ou dados anonimizados): <strong>"[Aluna] perdeu X cm de cintura em 30 dias. Sem dieta extrema. Com protocolo."</strong></div></div>
+      <div class="story"><div class="s-step">Story 03 · Bastidor</div><div class="s-txt">Vídeo curto de uma turma treinando ou de um bloco do protocolo em ação. Música empolgante. Texto: <strong>"Isso é uma sessão Legacy Burn 45 em tempo real."</strong></div></div>
+      <div class="story"><div class="s-step">Story 04 · CTA Urgente</div><div class="s-txt"><strong>"Última vaga para treino experimental esta semana. Manda ÚLTIMA no Direct agora."</strong><em style="color:var(--gold)">→ Escassez real cria ação imediata</em></div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="div-sec"></div>
+
+<!-- ═══════════════════════════════════
+     MEIO DE SEMANA — QUA + QUI
+     PILAR: RETENÇÃO
+═══════════════════════════════════ -->
+<div class="day-section" id="meio">
+  <div class="day-header">
+    <div class="day-tag">Meio de Semana · Quarta & Quinta · Pilar</div>
+    <h2 class="day-title"><em style="color:var(--retencao)">RETENÇÃO</em></h2>
+    <p class="day-desc">O meio da semana é quando o engajamento dips. Conteúdo de retenção mantém o público voltando, curioso e presente. Série, continuidade, quiz, dica prática que pode usar hoje.</p>
+    <div class="day-line" style="background:linear-gradient(90deg,var(--retencao) 0%,transparent 60%);"></div>
+  </div>
+
+  <!-- QUARTA -->
+  <div class="wrap" style="margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--retencao);letter-spacing:3px;">🔄 QUARTA-FEIRA</div>
+  </div>
+
+  <div class="content-grid g3 wrap">
+
+    <!-- Q1 REEL SÉRIE -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel Série · Ep.1</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Série "Semana a Semana"</div>
+          <div class="g-text">"Semana 1 do Legacy Burn 45: o que ninguém te conta que vai acontecer com o seu corpo."</div>
+        </div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>"Semana 1. Você vai sentir dor. Isso é bom."</div>
+          <div class="tela-item"><span class="tela-n">2</span>"Seu sistema nervoso está aprendendo novos padrões."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"A balança não vai se mexer. O Next Fit vai mostrar o que ela esconde."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"Semana 1 é o alicerce. Semana 12 é a transformação."</div>
+        </div>
+        <div class="legenda">Série: <em>Semana a Semana no Legacy Burn 45.</em><br><br>Ep. 1 — Semana 1.<br><br>A dor muscular que aparece nos primeiros dias não é sinal de que você exagerou. É sinal de que o corpo está respondendo — criando novas conexões neuromusculares, adaptando articulações, ativando grupos que ficaram dormentes.<br><br>A maioria desiste exatamente aqui.<br><br><strong>Quem atravessa a semana 1 muda. Quem não atravessa, repete.</strong><br><br>Me segue — semana que vem vem a Ep. 2. 🔁</div>
+        <div class="cta">
+          <div class="cta-i">🔔</div>
+          <div>
+            <div class="cta-l">CTA de Retenção</div>
+            <div class="cta-t">Ativa o sininho 🔔 pra não perder a Ep. 2 — o que acontece na semana 3 (a semana mais crítica de todo protocolo). Quem perde a Ep. 2 perde a chave do resultado.</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#SerieSemanaaeSemana</span><span class="tag">#LegacyBurn45</span><span class="tag">#PrimeiraSemana</span><span class="tag">#TransformaçãoFeminina</span><span class="tag">#PersonalFabiano</span></div>
+      </div>
+    </div>
+
+    <!-- Q2 CARROSSEL HÁBITO -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">📑</span> Carrossel · Hábitos</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Slide capa</div>
+          <div class="g-text">"5 hábitos que as alunas da Legacy praticam fora da academia e que amplificam o resultado do protocolo."</div>
+        </div>
+        <div class="slides">
+          <div class="slide"><div class="sn">01</div><div class="st">Capa</div><div class="sd">"O treino é 45 min. O resultado é 24h. Aqui estão os 5 hábitos que fazem a diferença fora da academia."</div></div>
+          <div class="slide"><div class="sn">02</div><div class="st">Hábito 1</div><div class="sd">Hidratação: 35ml/kg de peso por dia. Parece simples. Impacta composição corporal, energia e recuperação.</div></div>
+          <div class="slide"><div class="sn">03</div><div class="st">Hábito 2</div><div class="sd">Sono 7–8h: 70% da queima de gordura e recuperação muscular acontecem durante o sono profundo. Não negociável.</div></div>
+          <div class="slide"><div class="sn">04</div><div class="st">Hábito 3</div><div class="sd">Proteína: 1,8–2,2g/kg de peso. Preserva e constrói músculo. Controla saciedade. Faz o protocolo funcionar melhor.</div></div>
+          <div class="slide"><div class="sn">05</div><div class="st">Hábito 4</div><div class="sd">Movimento ativo nos dias de descanso: caminhada, alongamento. Circulação + recuperação sem sobrecarga.</div></div>
+          <div class="slide"><div class="sn">06</div><div class="st">Hábito 5 + CTA</div><div class="sd">Consistência sem perfeição: um treino razoável todo dia > treino perfeito 1× por semana. "Manda HÁBITOS no Direct para receber o checklist semanal."</div></div>
+        </div>
+        <div class="legenda">O protocolo entrega o treino. O resultado total depende do que acontece nas outras 23h do dia.<br><br>Salva esse carrossel como checklist da semana. 💾</div>
+        <div class="cta">
+          <div class="cta-i">💾</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Salva esse carrossel e manda <strong>HÁBITOS</strong> no Direct. Vou te enviar o checklist semanal completo que as nossas alunas usam. Gratuito. 📋</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#HábitosSaudáveis</span><span class="tag">#ChecklistLegacy</span><span class="tag">#EmagrecimentoFeminino</span><span class="tag">#RotinaDeSaúde</span><span class="tag">#LegacyBurn45</span></div>
+      </div>
+    </div>
+
+    <!-- Q3 ESTÁTICO FRASE -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Gatilho</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central — Alta taxa de salvamento</div>
+          <div class="g-text">"Você não abandonou o treino. Você abandonou exatamente quando o corpo estava no ponto de virada."</div>
+        </div>
+        <div class="legenda">Existe um momento no processo de emagrecimento que eu chamo de "vale do desânimo".<br><br>É entre a semana 2 e a semana 4. O esforço está alto. O resultado visível ainda não apareceu.<br><br>E a maioria para aqui.<br><br>Mas é exatamente nesse momento que o corpo está construindo as bases da transformação — adaptação neurológica, ativação hormonal, construção de massa magra.<br><br><strong>O resultado não chega antes da decisão de continuar. Ele chega porque você continuou.</strong></div>
+        <div class="cta">
+          <div class="cta-i">🔁</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Salva esse post. Lê de novo quando bater aquela vontade de parar. E marca quem você sabe que está nessa fase. 👇</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#NãoDesista</span><span class="tag">#MindsetFitness</span><span class="tag">#JornadaLegacy</span><span class="tag">#ConstânciaGanha</span><span class="tag">#PersonalFabiano</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STORIES QUARTA -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Quarta-Feira</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Quiz</div><div class="s-txt">Quiz: <strong>"Qual hábito você TEM dificuldade de manter?"</strong><br>A) Beber água 💧<br>B) Dormir bem 😴<br>C) Comer proteína 🍖<br>D) Ser consistente 🔄<br><em style="color:var(--gold)">→ Responder no próximo story com dica específica para cada opção</em></div></div>
+      <div class="story"><div class="s-step">Story 02 · Continuação</div><div class="s-txt">Responder as respostas do quiz com uma dica rápida para cada opção. Mostra que você está presente e se importa.</div></div>
+      <div class="story"><div class="s-step">Story 03 · Bastidor</div><div class="s-txt">Vídeo: você corrigindo o movimento de uma aluna durante o treino. Texto: <strong>"Isso é o que acompanhamento real significa. Cada detalhe importa."</strong></div></div>
+      <div class="story"><div class="s-step">Story 04 · App Next Fit</div><div class="s-txt"><strong>"Para quem não está em Santa Maria — o protocolo chega até você pelo Next Fit. Me manda ONLINE que eu te explico como funciona."</strong><em style="color:var(--gold)">→ Abre porta para público fora da cidade</em></div></div>
+    </div>
+  </div>
+
+  <!-- QUINTA -->
+  <div class="wrap" style="margin-top:48px;margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--retencao);letter-spacing:3px;">🔄 QUINTA-FEIRA</div>
+  </div>
+
+  <div class="content-grid g3 wrap">
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · Dúvida Real</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho</div>
+          <div class="g-text">"A pergunta que eu mais recebo no Direct: 'Funcional é muito pesado pra mim?' Resposta honesta aqui."</div>
+        </div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>"Funcional não exige que você seja boa. Exige que você apareça."</div>
+          <div class="tela-item"><span class="tela-n">2</span>"O protocolo começa do SEU condicionamento — não do ideal."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"Progressão gradual. Você fica melhor enquanto treina."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"Você não precisa estar pronta pra treinar. Você treina pra estar pronta."</div>
+        </div>
+        <div class="legenda">Essa é a objeção mais comum de quem chega na Legacy.<br><br>"Professor, eu nunca treinei. Funcional não é muito intenso pra mim?"<br><br>E a resposta é sempre a mesma:<br><br>O protocolo começa onde você está. Não onde você deveria estar. Não onde outras alunas estão. Onde você está.<br><br><strong>Intensidade é relativa. Protocolo é absoluto.</strong></div>
+        <div class="cta">
+          <div class="cta-i">📲</div>
+          <div>
+            <div class="cta-l">CTA</div>
+            <div class="cta-t">Se isso te parava de começar — agora não tem mais desculpa. Manda <strong>COMEÇO</strong> no Direct. Primeira aula é grátis e começa do seu nível. 🔥</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#TreinoParaTodos</span><span class="tag">#ComeceDo Zero</span><span class="tag">#LegacyBurn45</span><span class="tag">#PersonalSantaMaria</span><span class="tag">#TreinoFeminino</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">📑</span> Carrossel · Mulher 40+</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho</div>
+          <div class="g-text">"Depois dos 40 o corpo muda. Mas ninguém te disse que o método precisa mudar também."</div>
+        </div>
+        <div class="slides">
+          <div class="slide"><div class="sn">01</div><div class="st">Capa</div><div class="sd">"Mulher de 40+: você não precisa treinar menos. Você precisa treinar diferente."</div></div>
+          <div class="slide"><div class="sn">02</div><div class="st">O que muda</div><div class="sd">Metabolismo desacelera 5%/década. Queda hormonal. Massa magra cai se não for estimulada. Isso é real.</div></div>
+          <div class="slide"><div class="sn">03</div><div class="st">O erro</div><div class="sd">Continuar usando o mesmo treino dos 25. O corpo mudou. O método precisa mudar.</div></div>
+          <div class="slide"><div class="sn">04</div><div class="st">A solução</div><div class="sd">Protocolo que preserve massa magra + ative o metabolismo + controle o cortisol. Legacy Burn 45 foi feito pra isso.</div></div>
+          <div class="slide"><div class="sn">05</div><div class="st">Resultado</div><div class="sd">Alunas acima de 40 e 45 anos que nunca tinham treinado consistentemente — com resultado documentado no Next Fit em 90 dias.</div></div>
+          <div class="slide"><div class="sn">06</div><div class="st">CTA</div><div class="sd">"Você tem mais de 40 e quer transformar seu corpo? Manda QUARENTA no Direct. Tenho algo especial pra você."</div></div>
+        </div>
+        <div class="legenda">Esse carrossel é pra você que acha que a janela fechou.<br><br>Não fechou. Você só ainda não encontrou o método certo. 👉 Arrasta.</div>
+        <div class="cta"><div class="cta-i">💌</div><div><div class="cta-l">CTA</div><div class="cta-t">Manda <strong>QUARENTA</strong> no Direct. Tenho um protocolo de análise personalizado para mulheres 40+ que vai te mostrar exatamente o que precisa mudar. 📲</div></div></div>
+        <div class="tags"><span class="tag">#Mulher40Mais</span><span class="tag">#EmagrecimentoFeminino</span><span class="tag">#CorpoFeminino</span><span class="tag">#LegacyBurn45</span><span class="tag">#PersonalTrainerRS</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Next Fit</div>
+        <span class="pilar ret">Retenção</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central</div>
+          <div class="g-text">"Você pode estar emagrecendo agora mesmo sem a balança mostrar. O problema é o que você usa pra medir."</div>
+        </div>
+        <div class="legenda">A balança mede peso total.<br><br>O Next Fit mede gordura, músculo, hidratação.<br><br>Você pode estar perdendo 2kg de gordura e ganhando 1,5kg de músculo — a balança mostra só −500g e você acha que "não funcionou".<br><br><strong>Medir certo muda o jogo. E nós temos a tecnologia pra fazer isso.</strong><br><br>Para quem está em Santa Maria: avaliação presencial gratuita.<br>Para quem está em qualquer outro lugar: app Next Fit com acompanhamento remoto.</div>
+        <div class="cta"><div class="cta-i">📊</div><div><div class="cta-l">CTA Presencial + Online</div><div class="cta-t">Em Santa Maria → Manda <strong>PRESENCIAL</strong> no Direct.<br>Fora de Santa Maria → Manda <strong>ONLINE</strong> no Direct.<br>Respondo hoje. 📲</div></div></div>
+        <div class="tags"><span class="tag">#NextFit</span><span class="tag">#ComposiçãoCorporal</span><span class="tag">#PersonalOnline</span><span class="tag">#LegacyBurn45</span><span class="tag">#EmagrecerComDados</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORIES QUINTA -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Quinta-Feira</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Contagem</div><div class="s-txt"><strong>"Faltam 3 dias pro final de semana. O que você vai fazer pelos próximos 3 dias vai definir como você começa a próxima semana."</strong> Enquete: Já treinou essa semana? ✅ Sim / ❌ Ainda não</div></div>
+      <div class="story"><div class="s-step">Story 02 · Dica Rápida</div><div class="s-txt">Vídeo de 10s mostrando um exercício do Bloco 1 (Acelerador). Texto: <strong>"Esse é o primeiro exercício de toda sessão Legacy Burn 45. Quer saber por quê? Responde aqui."</strong></div></div>
+      <div class="story"><div class="s-step">Story 03 · Online</div><div class="s-txt"><strong>"Para quem não mora em Santa Maria:"</strong><br>"O Legacy Burn 45 chegou até onde você está. App Next Fit + acompanhamento em tempo real. Manda NEXT no Direct."</div></div>
+      <div class="story"><div class="s-step">Story 04 · CTA</div><div class="s-txt">Caixa de perguntas: <strong>"Me conta: qual é a sua maior dificuldade pra manter a consistência no treino?"</strong><em style="color:var(--gold)">→ Usar as respostas como pauta para os próximos Reels</em></div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="div-sec"></div>
+
+<!-- ═══════════════════════════════════
+     FIM DE SEMANA — SEX + SÁB + DOM
+     PILAR: VENDA + CONEXÃO
+═══════════════════════════════════ -->
+<div class="day-section" id="fds">
+  <div class="day-header">
+    <div class="day-tag">Fim de Semana · Sex · Sáb · Dom · Pilares</div>
+    <h2 class="day-title"><em style="color:var(--venda)">VENDA</em> + <em style="color:var(--conexao)">CONEXÃO</em></h2>
+    <p class="day-desc">Sexta fecha o ciclo com conversão direta. Sábado e domingo humanizam com conexão real. O fim de semana gera os leads que começam na segunda.</p>
+    <div class="day-line" style="background:linear-gradient(90deg,var(--venda) 0%,var(--conexao) 50%,transparent 100%);"></div>
+  </div>
+
+  <!-- SEXTA -->
+  <div class="wrap" style="margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--venda);letter-spacing:3px;">💰 SEXTA-FEIRA · VENDA</div>
+  </div>
+
+  <div class="content-grid g3 wrap">
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · Prova Social</div>
+        <span class="pilar ven">Venda</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Alta Conversão</div>
+          <div class="g-text">"Ela chegou dizendo que não tinha jeito. 90 dias depois os dados disseram o contrário."</div>
+        </div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>"Sem histórico de treino. Acima do peso. Sem esperança."</div>
+          <div class="tela-item"><span class="tela-n">2</span>"30 dias: energia de volta. Roupas começando a servir diferente."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"90 dias: −X% gordura. −Xcm cintura. Next Fit não mente."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"Ela não tinha nada especial. Tinha o método certo."</div>
+        </div>
+        <div class="legenda">Essa não é uma história de força de vontade.<br><br>É uma história de método.<br><br>[Aluna] chegou sem resultado, sem confiança, com a crença de que "não era pra ela".<br><br>Não mudamos a aluna. Mudamos o protocolo que ela seguia.<br><br>E os dados do Next Fit depois de 90 dias mostraram o que a balança sozinha nunca mostraria.<br><br><strong>Isso é o que acontece quando o corpo certo encontra o método certo.</strong></div>
+        <div class="cta">
+          <div class="cta-i">🔥</div>
+          <div>
+            <div class="cta-l">CTA de Conversão Direta</div>
+            <div class="cta-t">Essa semana tenho <strong>3 vagas</strong> para treino experimental gratuito na Legacy. Manda <strong>QUERO SER A PRÓXIMA</strong> no Direct agora. Respondo pessoalmente. 📲</div>
+          </div>
+        </div>
+        <div class="tags"><span class="tag">#TransformaçãoReal</span><span class="tag">#ResultadoLegacy</span><span class="tag">#AntesDepois</span><span class="tag">#LegacyBurn45</span><span class="tag">#SantaMariaRS</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">📑</span> Carrossel · Como Funciona</div>
+        <span class="pilar ven">Venda</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho</div>
+          <div class="g-text">"Como funciona treinar na Legacy — do primeiro contato ao resultado documentado. Passo a passo."</div>
+        </div>
+        <div class="slides">
+          <div class="slide"><div class="sn">01</div><div class="st">Capa</div><div class="sd">"Você chegou. O que acontece agora?" — processo completo em 6 passos.</div></div>
+          <div class="slide"><div class="sn">02</div><div class="st">Passo 1</div><div class="sd">Conversa inicial: entender quem você é, de onde vem e o que realmente importa pra você.</div></div>
+          <div class="slide"><div class="sn">03</div><div class="st">Passo 2</div><div class="sd">Avaliação física completa: peso, medidas, composição corporal via Next Fit + fotos de referência.</div></div>
+          <div class="slide"><div class="sn">04</div><div class="st">Passo 3</div><div class="sd">Definição de metas reais e alcançáveis para 30, 60 e 90 dias.</div></div>
+          <div class="slide"><div class="sn">05</div><div class="st">Passo 4</div><div class="sd">Protocolo Legacy Burn 45: 3 blocos, 45 min, 3–5×/semana. Começa do seu nível. Evolui com você.</div></div>
+          <div class="slide"><div class="sn">06</div><div class="st">Resultado + CTA</div><div class="sd">A cada 30 dias: reavaliação, dados reais, ajustes. "Quer começar? Primeira aula GRÁTIS. Manda QUERO no Direct."</div></div>
+        </div>
+        <div class="legenda">Cada passo tem um propósito. Cada dado tem um significado. Cada ajuste tem um impacto.<br><br>Isso é o que separa a Legacy de uma academia comum. 👉 Arrasta e conhece o processo.</div>
+        <div class="cta"><div class="cta-i">🆓</div><div><div class="cta-l">CTA Principal — Sexta</div><div class="cta-t">Manda <strong>QUERO COMEÇAR</strong> no Direct. Primeira aula é GRATUITA. Você vem, experimenta, e decide. Sem pressão. Sem compromisso. 🔥</div></div></div>
+        <div class="tags"><span class="tag">#ComoFuncionaALegacy</span><span class="tag">#AulaExperimental</span><span class="tag">#LegacyAcademia</span><span class="tag">#PersonalSantaMaria</span><span class="tag">#PrimeiraAulaGrátis</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Oferta Clara</div>
+        <span class="pilar ven">Venda</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central — Venda Direta</div>
+          <div class="g-text">"Treino experimental gratuito. Avaliação completa. Protocolo Legacy Burn 45 na prática. Sem enrolação."</div>
+        </div>
+        <div class="legenda">Uma única aula na Legacy pode mudar a forma como você enxerga o treino.<br><br>Você vai sentir a diferença entre fazer exercício e seguir um protocolo.<br><br>A primeira aula é gratuita.<br>A avaliação é gratuita.<br>O protocolo é pra vida inteira.<br><br><strong>Para quem está em Santa Maria: vem presencialmente.<br>Para quem está em outro lugar: o Next Fit leva o protocolo até você.</strong></div>
+        <div class="cta"><div class="cta-i">📲</div><div><div class="cta-l">CTA Duplo — Presencial + Online</div><div class="cta-t"><strong>Santa Maria:</strong> Manda PRESENCIAL → (55) 99155-4217<br><strong>Fora da cidade:</strong> Manda ONLINE → mesmo número<br>Vagas limitadas. Respondo pessoalmente. 🔥</div></div></div>
+        <div class="tags"><span class="tag">#AulaGrátis</span><span class="tag">#LegacyBurn45</span><span class="tag">#PersonalOnline</span><span class="tag">#EmagrecimentoFeminino</span><span class="tag">#SantaMariaRS</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STORIES SEXTA -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Sexta-Feira · Urgência + Conversão</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Urgência</div><div class="s-txt"><strong>"Vagas para treino experimental esta semana: 🔴 3 vagas disponíveis."</strong><br>Contador regressivo (sticker nativo do Instagram).<br><em style="color:var(--gold)">→ Use o recurso de contagem regressiva</em></div></div>
+      <div class="story"><div class="s-step">Story 02 · Quebra Objeção</div><div class="s-txt">"Você não precisa estar em forma pra começar. Você começa pra ficar em forma."<br>Enquete: O que te impede? A) Vergonha / B) Falta de tempo / C) Não sei por onde começar</div></div>
+      <div class="story"><div class="s-step">Story 03 · Online</div><div class="s-txt"><strong>"Mora fora de Santa Maria?"</strong><br>"O protocolo Legacy Burn 45 chega até você pelo Next Fit. Acompanhamento real. Avaliação real. Resultado real."<br>Link direto para contato.</div></div>
+      <div class="story"><div class="s-step">Story 04 · Fechamento</div><div class="s-txt"><strong>"Último story do dia:"</strong><br>"Se você assistiu essa semana e ainda não deu o passo — hoje é o dia. Manda HOJE no Direct. Sou eu quem responde." Foto pessoal + tom direto.</div></div>
+    </div>
+  </div>
+
+  <!-- SÁBADO -->
+  <div class="wrap" style="margin-top:48px;margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--conexao);letter-spacing:3px;">🤝 SÁBADO · CONEXÃO</div>
+  </div>
+
+  <div class="content-grid g2 wrap">
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · Conexão Pessoal</div>
+        <span class="pilar con">Conexão</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Tom pessoal</div>
+          <div class="g-text">"Sábado de manhã. Família, café, e o motivo pelo qual eu faço tudo isso."</div>
+        </div>
+        <div class="telas">
+          <div class="tela-item"><span class="tela-n">1</span>Vídeo em casa, com a família. Natural. Sem produção pesada.</div>
+          <div class="tela-item"><span class="tela-n">2</span>"Sou pai. Sou marido. Sou professor. Sei o que é não ter tempo."</div>
+          <div class="tela-item"><span class="tela-n">3</span>"É por isso que o protocolo tem 45 minutos — e não 60. Respeito pela realidade de quem tem vida."</div>
+          <div class="tela-item"><span class="tela-n">4</span>"O que motiva você no sábado de manhã?"</div>
+        </div>
+        <div class="legenda">Sábado pra mim é sagrado.<br><br>Família. Presença. Descanso do ritmo acelerado da semana.<br><br>Mas mesmo no descanso, o movimento continua. Porque o corpo que se move bem, vive bem. E quem vive bem, cuida melhor de quem ama.<br><br><strong>É isso que eu ensino. Não é só sobre emagrecer. É sobre viver melhor.</strong></div>
+        <div class="cta"><div class="cta-i">❤️</div><div><div class="cta-l">CTA de Conexão</div><div class="cta-t">Me conta nos comentários: qual é o seu motivador pra manter o treino em dia? 👇 Quero saber o que move você.</div></div></div>
+        <div class="tags"><span class="tag">#SábadoComFamília</span><span class="tag">#RotinaDePai</span><span class="tag">#PersonalFabiano</span><span class="tag">#VidaReal</span><span class="tag">#MovimentoÉVida</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🖼</span> Estático · Reflexão</div>
+        <span class="pilar con">Conexão</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Frase Central — Alto salvamento</div>
+          <div class="g-text">"Você não precisa de mais motivação. Você precisa de um método que funcione quando a motivação sumir."</div>
+        </div>
+        <div class="legenda">Motivação vem e vai.<br><br>Segunda você está empolgada. Quinta está cansada. Sexta apareceu uma desculpa.<br><br>O que separa quem transforma de quem continua no mesmo lugar não é a motivação — é a estrutura que te mantém em movimento mesmo quando você não está com vontade.<br><br><strong>Isso é o que o protocolo faz. Ele não depende do seu humor. Ele depende da sua presença.</strong></div>
+        <div class="cta"><div class="cta-i">💾</div><div><div class="cta-l">CTA</div><div class="cta-t">Salva e manda pra alguém que está esperando ter mais motivação pra começar. Às vezes o que falta é só isso: saber que não precisa de motivação pra dar o primeiro passo. 👇</div></div></div>
+        <div class="tags"><span class="tag">#Motivação</span><span class="tag">#Disciplina</span><span class="tag">#MindsetFitness</span><span class="tag">#LegacyBurn45</span><span class="tag">#TreinoFeminino</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STORIES SÁBADO -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Sábado · Conexão + Humanização</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Vida Real</div><div class="s-txt">Foto/vídeo casual: café da manhã, família, momento pessoal. <strong>"Sábado é sobre isso."</strong> Nenhuma venda. Pura presença.</div></div>
+      <div class="story"><div class="s-step">Story 02 · Bastidor</div><div class="s-txt">Vídeo dos treinos de sábado na Legacy. <strong>"Sábado também tem turma. E é sempre especial."</strong> Mostra o ambiente e a energia.</div></div>
+      <div class="story"><div class="s-step">Story 03 · Dica Leve</div><div class="s-txt"><strong>"Dica de sábado:"</strong> "Se você não vai treinar hoje, caminha 20 minutos. O corpo agradece — e o metabolismo também."</div></div>
+      <div class="story"><div class="s-step">Story 04 · Conexão</div><div class="s-txt">Caixinha de perguntas: <strong>"Me conta: qual foi a sua maior conquista físico-emocional das últimas semanas?"</strong> Responder no domingo humaniza e engaja.</div></div>
+    </div>
+  </div>
+
+  <!-- DOMINGO -->
+  <div class="wrap" style="margin-top:48px;margin-bottom:12px;">
+    <div class="lbl" style="font-size:11px;color:var(--purple);letter-spacing:3px;">🌅 DOMINGO · CONEXÃO + ANTECIPAÇÃO</div>
+  </div>
+
+  <div class="content-grid g1 wrap">
+    <div class="card">
+      <div class="card-top">
+        <div class="card-format"><span class="fmt-icon">🎬</span> Reel · Antecipação de Semana</div>
+        <span class="pilar con">Conexão</span>
+      </div>
+      <div class="card-body">
+        <div class="gancho">
+          <div class="g-lbl">⚡ Gancho — Cria antecipação para segunda</div>
+          <div class="g-text">"Amanhã começa uma nova semana. E eu tenho algo especial pra você que vai mudar como você treina."</div>
+        </div>
+        <div class="legenda">Domingo à noite é quando a maioria pensa:<br><br>"Segunda começo de novo."<br><br>E eu tenho boas notícias: esse "começo de novo" pode ser o definitivo.<br><br>Semana que vem vou postar conteúdo que vai explicar [TEMA DO PRÓXIMO REEL] — e vai mudar o que você acredita sobre [assunto].<br><br>Me segue pra não perder. E responde aqui embaixo:<br><br><strong>O que você quer mais aprender sobre emagrecimento e treino?</strong> Sua resposta vai definir o conteúdo da próxima semana.</div>
+        <div class="cta"><div class="cta-i">🔔</div><div><div class="cta-l">CTA de Antecipação</div><div class="cta-t">Ativa o sininho 🔔 e me conta nos comentários o que você quer ver na semana que vem. Eu leio tudo e crio baseado no que vocês pedem. 👇</div></div></div>
+        <div class="tags"><span class="tag">#SegundaComAlegria</span><span class="tag">#PersonalFabiano</span><span class="tag">#NovaSemanaNovaMeta</span><span class="tag">#LegacyBurn45</span><span class="tag">#TreinoFeminino</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORIES DOMINGO -->
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lbl">📱 4 Stories · Domingo · Fechamento + Antecipação</div>
+    <div class="stories">
+      <div class="story"><div class="s-step">Story 01 · Resposta</div><div class="s-txt">Responder as perguntas da caixinha do sábado. <strong>Personalizar cada resposta.</strong> Isso gera lealdade e mostra presença.</div></div>
+      <div class="story"><div class="s-step">Story 02 · Reflexão</div><div class="s-txt"><strong>"Que semana você teve?"</strong> Enquete: Treinei 3+ vezes ✅ / Precisava ter treinado mais ⚡<br>Para quem responde "precisava": "Segunda é um novo começo. Me chama."</div></div>
+      <div class="story"><div class="s-step">Story 03 · Teaser</div><div class="s-txt"><strong>"Segunda tem conteúdo novo. Vai ser sobre [tema]."</strong> Um frame do próximo Reel ou uma frase que cria curiosidade. Nunca entrega tudo.</div></div>
+      <div class="story"><div class="s-step">Story 04 · Chamada Online</div><div class="s-txt"><strong>"Última chamada do fim de semana:"</strong><br>Santa Maria → PRESENCIAL no Direct<br>Fora de Santa Maria → ONLINE no Direct<br>"Semana que vem pode ser o início da sua transformação."</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="div-sec"></div>
+
+<!-- ═══════════════════════════════════
+     YOUTUBE — PLANO COMPLETO
+═══════════════════════════════════ -->
+<div class="yt-section" id="youtube">
+  <div class="yt-header">
+    <div class="day-tag">Canal · @fabianocostapersonal</div>
+    <h2 class="yt-title">▶ <em>YOUTUBE</em><br>PLANO COMPLETO</h2>
+    <p class="day-desc" style="max-width:640px;margin-top:12px;">1 vídeo longo por semana + 2–3 Shorts. Estrutura de publicação, títulos, thumbnails, descrição, SEO e checklist passo a passo para gravar, postar e alcançar visualizações.</p>
+    <div class="day-line" style="background:linear-gradient(90deg,var(--youtube) 0%,transparent 60%);margin-top:20px;"></div>
+  </div>
+
+  <!-- ESTRATÉGIA GERAL -->
+  <div class="wrap" style="margin-bottom:32px;">
+    <div class="analysis" style="border-color:rgba(255,0,0,.15);">
+      <div class="analysis-title"><span style="color:var(--youtube)">▶</span> Estratégia YouTube — Como Chegar a 10k+ Inscritos</div>
+      <div class="analysis-grid">
+        <div class="an-item"><div class="an-name">📌 Consistência acima de tudo</div><div class="an-text">1 vídeo longo por semana no mesmo dia e horário (recomendado: terça ou quarta, 12h ou 19h). O algoritmo do YouTube premia consistência mais do que qualidade inicial. Publique toda semana, mesmo que imperfeito.</div></div>
+        <div class="an-item"><div class="an-name">🎯 Nicho ultra-específico no título</div><div class="an-text">"Emagrecimento feminino Santa Maria" é melhor que "emagrecimento". Específico = alcança quem está procurando exatamente isso. Depois do canal crescer, amplia o nicho.</div></div>
+        <div class="an-item"><div class="an-name">🖼 Thumbnail decide o clique</div><div class="an-text">Rosto com expressão + número/dado na tela + cores contrastantes (vermelho/branco/preto). Sem thumbnail, não tem clique. Sem clique, não tem visualização. Invista 15 min por thumbnail.</div></div>
+        <div class="an-item"><div class="an-name">⏱ Retenção: os primeiros 30s decidem tudo</div><div class="an-text">YouTube mede quanto % do vídeo as pessoas assistem. Se saem nos 30s, o algoritmo para de distribuir. Use o gancho mais forte logo no início — antes de se apresentar.</div></div>
+        <div class="an-item"><div class="an-name">📱 Shorts = combustível de crescimento</div><div class="an-text">Shorts são descobertos por pessoas que não te conhecem. Eles levam inscritos para o canal principal. Cada vídeo longo gera 2–3 Shorts de trechos que funcionam sozinhos.</div></div>
+        <div class="an-item"><div class="an-name">🔗 Cross-platform loop</div><div class="an-text">Instagram → menciona YouTube. YouTube → CTA para Instagram/WhatsApp. Next Fit → para quem está fora de SM. Cada plataforma alimenta a outra. Não são canais separados — são um ecossistema.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VÍDEO 1 -->
+  <div class="yt-card wrap">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>🎬</span> Vídeo Longo 01 · Semana 1</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="yt-dur">18–25 min</span>
+        <span class="pilar aut">Autoridade</span>
+      </div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="lbl">Título Principal (SEO)</div>
+          <div class="legenda" style="font-size:14px;font-weight:700;color:var(--white);">A JORNADA COMPLETA DA ALUNA LEGACY: do primeiro contato ao resultado real com o Protocolo Legacy Burn 45</div>
+          <div class="lbl" style="margin-top:12px;">Por que funciona</div>
+          <div class="legenda">Contém palavras-chave de busca (legacy burn 45, protocolo emagrecimento, resultado real) + narrativa que gera curiosidade. Thumbnails com foto sua + texto "DO ZERO AO RESULTADO" + marca Legacy.</div>
+          <div class="lbl" style="margin-top:12px;">Thumbnail</div>
+          <div class="legenda">Sua foto de corpo inteiro em postura de professor + texto grande: <strong>"DO ZERO AO RESULTADO"</strong> + fundo preto com vermelho. Rosto com expressão confiante.</div>
+        </div>
+        <div>
+          <div class="lbl">Passo a Passo — Gravar, Postar, Alcançar Visualizações</div>
+          <ul class="step-list">
+            <li><span class="step-num">1</span><div><strong>Grave o vídeo:</strong> Use o roteiro já criado (arquivo anterior). Fale com câmera fixa, boa luz, microfone lapela. B-roll da academia intercalado. Total: 18–25 min.</div></li>
+            <li><span class="step-num">2</span><div><strong>Edite com textos na tela:</strong> Cada ponto-chave deve aparecer escrito enquanto você fala. Use DaVinci Resolve (gratuito) ou CapCut Pro. Corte os silêncios.</div></li>
+            <li><span class="step-num">3</span><div><strong>Crie a thumbnail:</strong> Canva Pro. Fundo escuro. Seu rosto. Texto em caixa alta. Cores: vermelho + branco. Teste 2 versões.</div></li>
+            <li><span class="step-num">4</span><div><strong>Escreva o título:</strong> Inclua 1 palavra-chave de busca + gatilho emocional. Ex: "A JORNADA COMPLETA DA ALUNA LEGACY — do primeiro contato ao resultado real"</div></li>
+            <li><span class="step-num">5</span><div><strong>Escreva a descrição:</strong> Primeiras 3 linhas são o SEO (palavras-chave). Depois: tópicos do vídeo + links (WhatsApp, Instagram, Next Fit).</div></li>
+            <li><span class="step-num">6</span><div><strong>Tags:</strong> legacy burn 45, personal trainer santa maria, emagrecimento feminino, protocolo de emagrecimento, treino para mulheres, personal trainer RS.</div></li>
+            <li><span class="step-num">7</span><div><strong>Publique + Divulgue:</strong> Poste no Instagram como Reel (corte de 60s do vídeo) no mesmo dia. Stories com link. WhatsApp Business.</div></li>
+            <li><span class="step-num">8</span><div><strong>Interaja nas primeiras 2h:</strong> Responda TODO comentário nas primeiras 2 horas. O algoritmo usa engajamento inicial para decidir distribuição.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VÍDEO 2 -->
+  <div class="yt-card wrap" style="margin-top:20px;">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>🎬</span> Vídeo Longo 02 · Semana 2</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="yt-dur">12–18 min</span>
+        <span class="pilar ret">Retenção</span>
+      </div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="lbl">Título + Thumbnail</div>
+          <div class="legenda" style="font-size:14px;font-weight:700;color:var(--white);">POR QUE VOCÊ TREINA E NÃO EMAGRECE: os 5 erros que ninguém te conta (e como o cortisol está sabotando você)</div>
+          <div class="lbl" style="margin-top:12px;">Estrutura do Vídeo</div>
+          <ul class="step-list">
+            <li><span class="step-num">1</span>Gancho: paradoxo "você se esforça, não emagrece"</li>
+            <li><span class="step-num">2</span>Erro 1 — Treino sem progressão</li>
+            <li><span class="step-num">3</span>Erro 2 — Cortisol alto (explicação técnica acessível)</li>
+            <li><span class="step-num">4</span>Erro 3 — Perda de massa magra invisível</li>
+            <li><span class="step-num">5</span>Erro 4 — Ausência de acompanhamento</li>
+            <li><span class="step-num">6</span>Erro 5 — Medir resultado com a balança</li>
+            <li><span class="step-num">7</span>Solução: protocolo estruturado + Next Fit</li>
+            <li><span class="step-num">8</span>CTA: treino experimental gratuito</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Por que esse vídeo viraliza</div>
+          <div class="legenda">Título com "5 erros" = lista = clique alto. "Ninguém te conta" = gatilho de exclusividade. "Cortisol" = palavra técnica que gera curiosidade em quem já pesquisou sobre o assunto. Alta taxa de retenção porque a pessoa quer ver "o 3º erro".</div>
+          <div class="lbl" style="margin-top:12px;">Shorts gerados desse vídeo</div>
+          <div class="legenda">
+            <strong>Short 1:</strong> "O cortisol está te impedindo de emagrecer — em 60 segundos" (trecho do Erro 2)<br><br>
+            <strong>Short 2:</strong> "A balança mentiu pra você hoje" (trecho sobre Next Fit)<br><br>
+            <strong>Short 3:</strong> "Esse é o sinal que seu treino está errado" (trecho do Erro 1)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VÍDEO 3 -->
+  <div class="yt-card wrap" style="margin-top:20px;">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>🎬</span> Vídeo Longo 03 · Semana 3</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="yt-dur">15–20 min</span>
+        <span class="pilar con">Conexão</span>
+      </div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="lbl">Título</div>
+          <div class="legenda" style="font-size:14px;font-weight:700;color:var(--white);">DE PROFESSOR DE DANÇA GAÚCHA A CRIADOR DO LEGACY BURN 45: a história que ninguém conhece por trás do método</div>
+          <div class="lbl" style="margin-top:12px;">Estrutura</div>
+          <ul class="step-list">
+            <li><span class="step-num">1</span>Gancho: "Você sabe de onde veio o Legacy Burn 45?"</li>
+            <li><span class="step-num">2</span>Dança gaúcha aos 12 anos → professor aos 17</li>
+            <li><span class="step-num">3</span>Educação Física na escola pública</li>
+            <li><span class="step-num">4</span>Pandemia → garagem → 20 minutos ao vivo</li>
+            <li><span class="step-num">5</span>Como a limitação virou o maior laboratório</li>
+            <li><span class="step-num">6</span>O nascimento do protocolo Legacy Burn 45</li>
+            <li><span class="step-num">7</span>A Legacy Academia de hoje</li>
+            <li><span class="step-num">8</span>O que vem por aí (Next Fit, online, expansão)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Por que esse vídeo é estratégico</div>
+          <div class="legenda">Vídeos de "origem" têm altíssima taxa de retenção porque as pessoas gostam de história. Carol Vaz, David Michigan — todos têm o vídeo de origem como um dos mais assistidos. Humaniza. Gera confiança. E o espectador que assiste até o final está muito mais próximo de se tornar lead.</div>
+          <div class="lbl" style="margin-top:12px;">Shorts gerados</div>
+          <div class="legenda">
+            <strong>Short 1:</strong> "Comecei numa garagem. Olha onde chegamos." (15s)<br><br>
+            <strong>Short 2:</strong> "A dança gaúcha me ensinou sobre treino" (30s)<br><br>
+            <strong>Short 3:</strong> "O que a pandemia me ensinou sobre resultado" (45s)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VÍDEO 4 -->
+  <div class="yt-card wrap" style="margin-top:20px;">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>🎬</span> Vídeo Longo 04 · Semana 4</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="yt-dur">10–15 min</span>
+        <span class="pilar ven">Venda</span>
+      </div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="lbl">Título</div>
+          <div class="legenda" style="font-size:14px;font-weight:700;color:var(--white);">RESULTADOS REAIS EM 90 DIAS: o que os dados do Next Fit mostram depois de 3 meses de Legacy Burn 45</div>
+          <div class="lbl" style="margin-top:12px;">Estrutura</div>
+          <ul class="step-list">
+            <li><span class="step-num">1</span>Gancho: mostrar relatório antes/depois do Next Fit</li>
+            <li><span class="step-num">2</span>Apresentar o perfil da aluna (anonimizado ou com autorização)</li>
+            <li><span class="step-num">3</span>O ponto de partida: dados da primeira avaliação</li>
+            <li><span class="step-num">4</span>Os desafios: semana 3, o "vale do desânimo"</li>
+            <li><span class="step-num">5</span>O que foi aplicado: ajustes, progressão, acompanhamento</li>
+            <li><span class="step-num">6</span>Os dados de 90 dias: percentual de gordura, massa magra, medidas</li>
+            <li><span class="step-num">7</span>O que mudou além do corpo: energia, sono, autoestima</li>
+            <li><span class="step-num">8</span>CTA: treino experimental + Next Fit online</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Prova social = maior conversão</div>
+          <div class="legenda">Esse é o vídeo que converte mais leads em alunos. Dados reais mostram o que promessas não conseguem mostrar. Cada visualização é uma pessoa em processo de decisão sendo convencida pelos números — não pelas palavras.</div>
+          <div class="lbl" style="margin-top:12px;">Checklist para gravar esse vídeo</div>
+          <ul class="checklist">
+            <li>Autorização da aluna por escrito</li>
+            <li>Relatório Next Fit impresso ou na tela</li>
+            <li>Fotos antes/depois (frente, lado, costas)</li>
+            <li>Anotar depoimento da aluna em vídeo (se possível)</li>
+            <li>Dados específicos: kg, %, cm — não generalize</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHORTS PLAN -->
+  <div class="yt-card wrap" style="margin-top:20px;">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>⚡</span> Shorts — Plano Mensal (8–12 por mês)</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="yt-dur">15–60 segundos</span>
+        <span class="pilar aut">Crescimento</span>
+      </div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+        <div>
+          <div class="lbl">Shorts de Alcance (15–30s)</div>
+          <ul class="step-list">
+            <li><span class="step-num">S1</span>"O que é EPOC em 20 segundos"</li>
+            <li><span class="step-num">S2</span>"Por que 45 min > 2 horas de treino"</li>
+            <li><span class="step-num">S3</span>"Esse é o sinal que você está treinando errado"</li>
+            <li><span class="step-num">S4</span>"A balança mentiu pra você hoje"</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Shorts de Conexão (30–45s)</div>
+          <ul class="step-list">
+            <li><span class="step-num">S5</span>"Comecei numa garagem. Olha onde estamos."</li>
+            <li><span class="step-num">S6</span>"Você não falhou. Você não foi bem orientada."</li>
+            <li><span class="step-num">S7</span>"Minha rotina como pai, marido e professor"</li>
+            <li><span class="step-num">S8</span>"O que a dança gaúcha me ensinou sobre treino"</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Shorts de Conversão (45–60s)</div>
+          <ul class="step-list">
+            <li><span class="step-num">S9</span>"Como funciona a primeira semana na Legacy"</li>
+            <li><span class="step-num">S10</span>"O que o Next Fit revela que a balança esconde"</li>
+            <li><span class="step-num">S11</span>"Resultado de 30 dias — dados reais"</li>
+            <li><span class="step-num">S12</span>"Para quem não mora em SM: o método chega até você"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:16px;">
+        <strong>⚡ Regra dos Shorts:</strong> Cada vídeo longo gera 2–3 Shorts. Grave os Shorts no mesmo dia do vídeo principal — você já está na produção. Shorts não precisam de edição pesada: corte um trecho forte de 30–60 segundos, adicione legenda automática (CapCut) e publique. Objetivo: alcançar público novo que ainda não te conhece.
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST POSTAR -->
+  <div class="yt-card wrap" style="margin-top:20px;">
+    <div class="yt-card-top">
+      <div class="yt-format"><span>✅</span> Checklist Completo — Gravar · Editar · Postar · Alcançar</div>
+    </div>
+    <div class="yt-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+        <div>
+          <div class="lbl">Antes de Gravar</div>
+          <ul class="checklist">
+            <li>Roteiro lido 2× (não decorado — mapa)</li>
+            <li>Câmera estável (tripé)</li>
+            <li>Luz frontal adequada</li>
+            <li>Microfone lapela conectado</li>
+            <li>Fundo limpo com identidade Legacy</li>
+            <li>Roupa alinhada à marca</li>
+            <li>B-roll da academia gravado</li>
+            <li>Bateria e memória verificadas</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Ao Editar</div>
+          <ul class="checklist">
+            <li>Cortar silêncios e pausas longas</li>
+            <li>Adicionar textos na tela nos pontos-chave</li>
+            <li>Música de fundo (baixa, no fundo)</li>
+            <li>Legenda automática ativada</li>
+            <li>Thumbnail criada (Canva)</li>
+            <li>Intro: máximo 5 segundos</li>
+            <li>Gancho nos primeiros 30s</li>
+            <li>CTA no final: falar + mostrar texto</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Ao Publicar</div>
+          <ul class="checklist">
+            <li>Título com palavra-chave de busca</li>
+            <li>Descrição completa com links</li>
+            <li>Tags relevantes (8–12)</li>
+            <li>Categoria: Saúde e Beleza</li>
+            <li>Capítulos no vídeo (timestamps)</li>
+            <li>Card final com próximo vídeo</li>
+            <li>Publicar Instagram no mesmo dia</li>
+            <li>Responder comentários em 2h</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="logo">LEGACY BURN 45</div>
+  <p>Máquina de Conteúdo · Instagram + YouTube · @proffabianocosta · @legacyacademiasm · @fabianocostapersonal</p>
+  <p style="margin-top:6px;">Santa Maria, RS · Prof. Fabiano Costa · (55) 99155-4217</p>
+</footer>
+
+</body>
+</html>
